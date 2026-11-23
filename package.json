@@ -1,6 +1,6 @@
 {
   "name": "miznaoraiptv",
-  "version": "6.1.2",
+  "version": "6.2.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -18,7 +18,11 @@
     "gateway": "node gateway/server.mjs",
     "test:gateway": "node scripts/test-gateway.mjs",
     "test:academy": "node scripts/smoke-academy-dom.mjs",
-    "test:playout": "node scripts/test-serverless-hls.mjs"
+    "test:playout": "node scripts/test-serverless-hls.mjs",
+    "build:functions": "node scripts/build-functions.mjs",
+    "deploy:firebase": "npm run build:functions && npx --yes firebase-tools@13 deploy --only hosting,functions,database --non-interactive",
+    "deploy:hosting": "npx --yes firebase-tools@13 deploy --only hosting --non-interactive",
+    "emulators": "npm run build:functions && npx --yes firebase-tools@13 emulators:start"
   },
   "devDependencies": {
     "esbuild": "^0.25.0",

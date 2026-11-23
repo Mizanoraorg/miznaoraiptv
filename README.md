@@ -1,12 +1,19 @@
-# 📺 Mizanora IPTV — Reseller Suite v6.1.2
+# 📺 Mizanora IPTV — Reseller Suite v6.2.0
 
 ![Animated Mizanora IPTV reseller suite banner](docs/assets/reseller-suite.gif)
 
 **Owner control → reseller workspace → client service**
 
-[Quick start](#run-and-verify-locally) · [Reseller API](docs/RESELLER.md) · [Deployment](docs/VERCEL.md) · [Changelog](CHANGELOG.md)
+[Quick start](#run-and-verify-locally) · [Reseller API](docs/RESELLER.md) · [Deployment](docs/VERCEL.md) · [Firebase Hosting](docs/FIREBASE.md) · [Changelog](CHANGELOG.md)
 
 **Live TV, animated welcome intro, M3U imports, XMLTV guides, Xtream Codes, MAG/Stalker, owner admin, reseller workspace and website integrations.** A **Mizanora Projects** product by **Muaaz Iqbal** (Kasur, Punjab, Pakistan).
+
+## What's new in v6.2
+
+- **Firebase Hosting + Functions publish:** `firebase.json`, generated Functions bundle and one-command `npm run deploy:firebase` deploy website + API + database rules to `mizanoranet` — GitHub Actions auto-deploy on `main`, PR preview channels, plus [the full guide](docs/FIREBASE.md). Vercel keeps working unchanged.
+- **Refreshed public site:** aurora hero, glass cards, gold-sheen buttons, animated ticker band, device grid, customer reviews, FAQ accordion and a closing CTA band — Sora/Manrope type, light + dark themes, scroll-reveal motion with `prefers-reduced-motion` support.
+- **Faster pages:** font preconnect + `display=swap`, priority hero logo, lazy footer image, `content-visibility` below-the-fold sections and immutable asset caching.
+- **Small upgrades:** mobile hamburger menu, scroll progress bar, back-to-top button, animated stat counters and auto-updating footer year.
 
 ## What's fixed in v6.1.2
 
@@ -87,6 +94,19 @@ Local development can use `/tmp/miznaoraiptv-rtdb-mirror.json` when Firebase is 
 ## Required Vercel/Firebase setup
 
 The public Firebase web config is included. **A service account is required for durable server writes on Vercel.** Serverless `/tmp` is temporary and is not shared between invocations.
+
+### Firebase Hosting + Functions (recommended, all-in-one)
+
+Website, Xtream/MAG/API routes and database rules deploy together — see **[docs/FIREBASE.md](docs/FIREBASE.md)** for the complete guide (GitHub Actions auto-deploy, manual deploy, env vars, custom domain and verification).
+
+```bash
+npm test                  # all suites green
+npm run deploy:firebase   # hosting + functions + database rules
+```
+
+GitHub Actions (`.github/workflows/firebase-deploy.yml`) deploys automatically on every `main` push once the `FIREBASE_SERVICE_ACCOUNT` repo secret is added (Firebase Console → Project settings → Service accounts → Generate new private key).
+
+### Vercel
 
 1. Import the repository using **Framework: Other**, **Node 20+**, no build command; static content is in `public`.
 2. Firebase Console → **Project settings → Service accounts → Generate new private key**.
