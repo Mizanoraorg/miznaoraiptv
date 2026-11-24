@@ -75,7 +75,7 @@ The reseller can call `reseller/report` or `reseller/activity` using their own k
 
 ### Connect your own website
 
-Keep both the IPTV server URL and owner API key on **your website's backend** (e.g. Vercel server environment variables `IPTV_SERVER_URL` and `IPTV_ADMIN_KEY`). Authenticate and authorize your own website's staff before running a privileged action. This server-side function illustrates the upstream call; it is not a public route and does not implement your website's authentication:
+Keep both the IPTV server URL and owner API key on **your website's backend** (e.g. Netlify environment variables `IPTV_SERVER_URL` and `IPTV_ADMIN_KEY`). Authenticate and authorize your own website's staff before running a privileged action. This server-side function illustrates the upstream call; it is not a public route and does not implement your website's authentication:
 
 ```js
 // Server-only. Never import this into browser code.
@@ -93,7 +93,7 @@ export async function getResellerReport(code) {
 }
 ```
 
-For reseller-scoped operations use the appropriate reseller's `mzr_` key on the backend, never the owner key in a reseller-facing browser. Provision and store keys securely; validate each website user against the correct reseller before forwarding requests. This repository does not modify or deploy your separate `mizanora.vercel.app` website.
+For reseller-scoped operations use the appropriate reseller's `mzr_` key on the backend, never the owner key in a reseller-facing browser. Provision and store keys securely; validate each website user against the correct reseller before forwarding requests. This repository does not modify or deploy your separate website.
 
 ### Operational limitations
 

@@ -17,7 +17,7 @@ The official hls.js API documents bounded buffers, live-sync settings and recove
 | Previous behavior | Correction |
 | --- | --- |
 | Target inferred with `ceil(max EXTINF)` | Respect declared target and RFC nearest-integer validation; 6.004 seconds does not incorrectly change target 6 to 7 |
-| Every reload probes the newest segment from Vercel | Remove the blocking probe; server-only Range/geolocation restrictions are not a reliable client availability check |
+| Every reload probes the newest segment from the serverless host | Remove the blocking probe; server-only Range/geolocation restrictions are not a reliable client availability check |
 | fMP4/separate audio/non-HLS/unsupported encryption becomes offline | Preserve original source; source licensing, decoder and DRM support remain the player's responsibility |
 | First media response contains only one 2-second intro segment | Publish all intro segments and available live media in playback order for startup buffering |
 | Every reload resolves the master again | Pin the rendition, coalesce concurrent discoveries and cache for 1.5 seconds; rediscover the master on rendition failure |
@@ -47,4 +47,4 @@ Automated regressions cover target-duration fluctuations, request coalescing, un
 
 Before production acceptance, test representative authorized feeds in each supported client: VLC, relevant Smarters/TiviMate versions, actual MAG firmware, Safari native HLS and Chromium hls.js. Include slow networks, multi-day use, source credential expiry, device sleep/wake, channel changes, subscription expiry and provider restarts. These physical/device and production tests have not all been performed here.
 
-Long-running support is a bounded capability, not a promise of zero buffering or universal compatibility. CDN bandwidth, provider playlists, signed URL TTLs, CORS, DRM, device memory and connection quality remain material constraints. Vercel and Firebase load/cost must also be measured at intended concurrency.
+Long-running support is a bounded capability, not a promise of zero buffering or universal compatibility. CDN bandwidth, provider playlists, signed URL TTLs, CORS, DRM, device memory and connection quality remain material constraints. Serverless host and Firebase load/cost must also be measured at intended concurrency.

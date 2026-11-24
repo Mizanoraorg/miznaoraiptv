@@ -5,10 +5,10 @@
  * routes (/api/*, Xtream player_api/get/xmltv, /live|movie|series, signed
  * /s/*, MAG /portal.php /stalker_portal /c/* and HLS /playout) to this
  * function, which dispatches to the exact same api/* handlers used on
- * Vercel and in local development.
+ * Netlify, Firebase and in local development.
  *
  * `api/` and `rewrites.json` are copied here by scripts/build-functions.mjs
- * (from api/ + vercel.json) during `npm run build:functions` / predeploy.
+ * (from api/ + routing.json) during `npm run build:functions` / predeploy.
  */
 import { onRequest } from "firebase-functions/v2/https";
 import fs from "node:fs";
@@ -17,7 +17,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 
-/** Rewrite table generated from vercel.json — the single source of truth. */
+/** Rewrite table generated from routing.json — the single source of truth. */
 const REWRITES = JSON.parse(fs.readFileSync(path.join(HERE, "rewrites.json"), "utf8")).map((r) => ({
   src: new RegExp("^" + r.source.replace(/\(\.\*\)/g, "(.*)").replace(/:([a-zA-Z]+)/g, "([^/]+)") + "$"),
   dest: r.destination

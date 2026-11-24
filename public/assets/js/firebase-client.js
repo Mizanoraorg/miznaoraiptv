@@ -1,6 +1,6 @@
 /**
  * Mizanora IPTV — Firebase client (fresh rebuild)
- * 🔒 HARDCODED in repo — project "mizanoranet". Vercel env vars ki zaroorat NAHI
+ * 🔒 HARDCODED in repo — project "mizanoranet". serverless env vars ki zaroorat NAHI
  * (env sirf override karta hai).
  */
 import { initializeApp } from "../vendor/firebase-sdk.js?v=2";

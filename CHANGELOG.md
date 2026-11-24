@@ -1,3 +1,29 @@
+## 7.0.0 — Mizanora Net TV (3D streaming web app) + Netlify deployment
+
+### 🌟 PRODUCT PIVOT: Mizanora Net TV
+- Rebrand: `Mizanora IPTV` panel becomes **Mizanora Net TV** (MIZANORA.NET) — 3D animated
+  streaming web app: **Live TV + Movies + Series + Songs**, mobile-app-style bottom tab bars,
+  per-device responsive layouts. Xtream paid panel system deprecated (back-office kept working).
+- Siravex player: movies/series play on `siravex.netlify.app/play/tt<imdbId>` in a 3D modal;
+  live TV keeps the bundled intro/HLS player. `recommendedPlayer` → Siravex. IMDb catalog
+  (2000+ movies, 400+ series) with OMDb posters (`experience.imdbApiKey`) + admin poster field.
+- Songs: free iTunes Search API — search, artist chips, preview playback with animated
+  equalizer + persistent mini player. No key, no cost.
+- 3D design layer (`nettv.css`/`nettv.js`): aurora hero, tilt cards, channel tune-in splash,
+  ad slots (`experience.adsenseId` auto-injects AdSense), premium glow, light/dark themes.
+- Google/email login via Firebase Auth bridge. Premium 100 PKR/month JazzCash 0306-2015326:
+  screenshot → agent verify → Orders approve → auto-UNLOCK.
+- SEO: `sitemap.xml`, `/blog`, `/about`, `experience.verification` → `google-site-verification`
+  meta (admin Search Console verify). Traffic tracking + live stats in admin (existing).
+
+### 🚀 DEPLOYMENT: Vercel removed → hybrid Firebase Hosting + Netlify
+- Site = Firebase Hosting (free, no card). API = **Netlify Functions** (free tier) —
+  `netlify/functions/app.mjs` adapter serves `/api/{embed,panel,portal,stream,xtream}` with the
+  routing table moved to `routing.json` (shared by dev server, Cloud Function build + Netlify).
+- `vercel.json` deleted → `netlify.toml` + `routing.json`. `docs/VERCEL.md` → `docs/NETLIFY.md`.
+  Player playout doc: `docs/PLAYOUT.md`. Product guide: `docs/NETTV.md`.
+- `api-base.js` hybrid bridge unchanged — set `DEFAULT_BASE` to the Netlify URL after deploy.
+
 ## 6.2.1 — Billing-free Firebase hybrid (no credit card)
 
 - FREE deploy mode with zero billing: Firebase Hosting (Spark plan) serves the site while the API runs on free Vercel — `public/assets/js/api-base.js` bridges `/api/*`, Xtream (`player_api/get/xmltv`), `/live|movie|series`, MAG (`portal.php`, `stalker_portal`, `/c/portal.php`), signed `/s/*` and `/playout/*` to a configurable remote base (same-origin mode stays a no-op).

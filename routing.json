@@ -1,5 +1,98 @@
 {
-  "version": 2,
+  "rewrites": [
+    {
+      "source": "/media/(welcome|channel-offline|pro-unlock|coming-soon)/seg([0-3]).ts",
+      "destination": "/media/$1/seg$2.m2ts"
+    },
+    {
+      "source": "/playout/(.*)/index.m3u8",
+      "destination": "/api/stream?token=$1"
+    },
+    {
+      "source": "/player_api.php",
+      "destination": "/api/xtream?ep=player"
+    },
+    {
+      "source": "/panel_api.php",
+      "destination": "/api/xtream?ep=player"
+    },
+    {
+      "source": "/get.php",
+      "destination": "/api/xtream?ep=get"
+    },
+    {
+      "source": "/xmltv.php",
+      "destination": "/api/xtream?ep=xmltv"
+    },
+    {
+      "source": "/live/(.*)",
+      "destination": "/api/xtream?ep=file&kind=live&rest=$1"
+    },
+    {
+      "source": "/movie/(.*)",
+      "destination": "/api/xtream?ep=file&kind=movie&rest=$1"
+    },
+    {
+      "source": "/series/(.*)",
+      "destination": "/api/xtream?ep=file&kind=series&rest=$1"
+    },
+    {
+      "source": "/portal.php",
+      "destination": "/api/portal?ep=portal"
+    },
+    {
+      "source": "/stalker_portal/(.*)",
+      "destination": "/api/portal?ep=stalker&rest=$1"
+    },
+    {
+      "source": "/c/portal.php",
+      "destination": "/api/portal?ep=c"
+    },
+    {
+      "source": "/c",
+      "destination": "/portal.html"
+    },
+    {
+      "source": "/c/",
+      "destination": "/portal.html"
+    },
+    {
+      "source": "/c/index.html",
+      "destination": "/portal.html"
+    },
+    {
+      "source": "/c/(.*)",
+      "destination": "/api/portal?ep=c"
+    },
+    {
+      "source": "/s/(.*)",
+      "destination": "/api/stream?ep=signed&token=$1"
+    },
+    {
+      "source": "/api/panel",
+      "destination": "/api/panel"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/reseller",
+      "destination": "/reseller.html"
+    },
+    {
+      "source": "/developers",
+      "destination": "/developers.html"
+    },
+    {
+      "source": "/guide",
+      "destination": "/developers.html"
+    },
+    {
+      "source": "/academy",
+      "destination": "/academy.html"
+    }
+  ],
   "headers": [
     {
       "source": "/",
@@ -118,104 +211,5 @@
         }
       ]
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/media/(welcome|channel-offline|pro-unlock|coming-soon)/seg([0-3]).ts",
-      "destination": "/media/$1/seg$2.m2ts"
-    },
-    {
-      "source": "/playout/(.*)/index.m3u8",
-      "destination": "/api/stream?token=$1"
-    },
-    {
-      "source": "/player_api.php",
-      "destination": "/api/xtream?ep=player"
-    },
-    {
-      "source": "/panel_api.php",
-      "destination": "/api/xtream?ep=player"
-    },
-    {
-      "source": "/get.php",
-      "destination": "/api/xtream?ep=get"
-    },
-    {
-      "source": "/xmltv.php",
-      "destination": "/api/xtream?ep=xmltv"
-    },
-    {
-      "source": "/live/(.*)",
-      "destination": "/api/xtream?ep=file&kind=live&rest=$1"
-    },
-    {
-      "source": "/movie/(.*)",
-      "destination": "/api/xtream?ep=file&kind=movie&rest=$1"
-    },
-    {
-      "source": "/series/(.*)",
-      "destination": "/api/xtream?ep=file&kind=series&rest=$1"
-    },
-    {
-      "source": "/portal.php",
-      "destination": "/api/portal?ep=portal"
-    },
-    {
-      "source": "/stalker_portal/(.*)",
-      "destination": "/api/portal?ep=stalker&rest=$1"
-    },
-    {
-      "source": "/c/portal.php",
-      "destination": "/api/portal?ep=c"
-    },
-    {
-      "source": "/c",
-      "destination": "/portal.html"
-    },
-    {
-      "source": "/c/",
-      "destination": "/portal.html"
-    },
-    {
-      "source": "/c/index.html",
-      "destination": "/portal.html"
-    },
-    {
-      "source": "/c/(.*)",
-      "destination": "/api/portal?ep=c"
-    },
-    {
-      "source": "/s/(.*)",
-      "destination": "/api/stream?ep=signed&token=$1"
-    },
-    {
-      "source": "/api/panel",
-      "destination": "/api/panel"
-    },
-    {
-      "source": "/admin",
-      "destination": "/admin.html"
-    },
-    {
-      "source": "/reseller",
-      "destination": "/reseller.html"
-    },
-    {
-      "source": "/developers",
-      "destination": "/developers.html"
-    },
-    {
-      "source": "/guide",
-      "destination": "/developers.html"
-    },
-    {
-      "source": "/academy",
-      "destination": "/academy.html"
-    }
-  ],
-  "functions": {
-    "api/stream.js": {
-      "maxDuration": 60
-    }
-  }
+  ]
 }

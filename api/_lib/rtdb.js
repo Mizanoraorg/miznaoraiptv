@@ -1,9 +1,10 @@
 /**
  * Firebase Realtime Database REST access.
  *
- * Local development keeps a JSON mirror when Firebase is unreachable. Vercel
- * needs a service account for durable, rules-authenticated server writes; a
- * serverless /tmp file is never treated as a successful production save.
+ * Local development keeps a JSON mirror when Firebase is unreachable. Production
+ * hosting (Netlify/Firebase) needs a service account for durable,
+ * rules-authenticated server writes; a serverless /tmp file is never treated as
+ * a successful production save.
  */
 import fs from "node:fs";
 import crypto from "node:crypto";
@@ -172,14 +173,14 @@ export async function rtdbSet(path, value, { token } = {}) {
     HEALTH.lastError = error.message || String(error);
   }
 
-  // Keep local development usable, but never acknowledge an ephemeral Vercel
-  // /tmp write as durable data storage.
+  // Keep local development usable, but never acknowledge an ephemeral
+  // serverless /tmp write as durable data storage.
   const mirror = readMirror();
   setPath(mirror, clean, value);
   writeMirror(mirror);
   invalidate(clean);
-  if (!remoteOk && (process.env.VERCEL === "1" || process.env.K_SERVICE || process.env.MZ_REQUIRE_PERSISTENCE === "1")) {
-    const setup = hasServiceAccount() ? "Check Firebase service-account permissions." : "Configure FIREBASE_SERVICE_ACCOUNT_JSON (Vercel env or functions/.env).";
+  if (!remoteOk && (process.env.VERCEL === "1" || process.env.NETLIFY === "true" || process.env.K_SERVICE || process.env.MZ_REQUIRE_PERSISTENCE === "1")) {
+    const setup = hasServiceAccount() ? "Check Firebase service-account permissions." : "Configure FIREBASE_SERVICE_ACCOUNT_JSON (Netlify/Firebase env or functions/.env).";
     throw new Error(`Firebase save failed — ${setup} ${failure?.message || ""}`.trim());
   }
   return remoteOk;
@@ -209,7 +210,7 @@ export async function rtdbUpdate(updates, { token } = {}) {
   const mirror = readMirror();
   for (const [key, value] of Object.entries(clean)) { setPath(mirror, key, value); invalidate(key); }
   writeMirror(mirror);
-  if (!remoteOk && (process.env.VERCEL === "1" || process.env.K_SERVICE || process.env.MZ_REQUIRE_PERSISTENCE === "1")) {
+  if (!remoteOk && (process.env.VERCEL === "1" || process.env.NETLIFY === "true" || process.env.K_SERVICE || process.env.MZ_REQUIRE_PERSISTENCE === "1")) {
     throw new Error(`Firebase atomic save failed — configure a service account. ${failure?.message || ""}`);
   }
   return remoteOk;
@@ -249,7 +250,7 @@ export async function verifyFirebaseIdToken(idToken) {
 
 export function rtdbUrl() { return RTDB_URL; }
 
-/** Compare-and-swap for HLS timeline updates across concurrent Vercel instances.
+/** Compare-and-swap for HLS timeline updates across concurrent serverless instances.
  * No cache or production mirror fallback: sequence numbers must be durable. */
 export async function rtdbTransaction(path, update) {
   const clean = String(path).replace(/^\/+|\/+$/g, "");
@@ -260,7 +261,7 @@ export async function rtdbTransaction(path, update) {
     return value;
   }
   const access = await serviceAccessToken();
-  if (!access) throw new Error("HLS sessions require a Firebase service account on Vercel");
+  if (!access) throw new Error("HLS sessions require a configured Firebase service account");
   const url = `${RTDB_URL}/${clean}.json?access_token=${encodeURIComponent(access)}`;
   for (let attempt = 0; attempt < 5; attempt++) {
     const read = await fetch(url, { headers: { "X-Firebase-ETag": "true" }, signal: AbortSignal.timeout(5000) });

@@ -35,27 +35,27 @@ API/Xtream/MAG routes (Functions) aur database rules — sab ek `firebase deploy
 > **Google Cloud Functions/Cloud Run/Cloud Build ke liye billing account chahiye** (Blaze plan).
 > Paisa/koi card nahi? Koi masla nahi — **100% free hybrid** chalega:
 >
-> **Firebase Hosting (free Spark)** = website · **Vercel (free)** = API · **Firebase RTDB (free)** = data
+> **Firebase Hosting (free Spark)** = website · **Netlify (free)** = API · **Firebase RTDB (free)** = data
 
 ### Setup (ek dafa)
 
-1. **Vercel par API deploy karein** (free, card nahi chahiye) — [docs/VERCEL.md](VERCEL.md) follow karein.
-   Deploy hone ke baad Vercel URL milega, misaal: `https://miznaoraiptv.vercel.app`
+1. **Netlify par API deploy karein** (free, card nahi chahiye) — [docs/NETLIFY.md](NETLIFY.md) follow karein.
+   Deploy hone ke baad Netlify URL milega, misaal: `https://mizanora.netlify.app`
 2. **`public/assets/js/api-base.js`** kholein aur pehli line set karein:
    ```js
-   var DEFAULT_BASE = "https://miznaoraiptv.vercel.app"; /* ← apna Vercel URL */
+   var DEFAULT_BASE = "https://mizanora.netlify.app"; /* ← apna Netlify URL */
    ```
    Ye bridge saari API calls (`/api/*`, `player_api.php`, `get.php`, `xmltv.php`, `/live|movie|series`,
-   `portal.php`, `stalker_portal`, `/s/*`, `/playout/*`) us Vercel URL par bhej degi.
+   `portal.php`, `stalker_portal`, `/s/*`, `/playout/*`) us Netlify URL par bhej degi.
 3. **GitHub → Settings → Secrets and variables → Actions → Variables** → New variable:
    - Name: `MZ_NO_FUNCTIONS` · Value: `1`
    (workflow Cloud Functions skip karega — hosting + database rules phir bhi deploy hoti hain)
 4. Commit + push (ya PR merge) — **site `mizanoranet.web.app` par live!**
-5. Xtream/MAG links API responses se automatically Vercel domain par aate hain — apps mein wahi use hon.
+5. Xtream/MAG links API responses se automatically Netlify domain par aate hain — apps mein wahi use hon.
 
 ### Notes
 
-- **Testing:** `https://mizanoranet.web.app/?api=https://your-vercel-url` se bina file badle hybrid test kar sakte hain (localStorage mein save hota hai; hatane ke liye `?api=` khali use karein).
+- **Testing:** `https://mizanoranet.web.app/?api=https://your-netlify-url` se bina file badle hybrid test kar sakte hain (localStorage mein save hota hai; hatane ke liye `?api=` khali use karein).
 - **MAG portal page** (`/c/`) hybrid mode mein portal URL API base ka dikhata hai.
 - **Custom domain** Firebase Hosting par add karein to woh bhi static site serve karega (API base wahi rahega).
 - **Billing kabhi on karein?** `MZ_NO_FUNCTIONS` variable hata dein + `npm run deploy:firebase` — pura Firebase stack (Functions samet) live ho jayega, api-base.js `DEFAULT_BASE = ""` kar dein.
@@ -147,7 +147,7 @@ Rewrite table **generated** hoti hai `vercel.json` se (`npm run build:functions`
 - [ ] `https://<site>/c/` — MAG/Stalker portal page
 - [ ] Free trial form — credentials render hote hain (writes durable hon: health check `durableServerWrites: true`)
 - [ ] GitHub Actions → last `Firebase Deploy` run green
-- [ ] (Free hybrid) `https://<site>/?api=<vercel-url>` se channels load hon — api-base.js bridge set hai
+- [ ] (Free hybrid) `https://<site>/?api=<netlify-url>` se channels load hon — api-base.js bridge set hai
 
 ## 9. Troubleshooting
 

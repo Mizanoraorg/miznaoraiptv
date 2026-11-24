@@ -99,7 +99,7 @@
       <div class="studio-intro"><div><span class="ops-eyebrow">SERVERLESS PLAYOUT</span><h2>Make every tune-in<br><em>feel like your brand.</em></h2><p>Real HLS playlists. An eight-second introduction. A broadcast that knows what to show next.</p></div><span class="engine-badge" id="studioEngine">Loading engine settings</span></div>
       <div class="studio-grid">
         <div class="studio-monitor card"><div class="monitor-heading"><span><i></i> PLAYOUT MONITOR</span><span id="studioMode">Ready to preview</span></div><video id="studioVideo" controls playsinline preload="none" poster="/media/welcome/poster.jpg"></video><div class="monitor-controls"><label for="studioChannel">Test your channel</label><div class="row"><select id="studioChannel"><option value="">Choose a live channel…</option></select><button class="btn btn-gold" id="studioStart" type="button">▶ Start broadcast</button><button class="icon-btn" id="studioStop" type="button" title="Stop preview" aria-label="Stop preview">■</button></div><p id="studioStatus" role="status">Choose a channel or a broadcast card below. Preview links are private, signed and expire after 15 minutes.</p></div></div>
-        <div class="studio-flow card"><span class="ops-eyebrow">THE VIEWER JOURNEY</span><h3>One link.<br>Every state covered.</h3><ol><li><span>01</span><div><b>Welcome to Mizanora</b><small>Four segments. Eight seconds.</small></div></li><li><span>02</span><div><b>Go live</b><small>Resolve the source, append its media.</small></div></li><li><span>03</span><div><b>Never leave a blank screen</b><small>Offline, recharge or coming-soon loops.</small></div></li></ol><div class="engine-note">Runs as short Vercel requests. Video segments stream from the CDN/provider, not a running server encoder.</div><button class="btn btn-ghost" data-open-tab="settings">Configure playback →</button></div>
+        <div class="studio-flow card"><span class="ops-eyebrow">THE VIEWER JOURNEY</span><h3>One link.<br>Every state covered.</h3><ol><li><span>01</span><div><b>Welcome to Mizanora</b><small>Four segments. Eight seconds.</small></div></li><li><span>02</span><div><b>Go live</b><small>Resolve the source, append its media.</small></div></li><li><span>03</span><div><b>Never leave a blank screen</b><small>Offline, recharge or coming-soon loops.</small></div></li></ol><div class="engine-note">Runs as short serverless requests. Video segments stream from the CDN/provider, not a running server encoder.</div><button class="btn btn-ghost" data-open-tab="settings">Configure playback →</button></div>
       </div>
       <div class="section-caption"><h3>Your broadcast package</h3><span>Click a card to test its live playlist</span></div>
       <div class="broadcast-cards">
@@ -185,7 +185,7 @@
     <section id="viewSettings" hidden>
       <div class="card"><h3>🎞️ Welcome intro &amp; playback</h3>
         <div class="settings-grid">
-          <label class="check settings-check span-2"><input id="stServerlessHls" type="checkbox"> Vercel HLS playout for external Xtream / MAG (intro + live + fallback loops)</label><p class="span-2 table-note">Serverless playout uses the bundled four-segment broadcast package. Custom video URLs below control the website player; keep direct mode for incompatible sources.</p>
+          <label class="check settings-check span-2"><input id="stServerlessHls" type="checkbox"> Serverless HLS playout for external playback / MAG (intro + live + fallback loops)</label><p class="span-2 table-note">Serverless playout uses the bundled four-segment broadcast package. Custom video URLs below control the website player; keep direct mode for incompatible sources.</p>
           <label class="span-2">Welcome intro video URL<input id="stWelcome" placeholder="/media/welcome/video.mp4"></label>
           <label>Intro duration (seconds)<input id="stWelcomeDuration" type="number" min="1" max="30" value="8"></label>
           <label class="check settings-check"><input id="stWelcomeEnabled" type="checkbox"> Play intro before channel fetch</label>
@@ -247,7 +247,7 @@
   </form>
 </dialog>
 <div id="toasts" aria-live="polite"></div>
-<script src="/assets/js/api-base.js?v=6.2.1" defer></script>
+<script src="/assets/js/api-base.js?v=7.0.0" defer></script>
 <script src="/assets/vendor/hls.min.js?v=1.7.4" defer></script>
 <script src="/assets/js/academy.js?v=6.0.0" defer></script>
 <script type="module" src="/assets/js/admin.js?v=6.1.1"></script>

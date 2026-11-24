@@ -375,7 +375,7 @@ async function loadSettings() {
   const data = await apiGet("admin/settings");
   const settings = data.settings || {};
   if ($("stServerlessHls")) $("stServerlessHls").checked = settings.serverlessHlsEnabled !== false;
-  setText("studioEngine", settings.serverlessHlsEnabled !== false ? "● Vercel HLS enabled" : "○ Direct-source mode");
+  setText("studioEngine", settings.serverlessHlsEnabled !== false ? "● Serverless HLS enabled" : "○ Direct-source mode");
   const map = { stWelcome: "welcomeVideoUrl", stOffline: "channelOfflineVideoUrl", stComing: "comingSoonVideoUrl", stPro: "proUnlockVideoUrl", stWa: "proWhatsapp", stWaIntl: "proWhatsappIntl", stTicker: "siteAnnouncement", stWelcomeDuration: "welcomeDurationSec", stRechargeNote: "rechargeNote", stResellerNote: "resellerContactNote", stPaymentMethod: "paymentMethod", stPaymentAccount: "paymentAccountNumber", stPaymentTitle: "paymentAccountTitle", stBusinessIntro: "businessIntroText" };
   for (const [id, key] of Object.entries(map)) if ($(id)) $(id).value = settings[key] || "";
   if ($("stWelcomeEnabled")) $("stWelcomeEnabled").checked = settings.welcomeVideoEnabled !== false;
@@ -925,7 +925,7 @@ function appInit() {
 });
 
 
-// Broadcast Studio: the preview exercises the same Vercel manifest path as IPTV.
+// Broadcast Studio: the preview exercises the same serverless manifest path as playback.
 let studioHls = null, studioUrl = "", studioRequest = 0;
 function stopStudio() {
   studioRequest++; studioUrl = "";

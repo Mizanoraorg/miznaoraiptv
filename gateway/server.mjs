@@ -1,4 +1,4 @@
-/** Optional stateful HLS worker. Run on a dedicated VPS, never in Vercel. */
+/** Optional stateful HLS worker. Run on a dedicated VPS, never in serverless host. */
 import http from 'node:http';
 import { spawn } from 'node:child_process';
 import { randomBytes } from 'node:crypto';

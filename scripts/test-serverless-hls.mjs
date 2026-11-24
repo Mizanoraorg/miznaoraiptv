@@ -96,7 +96,7 @@ try {
   await rtdbSet('xtreamAccounts/test_viewer',{username:'test_viewer',password:'test_pass_123',status:'Active',expDate:Math.floor(Date.now()/1000)+3600});
   const response = await fetch(base+'/live/test_viewer/test_pass_123/7001.m3u8');
   let text = await response.text(); const sessionUrl = response.url;
-  check('Xtream resolves to Vercel media playlist, not external redirect', response.ok && sessionUrl.startsWith(base+'/playout/'));
+  check('Xtream resolves to serverless media playlist, not external redirect', response.ok && sessionUrl.startsWith(base+'/playout/'));
   check('Startup prebuffers all eight intro seconds and live media', text.includes('/welcome/seg0.ts') && text.includes('/welcome/seg3.ts') && text.includes('/media/100.ts') && !text.includes('#EXT-X-ENDLIST'));
   const startupManifest = text;
   const token = new URL(sessionUrl).pathname.split('/')[2];

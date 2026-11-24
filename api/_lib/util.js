@@ -59,7 +59,7 @@ export function parseQuery(req) {
 }
 
 export function parseBody(req, { maxBytes = 1_000_000 } = {}) {
-  // Vercel may pre-parse JSON while the local Node server exposes a stream.
+  // Some serverless platforms pre-parse JSON while local Node exposes a stream.
   if (req.body && typeof req.body === "object" && !Buffer.isBuffer(req.body)) return Promise.resolve(req.body);
   if (typeof req.body === "string") {
     try { return Promise.resolve(JSON.parse(req.body)); } catch { return Promise.resolve({}); }

@@ -1,6 +1,6 @@
 # Optional external-player media gateway
 
-> v6.1 also includes [Vercel-native manifest playout](VERCEL-PLAYOUT.md), enabled by default for compatible MPEG-TS HLS. This gateway is optional for actual transcoding, not a prerequisite for intro injection.
+> v6.1 also includes [Serverless manifest playout](PLAYOUT.md), enabled by default for compatible MPEG-TS HLS. This gateway is optional for actual transcoding, not a prerequisite for intro injection.
 
 ## What is implemented
 
