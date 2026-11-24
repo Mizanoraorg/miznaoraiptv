@@ -27,6 +27,20 @@
     } catch { /* Analytics never blocks playback. */ }
   }
 
+  /* Safe JSON parse: API offline/HTML response par raw "Unexpected token"
+     console errors ki jagah friendly message. */
+  let apiWarned = false;
+  async function readJson(response) {
+    try {
+      return await response.json();
+    } catch (error) {
+      if (!apiWarned) {
+        apiWarned = true;
+        try { console.info("[Mizanora] API JSON parse fail — deployment par Netlify API base (api-base.js DEFAULT_BASE) set karein."); } catch (e) {}
+      }
+      throw new Error("Backend unavailable. Internet / server check karein.");
+    }
+  }
   /* ---------- public experience / animated channel catalog ---------- */
   let experience = {
     intro: { enabled: true, url: "/media/welcome/video.mp4", durationSec: 8, skippable: false },
@@ -40,7 +54,7 @@
   async function loadExperience() {
     try {
       const response = await fetch("/api/embed?action=config");
-      const data = await response.json();
+      const data = await readJson(response);
       if (!response.ok || !data.ok) throw new Error(data.error || "Config unavailable");
       experience = {
         ...experience, ...(data.experience || {}),
@@ -53,7 +67,7 @@
       if (resellerCode) {
         try {
           const brandResponse = await fetch("/api/embed?action=branding&reseller=" + encodeURIComponent(resellerCode));
-          const brandData = await brandResponse.json();
+          const brandData = await readJson(brandResponse);
           if (brandResponse.ok && brandData.ok) {
             const incoming = brandData.branding || {};
             experience.branding = { ...experience.branding, ...Object.fromEntries(Object.entries(incoming).filter(([, value]) => String(value || "").trim())) };
@@ -99,7 +113,7 @@
   async function loadChannels() {
     try {
       const response = await fetch("/api/embed?action=channels");
-      const data = await response.json();
+      const data = await readJson(response);
       if (!response.ok || !data.ok || !Array.isArray(data.channels)) throw new Error(data.error || "Channels list load nahi hui");
       channels = data.channels;
       setText("stChannels", data.count);
@@ -134,7 +148,7 @@
     setText("guideStatus", "Loading now/next guide…");
     try {
       const response = await fetch("/api/embed?action=guide&limit=200");
-      const data = await response.json();
+      const data = await readJson(response);
       if (!response.ok || !data.ok) throw new Error(data.error || "Guide unavailable");
       guide = data.guide || [];
       setText("guideStatus", data.sources ? `${data.sources} XMLTV source${data.sources === 1 ? "" : "s"} · updated ${data.updatedAt ? new Date(data.updatedAt).toLocaleString() : "recently"}` : "Channel info available · import XMLTV for timed programmes");
@@ -316,7 +330,7 @@
   async function fetchChannel(request) {
     try {
       const response = await fetch("/api/embed?action=stream&id=" + encodeURIComponent(currentChannel.id));
-      const data = await response.json();
+      const data = await readJson(response);
       if (request !== playerRequest) return;
       if (!response.ok || !data.ok) {
         if (response.status === 403) {
@@ -381,7 +395,7 @@
     const params = new URLSearchParams({ action: catalog.kind, limit: "24", offset: String(catalog.offset), q: $("catalogSearch")?.value.trim() || "", sort: $("catalogSort")?.value || "title-asc", category: $("catalogCategory")?.value || "", ready: $("catalogReady")?.checked ? "1" : "" });
     setText("catalogStatus", "Loading catalog…");
     try {
-      const response = await fetch("/api/embed?" + params); const data = await response.json();
+      const response = await fetch("/api/embed?" + params); const data = await readJson(response);
       if (request !== catalog.request) return;
       if (!response.ok || !data.ok) throw new Error(data.error || "Catalog unavailable");
       catalog.total = Number(data.total || 0);

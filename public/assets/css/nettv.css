@@ -242,3 +242,424 @@ footer .ntv-foot-links{display:flex;gap:14px;flex-wrap:wrap;justify-content:cent
   .ntv-hero .hero-orb,.ntv-hero-logo,.ntv-splash .ring,.ntv-eq i{animation:none!important}
   .ntv-card,.ntv-song,.ntv-blog-card{transition:none}
 }
+
+/* ===================== PRO 3D LAYER (v7.1) ===================== */
+
+/* Kinetic gold headline */
+.ntv-hero h1 .gold {
+  background: linear-gradient(115deg, #ffd76a 0%, #ffb400 22%, #fff3c4 42%, #ffd76a 62%, #ffb400 100%);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: ntv-shine 7s linear infinite;
+  filter: drop-shadow(0 8px 26px rgba(255, 190, 40, .30));
+}
+@keyframes ntv-shine { to { background-position: 300% 0; } }
+
+/* Hero logo glow + float */
+.ntv-hero-logo {
+  filter: drop-shadow(0 18px 50px rgba(255, 190, 40, .30)) drop-shadow(0 4px 16px rgba(93, 95, 239, .35));
+  animation: ntv-logo-float 7s ease-in-out infinite;
+  border-radius: 28px;
+}
+@keyframes ntv-logo-float { 50% { transform: translateY(-12px) rotate(-1.2deg); } }
+
+/* Star particles + aurora wash on hero */
+.ntv-hero::before {
+  content: "";
+  position: absolute;
+  inset: -12% -6%;
+  background:
+    radial-gradient(1.5px 1.5px at 12% 22%, rgba(255, 255, 255, .55), transparent 60%),
+    radial-gradient(1.5px 1.5px at 34% 68%, rgba(255, 255, 255, .4), transparent 60%),
+    radial-gradient(2px 2px at 58% 18%, rgba(255, 255, 255, .5), transparent 60%),
+    radial-gradient(1.5px 1.5px at 76% 52%, rgba(255, 255, 255, .42), transparent 60%),
+    radial-gradient(2px 2px at 90% 26%, rgba(255, 255, 255, .38), transparent 60%),
+    radial-gradient(1.5px 1.5px at 22% 86%, rgba(255, 255, 255, .32), transparent 60%),
+    radial-gradient(1.5px 1.5px at 66% 92%, rgba(255, 255, 255, .36), transparent 60%);
+  animation: ntv-stars 16s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes ntv-stars { from { opacity: .55; transform: translateY(0); } to { opacity: 1; transform: translateY(-18px); } }
+
+/* ===== 3D device stage (TV + phone) ===== */
+.ntv-stage {
+  position: relative;
+  width: min(600px, 92vw);
+  height: 320px;
+  margin: 30px auto 6px;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  transition: transform .35s ease;
+}
+.stage-screen {
+  position: absolute;
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(20, 25, 52, .92), rgba(9, 12, 27, .98));
+  border: 1px solid rgba(255, 255, 255, .12);
+  box-shadow: 0 44px 90px rgba(0, 0, 0, .55), 0 0 80px rgba(93, 95, 239, .18), inset 0 1px 0 rgba(255, 255, 255, .12);
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+.stage-screen .screen-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(90% 120% at 20% 0%, rgba(124, 92, 255, .28), transparent 55%),
+    radial-gradient(80% 120% at 90% 20%, rgba(255, 190, 40, .18), transparent 60%);
+}
+.stage-screen .screen-glow::after {
+  content: "";
+  position: absolute;
+  inset: -40% -60%;
+  background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, .12) 50%, transparent 58%);
+  animation: ntv-glass-sweep 6.5s ease-in-out infinite;
+}
+@keyframes ntv-glass-sweep { 0%, 55% { transform: translateX(-70%); } 90%, 100% { transform: translateX(70%); } }
+
+.stage-screen.tv {
+  width: 70%;
+  height: 76%;
+  left: 2%;
+  top: 8%;
+  transform: rotateY(15deg) rotateX(6deg);
+  animation: ntv-float-tv 7.5s ease-in-out infinite;
+}
+@keyframes ntv-float-tv {
+  0%, 100% { transform: rotateY(15deg) rotateX(6deg) translateY(0); }
+  50% { transform: rotateY(13deg) rotateX(5deg) translateY(-16px); }
+}
+.stage-screen.tv .screen-body {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  bottom: 12%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 2;
+}
+.stage-screen.tv .screen-body b {
+  font-family: "Sora", "Manrope", sans-serif;
+  font-size: clamp(1.05rem, 2.8vw, 1.55rem);
+  background: linear-gradient(120deg, #fff, #ffd76a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.stage-screen.tv .screen-body small { color: rgba(255, 255, 255, .66); letter-spacing: .12em; text-transform: uppercase; font-size: .62rem; }
+.stage-screen.tv .badge-live {
+  align-self: flex-start;
+  background: linear-gradient(135deg, #ff3b5c, #ff7a3d);
+  color: #fff;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  box-shadow: 0 8px 24px rgba(255, 60, 92, .45);
+  animation: ntv-live-pulse 2.2s ease-in-out infinite;
+}
+@keyframes ntv-live-pulse { 50% { box-shadow: 0 8px 34px rgba(255, 60, 92, .8); } }
+.stage-screen.tv .screen-bar {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  top: 12%;
+  display: flex;
+  gap: 8px;
+}
+.stage-screen.tv .screen-bar i {
+  height: 44px;
+  flex: 1;
+  border-radius: 10px;
+  background: linear-gradient(140deg, rgba(124, 92, 255, .38), rgba(93, 95, 239, .12));
+  border: 1px solid rgba(255, 255, 255, .10);
+}
+.stage-screen.tv .screen-bar i:nth-child(2) { background: linear-gradient(140deg, rgba(255, 190, 40, .32), rgba(255, 122, 61, .12)); }
+.stage-screen.tv .screen-bar i:nth-child(3) { background: linear-gradient(140deg, rgba(56, 210, 168, .3), rgba(56, 210, 168, .08)); }
+
+.stage-screen.phone {
+  width: 25%;
+  height: 84%;
+  right: 3%;
+  top: 9%;
+  border-radius: 28px;
+  transform: rotateY(-16deg) rotateX(5deg);
+  animation: ntv-float-phone 6.2s ease-in-out infinite;
+}
+@keyframes ntv-float-phone {
+  0%, 100% { transform: rotateY(-16deg) rotateX(5deg) translateY(0); }
+  50% { transform: rotateY(-13deg) rotateX(4deg) translateY(-22px); }
+}
+.stage-screen.phone .screen-tabs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 5%;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 4px 8px;
+  background: rgba(8, 11, 26, .82);
+  border-top: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 16px 16px 24px 24px;
+  backdrop-filter: blur(8px);
+}
+.stage-screen.phone .screen-tabs i { font-style: normal; font-size: .78rem; filter: drop-shadow(0 3px 8px rgba(0, 0, 0, .5)); }
+.stage-screen.phone .screen-tabs i:first-child { transform: scale(1.35) translateY(-6px); filter: drop-shadow(0 6px 14px rgba(255, 190, 40, .55)); }
+.stage-screen.phone .screen-glow::before {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  top: 10%;
+  height: 46%;
+  border-radius: 12px;
+  background: linear-gradient(150deg, rgba(124, 92, 255, .5), rgba(255, 190, 40, .28));
+}
+.stage-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  pointer-events: none;
+}
+.stage-orb.o1 {
+  width: 74px;
+  height: 74px;
+  left: -2%;
+  bottom: -4%;
+  background: radial-gradient(circle at 32% 30%, rgba(255, 215, 106, .85), rgba(255, 170, 20, .12) 70%);
+  animation: ntv-logo-float 5.6s ease-in-out infinite;
+}
+.stage-orb.o2 {
+  width: 48px;
+  height: 48px;
+  right: 26%;
+  top: -6%;
+  background: radial-gradient(circle at 32% 30%, rgba(151, 126, 255, .9), rgba(93, 95, 239, .1) 70%);
+  animation: ntv-logo-float 7.4s ease-in-out infinite reverse;
+}
+
+/* Section headings: gradient + glow bar */
+.sec-head h2 {
+  background: linear-gradient(120deg, #ffffff, #cfd6ff 45%, #ffd76a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.sec-head::after {
+  content: "";
+  display: block;
+  width: 92px;
+  height: 4px;
+  margin: 14px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffd76a, #7c5cff);
+  box-shadow: 0 0 24px rgba(255, 190, 40, .45);
+}
+
+/* Glass cards + sheen sweep */
+.card, .ntv-blog-card, .price, .form {
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.card::after, .ntv-blog-card::after {
+  content: "";
+  position: absolute;
+  inset: -40% -60%;
+  background: linear-gradient(115deg, transparent 44%, rgba(255, 255, 255, .07) 50%, transparent 56%);
+  transform: translateX(-70%);
+  transition: transform .8s ease;
+  pointer-events: none;
+}
+.card:hover::after, .ntv-blog-card:hover::after { transform: translateX(70%); }
+.card:hover, .ntv-blog-card:hover {
+  border-color: rgba(255, 190, 40, .35);
+  box-shadow: 0 26px 64px rgba(0, 0, 0, .45), 0 0 42px rgba(255, 190, 40, .12);
+}
+
+/* Row strips: edge fade + styled scroll */
+.ntv-strip {
+  mask-image: linear-gradient(90deg, transparent, #000 3.5%, #000 96.5%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 3.5%, #000 96.5%, transparent);
+  scroll-snap-type: x proximity;
+}
+.ntv-card { scroll-snap-align: start; }
+.ntv-strip::-webkit-scrollbar { height: 7px; }
+.ntv-strip::-webkit-scrollbar-track { background: rgba(255, 255, 255, .05); border-radius: 999px; }
+.ntv-strip::-webkit-scrollbar-thumb { background: linear-gradient(90deg, #7c5cff, #ffd76a); border-radius: 999px; }
+.ntv-row-head h3 {
+  background: linear-gradient(120deg, #fff, #b9c2ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Ticker in 3D perspective */
+.ticker {
+  transform: perspective(700px) rotateX(16deg) scale(1.02);
+  border-block: 1px solid rgba(255, 190, 40, .16);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, .3);
+}
+
+/* Floating dock tab bar */
+.ntv-tabbar {
+  left: 50%;
+  right: auto;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  width: min(560px, calc(100vw - 24px));
+  border-radius: 24px;
+  padding: 8px 10px;
+  background: rgba(10, 13, 28, .82);
+  border: 1px solid rgba(255, 255, 255, .14);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, .5), 0 0 42px rgba(93, 95, 239, .16);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+}
+.ntv-tabbar button {
+  border-radius: 16px;
+  gap: 7px;
+  transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+}
+.ntv-tabbar button .ic {
+  display: block;
+  font-size: 1.24rem;
+  transition: transform .28s cubic-bezier(.34, 1.56, .64, 1);
+}
+.ntv-tabbar button.active {
+  background: linear-gradient(140deg, rgba(255, 190, 40, .22), rgba(124, 92, 255, .22));
+  box-shadow: 0 10px 26px rgba(255, 190, 40, .18);
+}
+.ntv-tabbar button.active .ic { transform: translateY(-4px) scale(1.22); }
+.ntv-tabbar button:active { transform: scale(.93); }
+body { padding-bottom: 108px; }
+
+/* Songs: vinyl spin + richer cards */
+.ntv-song {
+  background: linear-gradient(165deg, rgba(18, 22, 45, .9), rgba(11, 14, 30, .96));
+}
+.ntv-song img { border-radius: 16px; transition: border-radius .5s ease, transform .5s ease; }
+.ntv-song.playing img {
+  border-radius: 50%;
+  transform: scale(.92);
+  box-shadow: 0 0 0 3px rgba(255, 190, 40, .4), 0 12px 32px rgba(0, 0, 0, .5);
+}
+.ntv-song .ntv-eq {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  gap: 4px;
+  align-items: flex-end;
+  height: 26px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(8, 11, 26, .72);
+  backdrop-filter: blur(6px);
+}
+.ntv-song.playing .ntv-eq { display: flex; }
+
+/* Splash: cinematic blur + core pop */
+.ntv-splash {
+  background: radial-gradient(120% 120% at 50% 40%, rgba(9, 12, 27, .94), rgba(5, 7, 15, .98));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.ntv-splash .core {
+  animation: ntv-core-pop 1.3s cubic-bezier(.22, 1, .36, 1);
+}
+@keyframes ntv-core-pop {
+  0% { transform: scale(.72); opacity: 0; filter: blur(10px); }
+  55% { transform: scale(1.04); opacity: 1; filter: blur(0); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.ntv-splash .sweep {
+  position: absolute;
+  inset: -30% -80%;
+  background: linear-gradient(115deg, transparent 45%, rgba(255, 255, 255, .10) 50%, transparent 55%);
+  animation: ntv-glass-sweep 1.6s ease-in-out infinite;
+}
+.ntv-splash .name {
+  background: linear-gradient(120deg, #fff, #ffd76a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Modal glass */
+.ntv-modal {
+  background: linear-gradient(170deg, rgba(15, 18, 38, .98), rgba(9, 11, 24, .99));
+  border: 1px solid rgba(255, 255, 255, .14);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, .7), 0 0 80px rgba(93, 95, 239, .18);
+}
+.ntv-modal::backdrop { background: rgba(4, 6, 14, .8); backdrop-filter: blur(6px); }
+
+/* Ad slots: polished skeleton */
+.ad-slot {
+  border: 1px dashed rgba(255, 255, 255, .16);
+  background:
+    linear-gradient(110deg, rgba(255, 255, 255, .03) 30%, rgba(255, 255, 255, .07) 50%, rgba(255, 255, 255, .03) 70%),
+    rgba(255, 255, 255, .03);
+  background-size: 220% 100%, 100% 100%;
+  animation: ntv-shimmer 2.6s linear infinite;
+}
+@keyframes ntv-shimmer { to { background-position: -220% 0, 0 0; } }
+
+/* Hero CTA glow */
+.ntv-hero .cta .btn-primary { box-shadow: 0 14px 40px rgba(93, 95, 239, .38); }
+.ntv-hero .cta .btn-gold { box-shadow: 0 14px 40px rgba(255, 190, 40, .32); }
+
+/* Premium hot card vault glow */
+.price.hot {
+  box-shadow: 0 30px 80px rgba(255, 190, 40, .22), 0 0 60px rgba(255, 190, 40, .12);
+  animation: ntv-vault 4.5s ease-in-out infinite;
+}
+@keyframes ntv-vault {
+  50% { box-shadow: 0 30px 90px rgba(255, 190, 40, .34), 0 0 90px rgba(255, 190, 40, .18); }
+}
+
+/* Scroll cue */
+.ntv-scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  opacity: .68;
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.ntv-scroll-cue span { animation: ntv-cue 1.8s ease-in-out infinite; font-size: 1.15rem; }
+@keyframes ntv-cue { 50% { transform: translateY(8px); opacity: .4; } }
+
+/* Light theme coverage for pro layer */
+[data-theme="light"] .ntv-hero h1 .gold { filter: drop-shadow(0 6px 18px rgba(200, 140, 0, .25)); }
+[data-theme="light"] .stage-screen {
+  background: linear-gradient(160deg, rgba(255, 255, 255, .94), rgba(238, 241, 255, .98));
+  border-color: rgba(20, 26, 58, .12);
+}
+[data-theme="light"] .stage-screen.tv .screen-body small { color: rgba(20, 26, 58, .6); }
+[data-theme="light"] .stage-screen.phone .screen-tabs { background: rgba(255, 255, 255, .9); }
+[data-theme="light"] .ntv-hero::before {
+  background:
+    radial-gradient(2px 2px at 12% 22%, rgba(93, 95, 239, .28), transparent 60%),
+    radial-gradient(2px 2px at 58% 18%, rgba(255, 170, 20, .3), transparent 60%),
+    radial-gradient(2px 2px at 90% 26%, rgba(93, 95, 239, .22), transparent 60%);
+}
+[data-theme="light"] .ntv-tabbar { background: rgba(255, 255, 255, .86); border-color: rgba(20, 26, 58, .1); }
+[data-theme="light"] .sec-head h2 { background: linear-gradient(120deg, #17203f, #4b3ba8 55%, #b8860b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+[data-theme="light"] .ntv-row-head h3 { background: linear-gradient(120deg, #17203f, #4b3ba8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* Reduced motion: keep it calm */
+@media (prefers-reduced-motion: reduce) {
+  .ntv-hero h1 .gold, .ntv-hero-logo, .ntv-hero::before, .stage-screen.tv, .stage-screen.phone,
+  .stage-orb, .price.hot, .ad-slot, .ntv-splash .core, .ntv-splash .sweep, .stage-screen .screen-glow::after {
+    animation: none !important;
+  }
+}
