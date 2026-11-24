@@ -67,6 +67,11 @@ export function parseBody(req, { maxBytes = 1_000_000 } = {}) {
   if (Buffer.isBuffer(req.body)) {
     try { return Promise.resolve(JSON.parse(req.body.toString("utf8"))); } catch { return Promise.resolve({}); }
   }
+  // Firebase Functions (GCF) expose the unparsed body as req.rawBody.
+  if (req.rawBody && Buffer.isBuffer(req.rawBody)) {
+    if (req.rawBody.length > maxBytes) return Promise.resolve({});
+    try { return Promise.resolve(JSON.parse(req.rawBody.toString("utf8"))); } catch { return Promise.resolve({}); }
+  }
   if (req.readableEnded) return Promise.resolve({});
   return new Promise((resolve) => {
     let raw = "";

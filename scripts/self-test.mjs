@@ -40,6 +40,15 @@ const vercel = JSON.parse(fs.readFileSync(path.join(ROOT, "vercel.json"), "utf8"
 const sources = (vercel.rewrites || []).map((r) => r.source);
 for (const route of ["/player_api.php", "/get.php", "/xmltv.php", "/live/(.*)", "/movie/(.*)", "/series/(.*)", "/portal.php", "/stalker_portal/(.*)", "/c/(.*)", "/s/(.*)", "/admin", "/reseller", "/developers", "/guide"]) check(`vercel rewrite ${route}`, sources.includes(route));
 check("COOP allows Firebase popup auth", (vercel.headers || []).filter((h) => ["/", "/admin", "/admin.html"].includes(h.source)).every((h) => h.headers.some((x) => x.key === "Cross-Origin-Opener-Policy" && x.value === "same-origin-allow-popups")));
+
+// Firebase Hosting + Functions publish configuration (firebase deploy).
+const firebaseHosting = JSON.parse(fs.readFileSync(path.join(ROOT, "firebase.json"), "utf8"));
+const fbRewrites = (firebaseHosting.hosting?.rewrites || []);
+check("Firebase Hosting publishes public/ with clean routes", firebaseHosting.hosting?.public === "public" && firebaseHosting.hosting?.cleanUrls === true && fbRewrites.some((r) => r.source === "/guide" && r.destination === "/developers.html") && fbRewrites.some((r) => r.source === "/c" && r.destination === "/portal.html"));
+check("Firebase Hosting routes dynamic APIs to the functions app", ["/api/**", "/player_api.php", "/get.php", "/xmltv.php", "/live/**", "/movie/**", "/series/**", "/portal.php", "/stalker_portal/**", "/c/**", "/s/**"].every((source) => fbRewrites.some((r) => r.source === source && r.function?.functionId === "app")));
+check("Firebase database rules and project alias publish together", firebaseHosting.database?.rules === "firebase/database.rules.json" && JSON.parse(fs.readFileSync(path.join(ROOT, ".firebaserc"), "utf8")).projects.default === "mizanoranet");
+check("Firebase deploy workflow, functions entry and builder exist", [".github/workflows/firebase-deploy.yml", "functions/index.js", "functions/package.json", "scripts/build-functions.mjs", "docs/FIREBASE.md"].every((file) => fs.existsSync(path.join(ROOT, file))));
+check("Firebase functions predeploy builds the shared handler bundle", (firebaseHosting.functions || []).some((f) => f.source === "functions" && (f.predeploy || []).some((cmd) => cmd.includes("build:functions"))));
 const adminHtml = fs.readFileSync(path.join(ROOT, "public/admin.html"), "utf8");
 const adminJs = fs.readFileSync(path.join(ROOT, "public/assets/js/admin.js"), "utf8");
 check("admin lock controls present", ["adminLock", "lockGoogleBtn", "lockGoogleRedirectBtn", "lockPinIn", "lockPinBtn", "lockErr"].every((id) => adminHtml.includes(`id="${id}"`)));
@@ -69,7 +78,7 @@ check("media is revalidated after branding updates", vercel.headers.some((entry)
 const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"));
 const lock = JSON.parse(fs.readFileSync(path.join(ROOT, "package-lock.json"), "utf8"));
 const panelData = fs.readFileSync(path.join(ROOT, "data/panel.js"), "utf8");
-check("v6 version metadata and clean page routes are present", pkg.version === "6.1.2" && lock.version === "6.1.2" && lock.packages?.[""]?.version === "6.1.2" && panelData.includes('version: "6.1.2"') && ["/reseller", "/developers", "/guide"].every((route) => sources.includes(route)));
+check("v6 version metadata and clean page routes are present", pkg.version === "6.2.0" && lock.version === "6.2.0" && lock.packages?.[""]?.version === "6.2.0" && panelData.includes('version: "6.2.0"') && ["/reseller", "/developers", "/guide"].every((route) => sources.includes(route)));
 
 console.log("\n🌐 Real HTTP integration");
 const server = createAppServer();
@@ -123,7 +132,7 @@ try {
   r = await request("/embed.js"); check("embed widget loads", r.status === 200 && r.text.includes("data-mizanora-embed"));
   r = await request("/api/embed?action=help"); check("embed help is not a dead link", r.status === 200 && r.body.ok && r.body.actions);
   r = await request("/api/embed?action=health"); check("health reports storage diagnostics", r.status === 200 && r.body.ok && r.body.storage && typeof r.body.storage.durableServerWrites === "boolean");
-  r = await request("/api/panel?action=config"); check("public config and endpoints", r.status === 200 && r.body.brand === "Mizanora IPTV" && r.body.endpoints.magPortal.endsWith("/portal.php") && r.body.version === "6.1.2");
+  r = await request("/api/panel?action=config"); check("public config and endpoints", r.status === 200 && r.body.brand === "Mizanora IPTV" && r.body.endpoints.magPortal.endsWith("/portal.php") && r.body.version === "6.2.0");
   r = await request("/api/embed?action=config"); check("public intro, recharge and developer settings are available", r.status === 200 && r.body.experience?.intro?.url === "/media/welcome/video.mp4" && r.body.experience.intro.durationSec === 8 && r.body.experience.intro.skippable === false && r.body.experience.videos.offline.includes("channel-offline") && r.body.experience.videos.comingSoon.includes("coming-soon") && r.body.links?.resellerPanel.endsWith("/reseller") && r.body.links?.developers.endsWith("/developers"));
   r = await request("/api/embed?action=channels"); check("default live catalog and welcome promo are available", r.status === 200 && r.body.count >= 18 && r.body.channels.some((c) => c.id === "ch_mz_promo" && /Welcome/i.test(c.name)));
   const firstChannel = r.body.channels[0];

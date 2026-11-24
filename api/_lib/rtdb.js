@@ -37,8 +37,22 @@ function serviceAccount() {
 function hasServiceAccount() {
   return !!(process.env.FIREBASE_SERVICE_ACCOUNT_JSON || (process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY));
 }
+/** Google Cloud metadata-server token — zero-config auth on Cloud Functions. */
+async function metadataAccessToken() {
+  try {
+    const response = await fetch("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token", {
+      headers: { "Metadata-Flavor": "Google" },
+      signal: AbortSignal.timeout(3000)
+    });
+    if (!response.ok) return "";
+    const data = await response.json();
+    return data.access_token || "";
+  } catch {
+    return "";
+  }
+}
 async function serviceAccessToken() {
-  if (!hasServiceAccount()) return "";
+  if (!hasServiceAccount()) return metadataAccessToken();
   if (accessTokenCache.value && Date.now() < accessTokenCache.exp) return accessTokenCache.value;
   if (accessTokenCache.pending) return accessTokenCache.pending;
   accessTokenCache.pending = (async () => {
@@ -164,8 +178,8 @@ export async function rtdbSet(path, value, { token } = {}) {
   setPath(mirror, clean, value);
   writeMirror(mirror);
   invalidate(clean);
-  if (!remoteOk && (process.env.VERCEL === "1" || process.env.MZ_REQUIRE_PERSISTENCE === "1")) {
-    const setup = hasServiceAccount() ? "Check Firebase service-account permissions." : "Configure FIREBASE_SERVICE_ACCOUNT_JSON in Vercel.";
+  if (!remoteOk && (process.env.VERCEL === "1" || process.env.K_SERVICE || process.env.MZ_REQUIRE_PERSISTENCE === "1")) {
+    const setup = hasServiceAccount() ? "Check Firebase service-account permissions." : "Configure FIREBASE_SERVICE_ACCOUNT_JSON (Vercel env or functions/.env).";
     throw new Error(`Firebase save failed — ${setup} ${failure?.message || ""}`.trim());
   }
   return remoteOk;
@@ -195,7 +209,7 @@ export async function rtdbUpdate(updates, { token } = {}) {
   const mirror = readMirror();
   for (const [key, value] of Object.entries(clean)) { setPath(mirror, key, value); invalidate(key); }
   writeMirror(mirror);
-  if (!remoteOk && (process.env.VERCEL === "1" || process.env.MZ_REQUIRE_PERSISTENCE === "1")) {
+  if (!remoteOk && (process.env.VERCEL === "1" || process.env.K_SERVICE || process.env.MZ_REQUIRE_PERSISTENCE === "1")) {
     throw new Error(`Firebase atomic save failed — configure a service account. ${failure?.message || ""}`);
   }
   return remoteOk;

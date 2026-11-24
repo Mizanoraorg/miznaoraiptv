@@ -1,3 +1,12 @@
+## 6.2.0 — Firebase publish + site refresh
+
+- Firebase Hosting + Functions publish: `firebase.json`, `.firebaserc`, generated functions bundle (`scripts/build-functions.mjs`) and one-command `npm run deploy:firebase` — website, Xtream/MAG/stream API routes and database rules deploy together on `mizanoranet`.
+- GitHub Actions workflow: test suites on every push/PR, automatic `hosting,functions,database` deploy on `main`, and 7-day Hosting preview channels for pull requests.
+- Shared handlers run natively on Cloud Functions: `req.rawBody` parsing, metadata-server auth fallback for RTDB, durable-write enforcement on serverless runtimes and internal module path blocking.
+- Public site refresh: aurora hero, glass cards, gold-sheen buttons, animated ticker, device grid, customer reviews, FAQ accordion, closing CTA band, Sora/Manrope typography, light + dark themes.
+- New UI behaviours: mobile hamburger menu, scroll progress bar, back-to-top, scroll-reveal with reduced-motion support, animated counters and auto footer year.
+- Performance: font preconnect with `display=swap`, priority hero logo, lazy images, `content-visibility` below the fold, immutable asset caching and `no-cache` HTML.
+
 ## 6.1.2 — Reconnect intro-loop fix
 
 - Resume recent authenticated Xtream/M3U entries instead of creating a new intro on every reconnect.
