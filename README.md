@@ -1,10 +1,10 @@
-# 📺 Mizanora IPTV — Reseller Suite v6.2.0
+# 📺 Mizanora Net TV — Streaming Web App & Broadcast Suite v7.0.0
 
 ![Animated Mizanora IPTV reseller suite banner](docs/assets/reseller-suite.gif)
 
 **Owner control → reseller workspace → client service**
 
-[Quick start](#run-and-verify-locally) · [Reseller API](docs/RESELLER.md) · [Deployment](docs/VERCEL.md) · [Firebase Hosting](docs/FIREBASE.md) · [Changelog](CHANGELOG.md)
+[Quick start](#run-and-verify-locally) · [Reseller API](docs/RESELLER.md) · [Deploy: Netlify + Firebase](docs/NETLIFY.md) · [Firebase Hosting](docs/FIREBASE.md) · [Changelog](CHANGELOG.md)
 
 **Live TV, animated welcome intro, M3U imports, XMLTV guides, Xtream Codes, MAG/Stalker, owner admin, reseller workspace and website integrations.** A **Mizanora Projects** product by **Muaaz Iqbal** (Kasur, Punjab, Pakistan).
 
@@ -46,7 +46,7 @@
 - Seventeen practical Academy lessons at `/academy`, also available inside both panels.
 - Replaced bundled videos: eight-second Mizanora intro, offline, recharge and cinema cards in MP4/HLS. Channel identity and configured payment/contact details are overlaid by the website.
 
-See the [v6 operations guide](docs/V6-OPERATIONS.md) for setup, migration, verification and limitations. The new default [Vercel HLS playout](docs/VERCEL-PLAYOUT.md) stitches compatible live HLS with intro/offline/recharge/coming-soon segments, without a VPS. The optional [encoder gateway](docs/MEDIA-GATEWAY.md) remains available for transcoding.
+See the [v6 operations guide](docs/V6-OPERATIONS.md) for setup, migration, verification and limitations. The new default [serverless HLS playout](docs/PLAYOUT.md) stitches compatible live HLS with intro/offline/recharge/coming-soon segments, without a VPS. The optional [encoder gateway](docs/MEDIA-GATEWAY.md) remains available for transcoding.
 
 ## What's new in v5.1
 
@@ -74,7 +74,7 @@ npm run dev       # http://localhost:3000 (binds 0.0.0.0)
 npm test          # HTTP/API + admin/public/reseller/guide/embed DOM interaction suites
 ```
 
-Local development can use `/tmp/miznaoraiptv-rtdb-mirror.json` when Firebase is unreachable. This is only a development fallback and is never treated as durable Vercel storage.
+Local development can use `/tmp/miznaoraiptv-rtdb-mirror.json` when Firebase is unreachable. This is only a development fallback and is never treated as durable production storage.
 
 ## Main surfaces
 
@@ -91,7 +91,7 @@ Local development can use `/tmp/miznaoraiptv-rtdb-mirror.json` when Firebase is 
 | Streams | `/live/…`, `/movie/…`, `/series/…`, `/s/<token>` | Credential checks and 15-minute signed playback |
 | MAG / Stalker | `/portal.php`, `/stalker_portal/server/load.php` | Handshake, MAC profile, channels and `create_link` |
 
-## Required Vercel/Firebase setup
+## Required Netlify + Firebase setup
 
 The public Firebase web config is included. **A service account is required for durable server writes on Vercel.** Serverless `/tmp` is temporary and is not shared between invocations.
 
@@ -113,19 +113,19 @@ Cloud Functions ke liye Google billing chahiye -- **zaroori nahi hai!** Free hyb
 
 GitHub Actions (`.github/workflows/firebase-deploy.yml`) deploys automatically on every `main` push once the `FIREBASE_SERVICE_ACCOUNT` repo secret is added (Firebase Console → Project settings → Service accounts → Generate new private key). The workflow tries to enable the required APIs itself and deploys `hosting + database` before `functions`, so the website goes live even if the Functions API still needs enabling.
 
-### Vercel
+### Netlify (API — free, no billing)
 
-1. Import the repository using **Framework: Other**, **Node 20+**, no build command; static content is in `public`.
+1. Netlify dashboard → **Add new site → Import an existing project** (GitHub). `netlify.toml` wires the API functions automatically — no build config needed.
 2. Firebase Console → **Project settings → Service accounts → Generate new private key**.
-3. Vercel → **Settings → Environment Variables**:
+3. Netlify → **Site settings → Environment variables**:
    - `FIREBASE_DATABASE_URL=https://mizanoranet-default-rtdb.firebaseio.com`
    - sensitive `FIREBASE_SERVICE_ACCOUNT_JSON` = complete service-account JSON; alternatively use `FIREBASE_CLIENT_EMAIL` + `FIREBASE_PRIVATE_KEY`.
    - strong, different `MZ_OWNER_PIN`, `MZ_SESSION_SECRET` and `MZ_STREAM_SECRET`.
-4. Firebase Authentication → enable **Google** and add the Vercel/custom domains under **Authorized domains**. Owner: `muaaziqbal.vip@gmail.com`.
+4. Firebase Authentication → enable **Google** and add the Firebase/Netlify domains under **Authorized domains**. Owner: `muaaziqbal.vip@gmail.com`.
 5. Publish `firebase/database.rules.json`. Never expose service-account JSON in browser code or Git.
-6. Redeploy after environment changes and check `/api/embed?action=health` for `configuredServiceAccount: true` and `durableServerWrites: true`.
+6. Set the API base in `public/assets/js/api-base.js` to your Netlify URL. Redeploy after environment changes and check `/api/embed?action=health` for `configuredServiceAccount: true` and `durableServerWrites: true`.
 
-See [docs/VERCEL.md](docs/VERCEL.md) for the detailed checklist.
+See [docs/NETLIFY.md](docs/NETLIFY.md) for the detailed checklist.
 
 ## M3U and EPG
 
@@ -184,7 +184,7 @@ The suites cover real HTTP flows (imports, EPG, public/admin/reseller, Xtream, s
 - **Admin → Movies / Series:** search the catalog and sort results by title, release year, rating or playable status before managing licensed stream URLs.
 - Configure video URLs under **Admin → Settings**. Use supported formats and reliable HTTPS sources; external videos used in the browser also need CORS. Website custom videos are separate from the bundled serverless broadcast package.
 
-**Format boundary:** Vercel assembles manifests; it does not transcode frames. The playout path supports muxed MPEG-TS HLS, clear/AES-128. fMP4, DRM, byte-range, separate audio or non-HLS sources need direct mode or an encoder. Browser CORS and player codec support still matter. See [setup and tested behavior](docs/VERCEL-PLAYOUT.md).
+**Format boundary:** The serverless playout assembles manifests; it does not transcode frames. The playout path supports muxed MPEG-TS HLS, clear/AES-128. fMP4, DRM, byte-range, separate audio or non-HLS sources need direct mode or an encoder. Browser CORS and player codec support still matter. See [setup and tested behavior](docs/PLAYOUT.md).
 
 ### Rebuild branded videos
 

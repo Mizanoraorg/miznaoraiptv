@@ -17,7 +17,7 @@ https://example.com/live/news.m3u8
 
 Supported metadata includes `EXTINF`, `EXTGRP`, `tvg-id`, `tvg-name`, `tvg-logo`, `group-title`, `tvg-language`, `tvg-country` and `x-tvg-url`. Relative stream/logo paths in a remote playlist resolve against that playlist URL.
 
-- Upload parser limit: 5 MB / 5,000 channels; Vercel's own request limit may be lower.
+- Upload parser limit: 5 MB / 5,000 channels; the serverless host's request limit may be lower.
 - Matching channel IDs update in place; new IDs get unique numeric Xtream stream IDs.
 - New channels inherit the selected Free/PRO tier; existing channel tiers are preserved.
 - Import history appears under Playlists.

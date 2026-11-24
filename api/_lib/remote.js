@@ -4,7 +4,7 @@ import net from "node:net";
 import zlib from "node:zlib";
 
 const fail = (message, status = 400) => Object.assign(new Error(message), { status });
-const LOCAL_IMPORTS = process.env.VERCEL !== "1";
+const LOCAL_IMPORTS = process.env.VERCEL !== "1" && process.env.NETLIFY !== "true" && !process.env.K_SERVICE;
 
 function privateAddress(address) {
   const ip = String(address || "").toLowerCase();

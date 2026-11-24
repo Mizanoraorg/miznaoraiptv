@@ -2,11 +2,11 @@
  *
  * FREE HYBRID MODE — billing ke bagair:
  *   Firebase Hosting (Spark/free) = static website
- *   Vercel (free)                 = API (Xtream, MAG, streams, panel)
+ *   Netlify (free)                = API (streams, catalog, panel)
  *
- * Jab site Firebase Hosting par ho aur API Vercel par ho, to neeche
- * DEFAULT_BASE mein apna Vercel API URL bhar dein (trailing slash ke bagair),
- * misaal ke taur par: "https://miznaoraiptv.vercel.app"
+ * Jab site Firebase Hosting par ho aur API Netlify par ho, to neeche
+ * DEFAULT_BASE mein apna Netlify API URL bhar dein (trailing slash ke bagair),
+ * misaal ke taur par: "https://mizanora.netlify.app"
  * Same-origin deploy (sab kuch ek hi jagah) par ise "" rehne dein.
  *
  * Runtime override (testing ke liye): ?api=https://your-api.example.com
@@ -18,7 +18,7 @@
  * Jab DEFAULT_BASE khaali ho to ye bilkul no-op hai. */
 (function () {
   "use strict";
-  var DEFAULT_BASE = ""; /* ← FREE HYBRID: yahan Vercel/API URL likhein */
+  var DEFAULT_BASE = ""; /* ← FREE HYBRID: yahan Netlify/API URL likhein */
   var BASE = String(window.MZ_API_BASE || DEFAULT_BASE || "").replace(/\/+$/, "");
   try {
     var param = new URLSearchParams(location.search).get("api");

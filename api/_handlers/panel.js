@@ -618,7 +618,7 @@ export default async function panelHandler(req, res) {
 function helpDoc(base) {
   return {
     ok: true,
-    version: "6.2.1",
+    version: "7.0.0",
     brand: "Mizanora IPTV",
     base,
     links: { site: `${base}/`, resellerPanel: `${base}/reseller`, developers: `${base}/developers` },

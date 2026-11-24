@@ -1,4 +1,4 @@
-/** Vercel-native HLS playout: short HTTP manifest requests, CDN media segments.
+/** Serverless HLS playout: short HTTP manifest requests, CDN media segments.
  * No running encoder. Stable per-session sequence numbers use RTDB CAS updates.
  * Supported stitching: muxed MPEG-TS HLS (clear or AES-128). Unsupported
  * sources pass through unchanged instead of being falsely marked offline.
@@ -72,7 +72,7 @@ async function discoverHls(url) {
   throw problem('Nested HLS master limit exceeded');
 }
 // Per-instance bounded coalescing, not a correctness dependency. Signed source
-// URLs are exact cache keys; a cold Vercel instance simply fetches again.
+// URLs are exact cache keys; a cold serverless instance simply fetches again.
 const sourceCache = new Map();
 export function clearHlsCache() { sourceCache.clear(); }
 export async function loadHls(url) {

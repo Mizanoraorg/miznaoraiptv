@@ -2,7 +2,7 @@
 
 ## Owner rollout
 
-1. Configure persistent Firebase storage and server secrets as described in [VERCEL.md](VERCEL.md). A preview/local mirror is not a production database. Back up production data before rollout.
+1. Configure persistent Firebase storage and server secrets as described in [NETLIFY.md](NETLIFY.md). A preview/local mirror is not a production database. Back up production data before rollout.
 2. Open `/admin`. In settings, review service name, support WhatsApp, payment method, account number/title and business introduction. Existing configured contacts are retained; do not replace them with test values.
 3. Click **Use new bundled videos + 8s intro**, then **Save settings** if existing database settings point at an old/custom video. All four repository video packages have already been replaced, not added alongside the old content. The default intro is eight seconds and non-skippable; existing owner overrides require this reset.
 4. Import licensed M3U sources. Edit a channel to set its number, group, EPG ID and active/offline/inactive status. Channel number is distinct from immutable stream ID and playlist order. Use **Save sort to playlists** to publish ordering to clients.
@@ -32,7 +32,7 @@
 
 The website plays the eight-second introduction and overlays the selected channel name/number and current payment/contact configuration. After the intro it attempts live playback. Player errors or a 20-second live-start watchdog display the offline video with retry/contact controls. Browser autoplay rules may require user interaction.
 
-From v6.1, external live clients use [Vercel HLS playout](VERCEL-PLAYOUT.md) by default: compatible HLS is assembled with intro and live fallback loops. Turn off the serverless HLS setting for direct source redirects. The optional [encoder gateway](MEDIA-GATEWAY.md) is a separate transcoding path, not required for supported HLS manifest stitching.
+From v6.1, external live clients use [Serverless HLS playout](PLAYOUT.md) by default: compatible HLS is assembled with intro and live fallback loops. Turn off the serverless HLS setting for direct source redirects. The optional [encoder gateway](MEDIA-GATEWAY.md) is a separate transcoding path, not required for supported HLS manifest stitching.
 
 The videos themselves carry the verified owner defaults. Dynamic reseller branding is a website overlay in direct mode. The optional gateway burns channel/payment/contact text into its introduction and offline frames. If owner payment details change, rebuild the video files too so the baked card matches the new settings.
 

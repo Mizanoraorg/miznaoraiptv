@@ -31,7 +31,7 @@ export default async function embedHandler(req, res) {
         widget: `${base}/embed.js`
       });
     }
-    if (action === "config") return sendJson(res, 200, { ...S.publicConfig(base), embed: true, version: "6.2.1", experience: await S.getPublicExperience(), links: { resellerPanel: `${base}/reseller`, developers: `${base}/developers` } }, "public, max-age=60");
+    if (action === "config") return sendJson(res, 200, { ...S.publicConfig(base), embed: true, version: "7.0.0", experience: await S.getPublicExperience(), links: { resellerPanel: `${base}/reseller`, developers: `${base}/developers` } }, "public, max-age=60");
     if (action === "channels") {
       const list = (await S.listChannels()).filter((c) => c.status !== "inactive").map((c) => ({
         id: c.id, streamId: c.streamId, name: c.name, logo: c.logo,
@@ -76,6 +76,7 @@ export default async function embedHandler(req, res) {
       const offset = Math.max(0, Number(q.offset) || 0);
       const list = filtered.slice(offset, offset + limit).map((m) => ({
         id: m.id || m.tmdbId,
+        imdbId: m.imdbId || "",
         streamId: m.streamId || m.seriesId,
         title: m.title || m.name,
         poster: m.poster || m.poster_path,

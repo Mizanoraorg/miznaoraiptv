@@ -1,4 +1,4 @@
-/** Mizanora IPTV — /api/stream (Vercel serverless entry). Fresh rebuild. */
+/** Mizanora IPTV — /api/stream (serverless entry). Fresh rebuild. */
 import handler from "./_handlers/stream.js";
 import { parseQuery } from "./_lib/util.js";
 export default async function (req, res) {

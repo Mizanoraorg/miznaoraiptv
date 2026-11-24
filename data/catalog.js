@@ -1,7 +1,7 @@
 /**
  * Mizanora IPTV — Master Seed Catalog, Defaults, SEO Blogs & Brand Metadata
  * Under Mizanora Projects | Founded, Designed & Engineered by Muaaz Iqbal
- * Hosted at: https://miznaoraiptv.vercel.app
+ * Mizanora Net TV — https://mizanora.net (Firebase Hosting + Netlify API)
  */
 
 export const BRAND = {
@@ -9,8 +9,8 @@ export const BRAND = {
   shortName: "Mizanora IPTV",
   tagline: "Live TV • IMDb Movies & Series • Free Xtream Codes • MAG/Stalker Portal • Reseller API — ek hi Mizanora panel",
   parentProject: "Mizanora Projects",
-  parentUrl: "https://mizanora.vercel.app",
-  siteUrl: "https://miznaoraiptv.vercel.app",
+  parentUrl: "https://mizanora.net",
+  siteUrl: "https://mizanora.net",
   repoUrl: "https://github.com/Mizanora-org/miznaoraiptv",
   founder: "Muaaz Iqbal",
   founderRole: "Founder, Lead Full-Stack Architect & AI/Streaming Innovator",
@@ -22,7 +22,7 @@ export const BRAND = {
   proPhoneIntl: "+923062015326",
   proWhatsappUrl: "https://wa.me/923062015326",
   logoPrimary: "/assets/img/brand/miznaoraiptv-logo.png",
-  logoAbsolute: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+  logoAbsolute: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
   logoCamo: "/assets/img/brand/miznaoraiptv-logo.svg",
   logoFallback: "/assets/logo-fallback.svg"
 };
@@ -442,7 +442,7 @@ export const DEFAULT_CHANNELS = [
     tier: "pro",
     featured: true,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "pk.super.pro",
     nowPlaying: "Pakistan Top Prime Shows, National Specials & Headlines",
     url: "https://tv-trtworld.medya.trt.com.tr/master.m3u8",
@@ -482,7 +482,7 @@ export const DEFAULT_CHANNELS = [
     tier: "free",
     featured: true,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "sunnah.madinah.sa",
     nowPlaying: "Live Masjid An-Nabawi Broadcast 24/7",
     url: "https://win.holol.com/live/sunnah/playlist.m3u8",
@@ -503,7 +503,7 @@ export const DEFAULT_CHANNELS = [
     tier: "free",
     featured: true,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "mizanora.drama.pk",
     nowPlaying: "Pakistani Superhit Family Dramas & Evening Serials",
     url: "/media/demo-live/index.m3u8",
@@ -522,7 +522,7 @@ export const DEFAULT_CHANNELS = [
     tier: "pro",
     featured: true,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "mizanora.royal.pro",
     nowPlaying: "Prime-Time Pakistani Dramas & Halal Family Entertainment",
     url: "/media/demo-live/index.m3u8",
@@ -541,7 +541,7 @@ export const DEFAULT_CHANNELS = [
     tier: "free",
     featured: true,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "miznaoraiptv.dash.hd",
     nowPlaying: "Universal MPEG-DASH (.MPD) Multi-Bitrate Broadcast Engine",
     streamFormat: "dash",
@@ -582,7 +582,7 @@ export const DEFAULT_CHANNELS = [
     tier: "free",
     featured: false,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "trtworld.hd",
     nowPlaying: "International Headlines & South Asia Focus",
     url: "https://tv-trtworld.medya.trt.com.tr/master.m3u8",
@@ -601,7 +601,7 @@ export const DEFAULT_CHANNELS = [
     tier: "free",
     featured: false,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "dw.english",
     nowPlaying: "World News, Tech & Documentaries",
     url: "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8",
@@ -620,7 +620,7 @@ export const DEFAULT_CHANNELS = [
     tier: "free",
     featured: false,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "france24.en",
     nowPlaying: "24/7 International Live Bulletin",
     url: "https://live.france24.com/hls/live/2037218-b/F24_EN_HI_HLS/master_5000.m3u8",
@@ -641,7 +641,7 @@ export const DEFAULT_CHANNELS = [
     tier: "free",
     featured: true,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "mizanora.cinema.pk",
     nowPlaying: "24/7 Family Telefilms, Classics & World Cinema",
     url: "/media/demo-live/index.m3u8",
@@ -660,7 +660,7 @@ export const DEFAULT_CHANNELS = [
     tier: "pro",
     featured: true,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "in.cinema.pro",
     nowPlaying: "24/7 Blockbuster Premiers & Superhit Cinema",
     url: "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8",
@@ -681,7 +681,7 @@ export const DEFAULT_CHANNELS = [
     tier: "pro",
     featured: true,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "mizanora.cricket.pro",
     nowPlaying: "Pakistan Cricket Live, PSL & ICC 60fps Feed",
     url: "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8",
@@ -700,7 +700,7 @@ export const DEFAULT_CHANNELS = [
     tier: "free",
     featured: true,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "redbull.tv",
     nowPlaying: "Motorsport, Rally & Global Live Championships",
     url: "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8",
@@ -719,7 +719,7 @@ export const DEFAULT_CHANNELS = [
     tier: "pro",
     featured: false,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "mizanora.football.pro",
     nowPlaying: "European League Nights & Live Match Studio",
     url: "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8",
@@ -740,7 +740,7 @@ export const DEFAULT_CHANNELS = [
     tier: "free",
     featured: false,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "nasa.public",
     nowPlaying: "ISS Earth Views & Space Science Live",
     url: "https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8",
@@ -759,7 +759,7 @@ export const DEFAULT_CHANNELS = [
     tier: "free",
     featured: false,
     status: "active",
-    logo: "https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png",
+    logo: "https://mizanora.net/assets/img/brand/miznaoraiptv-logo.png",
     epgId: "nhk.world",
     nowPlaying: "Asian Culture, Science & Technology Documentaries",
     url: "https://nhkwlive-ojp.akamaized.net/hls/live/2003459/nhkwlive-ojp-en/index.m3u8",
@@ -780,7 +780,7 @@ export const DEFAULT_BLOGS = [
     tags: ["Mizanora IPTV", "Muaaz Iqbal", "Mizanora Projects", "Live TV Pakistan", "Xtream Codes"],
     content: `
       <h2>Welcome to Mizanora IPTV — Engineered Under Mizanora Projects</h2>
-      <p><strong>Mizanora IPTV</strong> (<a href="https://miznaoraiptv.vercel.app">miznaoraiptv.vercel.app</a>) is an advanced cloud-native television broadcasting and IPTV management platform created, founded, and architected by <strong>Muaaz Iqbal</strong> as a flagship media platform under <strong>Mizanora Projects</strong>.</p>
+      <p><strong>Mizanora IPTV</strong> (<a href="https://mizanora.net">mizanora.net</a>) is an advanced cloud-native television broadcasting and IPTV management platform created, founded, and architected by <strong>Muaaz Iqbal</strong> as a flagship media platform under <strong>Mizanora Projects</strong>.</p>
       <p>Designed to connect viewers across Pakistan, India, the Middle East, and the global South Asian diaspora, Mizanora IPTV eliminates complex streaming setups. Whether you want to watch HD channels instantly inside your browser or load a personal <strong>Xtream Codes API server</strong> into Smart TV apps like IPTV Smarters Pro and TiviMate, Mizanora IPTV delivers everything from one unified cloud account.</p>
       <h3>Key Innovations Built by Muaaz Iqbal</h3>
       <ul>
@@ -810,13 +810,13 @@ export const DEFAULT_BLOGS = [
       <h2>Claim Your Personal Free Xtream Server in 3 Simple Steps</h2>
       <p>Unlike temporary public playlists that expire every few hours, <strong>Mizanora IPTV</strong> gives every registered member their own persistent <strong>Xtream Codes API account</strong> stored securely in Firebase Realtime Database.</p>
       <h3>Step 1: Sign In with Google or Gmail + Password</h3>
-      <p>Open <a href="https://miznaoraiptv.vercel.app">miznaoraiptv.vercel.app</a> and click <strong>Sign In</strong> in the top navigation bar. You can either use 1-click <strong>Continue with Google</strong> or register with your Gmail/Email address and password.</p>
+      <p>Open <a href="https://mizanora.net">mizanora.net</a> and click <strong>Sign In</strong> in the top navigation bar. You can either use 1-click <strong>Continue with Google</strong> or register with your Gmail/Email address and password.</p>
       <h3>Step 2: Open the "My Xtream Server" Dashboard</h3>
       <p>Navigate to the <strong>Xtream Panel</strong> tab. Click the glowing <strong>Generate My Free Xtream Server</strong> button. Notice that each account receives <strong>one permanent Xtream server</strong> tied to your profile so your credentials stay always visible whenever you return.</p>
       <h3>Step 3: Copy Your Host URL, Username &amp; Password</h3>
       <p>Your dashboard immediately displays:</p>
       <ul>
-        <li><strong>Server / Portal URL:</strong> <code>https://miznaoraiptv.vercel.app</code> (Port <code>443</code>)</li>
+        <li><strong>Server / Portal URL:</strong> <code>https://mizanora.net</code> (Port <code>443</code>)</li>
         <li><strong>Username &amp; Password:</strong> Unique credentials generated specifically for you</li>
         <li><strong>M3U Plus Playlist Link:</strong> Ready for VLC, Kodi, or OTT Navigator</li>
         <li><strong>XMLTV EPG URL:</strong> Automatic TV program guide synchronization</li>
@@ -846,20 +846,20 @@ export const DEFAULT_BLOGS = [
         <li><strong>Any Name:</strong> Enter <code>Mizanora IPTV</code>.</li>
         <li><strong>Username:</strong> Paste the username from your Mizanora Xtream Panel.</li>
         <li><strong>Password:</strong> Paste your Xtream password.</li>
-        <li><strong>URL:</strong> Enter <code>https://miznaoraiptv.vercel.app</code> (include <code>https://</code>, no trailing slash needed).</li>
+        <li><strong>URL:</strong> Enter <code>https://mizanora.net</code> (include <code>https://</code>, no trailing slash needed).</li>
         <li>Click <strong>Add User</strong> — Live TV categories and EPG load immediately!</li>
       </ol>
       <h3>2. TiviMate IPTV Player (Android TV / Firestick)</h3>
       <ol>
         <li>Open TiviMate &rarr; <strong>Add Playlist</strong> &rarr; select <strong>Xtream Codes</strong>.</li>
-        <li>Enter Server Address <code>https://miznaoraiptv.vercel.app</code>, your Username, and Password.</li>
+        <li>Enter Server Address <code>https://mizanora.net</code>, your Username, and Password.</li>
         <li>Keep <strong>Include VOD</strong> optional and click <strong>Next</strong>. TiviMate will fetch all Mizanora categories and XMLTV program schedules automatically.</li>
       </ol>
       <h3>What Happens If You Click a PRO Channel on a Free Account?</h3>
       <p>Instead of crashing your player with an error code, Mizanora's smart HLS engine plays a smooth HD broadcast video explaining how to unlock Mizanora IPTV PRO via WhatsApp <strong>0306-2015326</strong>.</p>
     `,
     faqs: [
-      { q: "Should I use http or https in the Server URL?", a: "Use https://miznaoraiptv.vercel.app (Port 443) for encrypted, ISP-friendly low-latency streaming." }
+      { q: "Should I use http or https in the Server URL?", a: "Use https://mizanora.net (Port 443) for encrypted, ISP-friendly low-latency streaming." }
     ]
   },
   {
@@ -876,7 +876,7 @@ export const DEFAULT_BLOGS = [
       <p>VLC Media Player is one of the fastest ways to test and watch HLS (<code>.m3u8</code>) streams on laptops and phones.</p>
       <h3>On Windows / macOS / Linux</h3>
       <ol>
-        <li>Copy your <strong>M3U Plus URL</strong> or <strong>Personal Playlist URL</strong> from <a href="https://miznaoraiptv.vercel.app">miznaoraiptv.vercel.app</a>.</li>
+        <li>Copy your <strong>M3U Plus URL</strong> or <strong>Personal Playlist URL</strong> from <a href="https://mizanora.net">mizanora.net</a>.</li>
         <li>Open VLC and press <code>Ctrl + N</code> (or <code>Cmd + N</code> on Mac) to open <strong>Network Stream</strong>.</li>
         <li>Paste the URL and click <strong>Play</strong>.</li>
         <li>Press <code>Ctrl + L</code> to open the <strong>Playlist Sidebar</strong> and switch between all Mizanora channels effortlessly!</li>
@@ -951,11 +951,11 @@ export const DEFAULT_BLOGS = [
       <h2>Watching Mizanora IPTV on Your Living Room Television</h2>
       <p>Mizanora IPTV is optimized for both Smart TV web browsers and native Smart TV IPTV players.</p>
       <h3>Method 1: Android TV, Google TV, Mi Box &amp; Firestick</h3>
-      <p>Install <strong>TiviMate</strong>, <strong>IPTV Smarters Pro</strong>, or <strong>OTT Navigator</strong> from Play Store / Downloader, choose <em>Xtream Codes login</em>, and enter <code>https://miznaoraiptv.vercel.app</code> with your free or PRO credentials.</p>
+      <p>Install <strong>TiviMate</strong>, <strong>IPTV Smarters Pro</strong>, or <strong>OTT Navigator</strong> from Play Store / Downloader, choose <em>Xtream Codes login</em>, and enter <code>https://mizanora.net</code> with your free or PRO credentials.</p>
       <h3>Method 2: Samsung Tizen &amp; LG WebOS Content Store</h3>
       <p>Download <strong>IPTV Smarters Player</strong>, <strong>IBO Player</strong>, or <strong>SS IPTV</strong> from the Samsung/LG app store and paste either your Xtream Server details or your Mizanora M3U Plus URL.</p>
       <h3>Method 3: Direct TV Web Browser</h3>
-      <p>Open your TV's built-in browser, visit <a href="https://miznaoraiptv.vercel.app">miznaoraiptv.vercel.app</a>, switch to <strong>Theater / Fullscreen Mode</strong>, and stream directly with zero app installation!</p>
+      <p>Open your TV's built-in browser, visit <a href="https://mizanora.net">mizanora.net</a>, switch to <strong>Theater / Fullscreen Mode</strong>, and stream directly with zero app installation!</p>
     `,
     faqs: [
       { q: "Which app works best on Android TV?", a: "TiviMate and IPTV Smarters Pro both connect seamlessly to Mizanora's Xtream Codes server." }
@@ -976,7 +976,7 @@ export const DEFAULT_BLOGS = [
       <h3>Offline and recharge cards</h3>
       <p>The website shows the configured offline video when playback fails or the live-start watchdog expires. Retry starts the channel again. Subscription restrictions use a recharge card; contact your reseller to renew.</p>
       <h3>External player limitations</h3>
-      <p>The Vercel HLS engine assembles compatible MPEG-TS playlists with the branded introduction and live-source segments. It detects manifest/segment failures and frozen source sequences, switching to an offline loop. Expired live subscriptions receive a recharge loop. Unsupported formats can use direct mode or the optional transcoder. Test each target device; manifest stitching does not convert codecs.</p>
+      <p>The serverless HLS engine assembles compatible MPEG-TS playlists with the branded introduction and live-source segments. It detects manifest/segment failures and frozen source sequences, switching to an offline loop. Expired live subscriptions receive a recharge loop. Unsupported formats can use direct mode or the optional transcoder. Test each target device; manifest stitching does not convert codecs.</p>
     `,
     faqs: [
       { q: "Can the owner replace the videos?", a: "Yes. Use Admin settings. The bundled welcome, offline, recharge and cinema cards are available as MP4 and HLS. Timed introduction control is provided by the website player." }
@@ -1019,7 +1019,7 @@ export const DEFAULT_BLOGS = [
       <p>Use the category pills above the Live Studio guide to jump straight to <strong>Islamic 24/7</strong>, <strong>Pakistan Live</strong>, <strong>India &amp; South Asia</strong>, <strong>Live Sports HD</strong>, or <strong>World News</strong>, and star your top picks to pin them inside Favorites.</p>
     `,
     faqs: [
-      { q: "Can overseas Pakistanis and Indians watch Mizanora IPTV?", a: "Yes! Hosted on Vercel's global edge network at miznaoraiptv.vercel.app, streams load rapidly across Asia, the Middle East, Europe, and North America." }
+      { q: "Can overseas Pakistanis and Indians watch Mizanora IPTV?", a: "Yes! Hosted on a global serverless edge network at mizanora.net, streams load rapidly across Asia, the Middle East, Europe, and North America." }
     ]
   },
   {
@@ -1058,9 +1058,9 @@ export const DEFAULT_BLOGS = [
       <p>Founded by <strong>Muaaz Iqbal</strong> in Kasur, Punjab, Pakistan, <strong>Mizanora Projects</strong> represents a growing suite of high-craft web, AI, and streaming applications built with uncompromising attention to speed, aesthetics, and user trust.</p>
       <h3>Flagship Creations Under Mizanora Projects</h3>
       <ul>
-        <li><strong>Mizanora Store (<a href="https://mizanora.vercel.app" target="_blank" rel="noopener">mizanora.vercel.app</a>):</strong> Premium halal e-commerce experience featuring seasonal Islamic themes, smart multilingual search, and Noor AI assistance.</li>
+        <li><strong>Mizanora Store (<a href="https://mizanora.net" target="_blank" rel="noopener">mizanora.net</a>):</strong> Premium halal e-commerce experience featuring seasonal Islamic themes, smart multilingual search, and Noor AI assistance.</li>
         <li><strong>Mizanora AI Agent Platform:</strong> Multi-model autonomous WhatsApp &amp; web AI assistant with persistent memory, Urdu/English voice synthesis, and live grounding.</li>
-        <li><strong>Mizanora IPTV (<a href="https://miznaoraiptv.vercel.app">miznaoraiptv.vercel.app</a>):</strong> Full-stack HLS television network, personal Xtream Codes server generator, custom M3U8 playlist studio, and broadcast admin suite.</li>
+        <li><strong>Mizanora IPTV (<a href="https://mizanora.net">mizanora.net</a>):</strong> Full-stack HLS television network, personal Xtream Codes server generator, custom M3U8 playlist studio, and broadcast admin suite.</li>
       </ul>
       <p>Every Mizanora platform is built to empower everyday users with enterprise-grade technology wrapped in effortless, human-friendly interfaces.</p>
     `,
@@ -1079,20 +1079,20 @@ export const DEFAULT_BLOGS = [
     tags: ["Muaaz Iqbal", "Founder Muaaz Iqbal", "Mizanora Projects", "Mizanora IPTV", "Software Architect Pakistan"],
     content: `
       <h2>Meet Muaaz Iqbal — Architecting Next-Generation Cloud &amp; Media Platforms</h2>
-      <p><strong>Muaaz Iqbal</strong> is a full-stack cloud architect, product designer, and AI/streaming engineer based in <strong>Kasur, Punjab, Pakistan</strong>. As the sole founder and lead innovator of <strong>Mizanora Projects</strong> (<a href="https://mizanora.vercel.app" target="_blank" rel="noopener">mizanora.vercel.app</a>), Muaaz Iqbal designs production software systems that combine high-speed serverless infrastructure with luxury user interfaces.</p>
+      <p><strong>Muaaz Iqbal</strong> is a full-stack cloud architect, product designer, and AI/streaming engineer based in <strong>Kasur, Punjab, Pakistan</strong>. As the sole founder and lead innovator of <strong>Mizanora Projects</strong> (<a href="https://mizanora.net" target="_blank" rel="noopener">mizanora.net</a>), Muaaz Iqbal designs production software systems that combine high-speed serverless infrastructure with luxury user interfaces.</p>
       <h3>Engineering Philosophy &amp; Technical Mastery</h3>
       <ul>
         <li><strong>Broadcast &amp; HLS Protocol Engineering:</strong> Designed Mizanora IPTV's 3-Phase RFC 8216 HLS pre-roll stitcher, automatic Channel Offline standby failover, and Xtream Codes v2.9 server engine compatible with Televizo, TiviMate, IPTV Smarters Pro, and Smart TVs.</li>
         <li><strong>IMDb-Connected Media Intelligence:</strong> Integrated instant IMDb ID (<code>tt...</code>) metadata resolution bringing live ratings, cast, plot synopses, posters, and multi-season episode trees into both Web Cinema and Xtream VOD panels.</li>
-        <li><strong>Serverless Edge Efficiency:</strong> Built zero-bloat Node.js router architectures on Vercel paired with real-time Firebase 13.1.0 synchronization and automated Git Tree atomic publishing.</li>
+        <li><strong>Serverless Edge Efficiency:</strong> Built zero-bloat Node.js router architectures paired with real-time Firebase 13.1.0 synchronization and automated Git Tree atomic publishing.</li>
         <li><strong>AI &amp; E-Commerce Ecosystems:</strong> Creator of <em>Mizanora Store</em> (halal luxury e-commerce with Noor AI) and <em>Mizanora Multi-Model WhatsApp AI Agent</em>.</li>
       </ul>
       <h3>Connect with Muaaz Iqbal &amp; Mizanora Projects</h3>
-      <p>Explore open-source and production innovations at <a href="https://github.com/muaaziqbalvip" target="_blank" rel="noopener">github.com/muaaziqbalvip</a>, visit <a href="https://miznaoraiptv.vercel.app">miznaoraiptv.vercel.app</a>, or reach official Mizanora IPTV PRO VIP support directly via WhatsApp at <strong>0306-2015326</strong>.</p>
+      <p>Explore open-source and production innovations at <a href="https://github.com/muaaziqbalvip" target="_blank" rel="noopener">github.com/muaaziqbalvip</a>, visit <a href="https://mizanora.net">mizanora.net</a>, or reach official Mizanora IPTV PRO VIP support directly via WhatsApp at <strong>0306-2015326</strong>.</p>
     `,
     faqs: [
       { q: "Who is Muaaz Iqbal?", a: "Muaaz Iqbal is a Pakistani full-stack software architect, AI engineer, and founder of Mizanora Projects and Mizanora IPTV, based in Kasur, Punjab, Pakistan." },
-      { q: "What platforms has Muaaz Iqbal created under Mizanora Projects?", a: "Muaaz Iqbal founded and engineered Mizanora IPTV (miznaoraiptv.vercel.app), Mizanora Store (mizanora.vercel.app), and the Mizanora Autonomous WhatsApp AI Agent." }
+      { q: "What platforms has Muaaz Iqbal created under Mizanora Projects?", a: "Muaaz Iqbal founded and engineered Mizanora Net TV (mizanora.net), Mizanora Store (mizanora.net), and the Mizanora Autonomous WhatsApp AI Agent." }
     ]
   },
   {
@@ -1109,9 +1109,9 @@ export const DEFAULT_BLOGS = [
       <p><strong>Televizo</strong> is one of the fastest ExoPlayer-powered Android IPTV apps. Founder <strong>Muaaz Iqbal</strong> tuned Mizanora IPTV's 3-Phase HLS engine specifically for Televizo's live-edge media demuxer.</p>
       <h3>How to Add Your Mizanora Xtream Account in Televizo</h3>
       <ol>
-        <li>Sign in at <a href="https://miznaoraiptv.vercel.app">miznaoraiptv.vercel.app</a> and claim your <strong>1-Time Free Personal Xtream Server</strong>.</li>
+        <li>Sign in at <a href="https://mizanora.net">mizanora.net</a> and claim your <strong>1-Time Free Personal Xtream Server</strong>.</li>
         <li>Open <strong>Televizo</strong> &rarr; tap <strong>Create Playlist</strong> &rarr; choose <strong>New Xtream Codes playlist</strong>.</li>
-        <li>Enter Playlist Name <code>Mizanora IPTV</code>, Server Address <code>https://miznaoraiptv.vercel.app</code>, and your personal Username &amp; Password.</li>
+        <li>Enter Playlist Name <code>Mizanora IPTV</code>, Server Address <code>https://mizanora.net</code>, and your personal Username &amp; Password.</li>
         <li>Tap the checkmark save icon — Televizo immediately loads Priority Emoji Live TV Groups (<strong>🇵🇰 Pakistan Top</strong>, <strong>🕌 Islamic HD</strong>, <strong>🎭 Drama</strong>, <strong>📰 News</strong>, <strong>🎬 Movies</strong>), XMLTV EPG, and full IMDb Movies &amp; Series!</li>
       </ol>
       <h3>Seamless Intro Video &amp; Offline Auto-Recovery in Televizo</h3>
@@ -1177,7 +1177,7 @@ export const DEFAULT_BLOGS = [
     tags: ["IPTV Reseller Panel", "IPTV price per user Pakistan", "JazzCash IPTV payment", "Mizanora dealer", "Muaaz Iqbal"],
     content: `
       <h2>How the Mizanora Reseller Panel Works</h2>
-      <p>Selling IPTV in Pakistan used to mean spreadsheets, WhatsApp screenshots and expired subscriptions nobody remembered. The <strong>Mizanora IPTV Reseller Panel</strong> (<a href="/reseller">miznaoraiptv.vercel.app/reseller</a>) replaces all of that with one dashboard built by <strong>Muaaz Iqbal</strong> under <strong>Mizanora Projects</strong>.</p>
+      <p>Selling IPTV in Pakistan used to mean spreadsheets, WhatsApp screenshots and expired subscriptions nobody remembered. The <strong>Mizanora IPTV Reseller Panel</strong> (<a href="/reseller">mizanora.net/reseller</a>) replaces all of that with one dashboard built by <strong>Muaaz Iqbal</strong> under <strong>Mizanora Projects</strong>.</p>
       <h3>Wholesale and retail pricing</h3>
       <ul>
         <li><strong>Dealer buying rate:</strong> <strong>PKR 100</strong> per user per month (minimum 5 credits).</li>
@@ -1226,7 +1226,7 @@ export const DEFAULT_BLOGS = [
       </ul>
       <h3>How to claim it</h3>
       <ol>
-        <li>Open <a href="/reseller#trial">miznaoraiptv.vercel.app/reseller</a> and choose the <strong>Free Trial</strong> tab.</li>
+        <li>Open <a href="/reseller#trial">mizanora.net/reseller</a> and choose the <strong>Free Trial</strong> tab.</li>
         <li>Enter your email and WhatsApp number, then press <em>Activate Free Trial</em>.</li>
         <li>Copy the generated credentials into your player — the trial starts instantly and expires in 24 hours.</li>
       </ol>
@@ -1334,7 +1334,7 @@ export const DEFAULT_BLOGS = [
   {
     slug: "siravex-player-iptv-stream-search-favorites-guide",
     title: "Siravex IPTV Player + Mizanora: Fast Stream Search, Favorites & Multi-Link Playback",
-    excerpt: "Why Siravex (siravex.vercel.app) is the recommended browser player for Mizanora subscriptions — instant channel search, favorites, multi-format playback and zero install.",
+    excerpt: "Why Siravex (siravex.netlify.app) is the recommended browser player for Mizanora subscriptions — instant channel search, favorites, multi-format playback and zero install.",
     category: "Player Tutorials",
     author: "Muaaz Iqbal",
     publishedAt: "2026-11-01T07:40:00Z",
@@ -1342,7 +1342,7 @@ export const DEFAULT_BLOGS = [
     tags: ["Siravex IPTV player", "IPTV web player", "M3U8 player online", "IPTV search favorites", "Mizanora player"],
     content: `
       <h2>The Fastest Way to Watch Without Installing Anything</h2>
-      <p>Android boxes aside, most viewers just want to open a link and watch. <strong>Siravex</strong> (<a href="https://siravex.vercel.app" target="_blank" rel="noopener">siravex.vercel.app</a>) is a lightweight browser IPTV player that pairs perfectly with Mizanora because it accepts both Xtream credentials and raw M3U links.</p>
+      <p>Android boxes aside, most viewers just want to open a link and watch. <strong>Siravex</strong> (<a href="https://siravex.netlify.app" target="_blank" rel="noopener">siravex.netlify.app</a>) is a lightweight browser IPTV player that pairs perfectly with Mizanora because it accepts both Xtream credentials and raw M3U links.</p>
       <h3>Setup in 30 seconds</h3>
       <ol>
         <li>Open the player and choose <em>Add playlist</em>.</li>
@@ -1360,7 +1360,7 @@ export const DEFAULT_BLOGS = [
       <p>Prefer a native app? Use <strong>IPTV Smarters Pro</strong> or <strong>TiviMate</strong> on Android TV and Firestick, <strong>VLC</strong> on desktop, or the built-in Mizanora web studio on any Smart TV browser.</p>
     `,
     faqs: [
-      { q: "Which player does Mizanora recommend?", a: "Siravex (siravex.vercel.app) for browsers, IPTV Smarters Pro or TiviMate on Android TV/Firestick, and VLC on desktop." },
+      { q: "Which player does Mizanora recommend?", a: "Siravex (siravex.netlify.app) for browsers, IPTV Smarters Pro or TiviMate on Android TV/Firestick, and VLC on desktop." },
       { q: "Can I use my Mizanora M3U link in any player?", a: "Yes. Any standard M3U/M3U8 compatible player accepts the playlist link and EPG URL." }
     ]
   }
@@ -1421,7 +1421,7 @@ export const DEFAULT_FAQS = [
   },
   {
     q: "What happens if a live TV channel stream goes temporarily offline?",
-    a: "In Vercel HLS mode, detected manifest or sampled-segment failures switch to the offline broadcast. Compatible live sources resume when new healthy segments appear. Browser CORS and unsupported codecs can still cause player errors; retry or contact support."
+    a: "In serverless HLS mode, detected manifest or sampled-segment failures switch to the offline broadcast. Compatible live sources resume when new healthy segments appear. Browser CORS and unsupported codecs can still cause player errors; retry or contact support."
   },
   {
     q: "Can I create my own custom M3U8 playlist?",

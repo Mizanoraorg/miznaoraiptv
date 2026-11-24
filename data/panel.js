@@ -14,7 +14,7 @@
  */
 
 export const PANEL = {
-  version: "6.2.1",
+  version: "7.0.0",
   currency: "PKR",
   resellerPerUserMonthly: 100,
   directPerUserMonthly: 200,
@@ -27,7 +27,7 @@ export const PANEL = {
   brand: "Mizanora IPTV",
   parent: "Mizanora Projects",
   founder: "Muaaz Iqbal",
-  recommendedPlayer: "https://siravex.vercel.app",
+  recommendedPlayer: "https://siravex.netlify.app",
   recommendedPlayerName: "Siravex IPTV Player"
 };
 
@@ -347,7 +347,7 @@ export const LEGAL_DOCS = [
       {
         h: "3. Storage & Security",
         p: [
-          "Accounts and preferences are stored in Google Firebase Authentication and Firebase Realtime Database. Serverless API logs are processed on Vercel's edge network.",
+          "Accounts and preferences are stored in Google Firebase Authentication and Firebase Realtime Database. Serverless API logs are processed on the serverless edge network.",
           "Security controls include TLS 1.3 in transit, hashed license keys, HMAC-SHA256 signed stream tokens with short expiry, per-IP rate limiting, SSRF guards, and least-privilege admin rules."
         ]
       },
@@ -553,7 +553,7 @@ export const LEGAL_DOCS = [
       {
         h: "Contact",
         p: [
-          "WhatsApp / Call: 0306-2015326 — Email: muaaziqbal.vip@gmail.com — GitHub: github.com/muaaziqbalvip — Ecosystem: mizanora.vercel.app"
+          "WhatsApp / Call: 0306-2015326 — Email: muaaziqbal.vip@gmail.com — GitHub: github.com/muaaziqbalvip — Ecosystem: mizanora.net"
         ]
       }
     ]

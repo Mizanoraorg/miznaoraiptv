@@ -1,4 +1,4 @@
-# Vercel-native HLS playout (v6.1.2)
+# Serverless HLS playout (v6.3+)
 
 ## The actual playback chain
 
@@ -16,13 +16,13 @@ Authenticated expired live links use the recharge loop. Metadata-only movies/epi
 
 This runs as ordinary short-lived Vercel functions. Vercel returns the text manifest; video segments are fetched directly from the provider or the bundled static CDN files. No FFmpeg process, VPS or continuously running Node server is required for this path. The optional encoder gateway is a separate override when `MZ_GATEWAY_URL` and its secret are configured.
 
-## Enable on Vercel
+## Enable on the serverless host
 
 1. Configure the existing Firebase service account and strong `MZ_STREAM_SECRET` / `MZ_SESSION_SECRET`. Production requires durable server writes, not a `/tmp` mirror.
 2. Publish `firebase/database.rules.json`. The new `hlsSessions` node is private and has an `expires` index for bounded cleanup; service-account access is required.
 3. Deploy the branch's code/assets and rewrites. `api/stream.js` has a 60-second function limit for bounded discovery/probes/transaction retries; it never holds a video-stream connection open.
 4. Leave both optional `MZ_GATEWAY_*` variables unset to use this Vercel implementation rather than the separate encoder.
-5. Admin → Settings → **Vercel HLS playout for external Xtream / MAG** is enabled by default. Save the setting explicitly when upgrading an existing installation. Enable welcome intro for the eight-second pre-roll.
+5. Admin → Settings → **serverless HLS playout for external Xtream / MAG** is enabled by default. Save the setting explicitly when upgrading an existing installation. Enable welcome intro for the eight-second pre-roll.
 6. Admin → **Broadcast Studio**: test a channel and each card, then inspect the actual media/discontinuity sequence. Private owner previews expire after 15 minutes. Do not share signed URLs/source credentials from the inspector.
 
 Use HTTPS sources and verify redistribution rights. Generated manifests use `Cache-Control: no-store`; static bundled segment files remain CDN-served. Keep the `.ts` alias rewrites: the underlying existing files are `.m2ts`, but some external decoders reject that extension.
@@ -66,7 +66,7 @@ FFMPEG=/path/to/ffmpeg npm run test:playout
 
 Coverage includes parser restrictions, master/relative URI resolution, AES IV preservation, exactly eight seconds of intro, repeated/concurrent refreshes, monotonic sequence transitions, source/segment failure, frozen sources, recovery, expiry/recharge, suspension denial, private previews, bounded windows and expired-record cleanup. The optional FFmpeg step actually decodes a captured intro-plus-source playlist using real MPEG-TS fixtures.
 
-Local Chromium checks also exercise owner login, desktop/mobile layout and actual HLS card playback. Production Vercel/Firebase transactions, your licensed live feeds, CORS and physical MAG firmware still need deployment-environment testing. No production deployment is implied by local tests.
+Local Chromium checks also exercise owner login, desktop/mobile layout and actual HLS card playback. Production the serverless host/Firebase transactions, your licensed live feeds, CORS and physical MAG firmware still need deployment-environment testing. No production deployment is implied by local tests.
 
 ## Cost and operations
 
@@ -84,7 +84,7 @@ Every active viewer polls manifests and incurs function/database/manifest-fetch 
 Research and implementation rationale: see [PLAYBACK-RELIABILITY.md](PLAYBACK-RELIABILITY.md).
 
 
-## Reconnect behavior (6.1.2)
+## Reconnect behavior
 
 A player that reconnects through its original Xtream/M3U URL no longer automatically creates another intro. For non-preview sessions, a server-secret HMAC of the authenticated account/credential version, source and request IP/user-agent scopes a resumable session. Raw IP/user-agent values are not persisted in the session. A reconnect within 120 seconds of the last playlist activity resumes the existing timeline; concurrent reconnects use the same transactional generation. After an idle interval, a new generation starts with one fresh intro and old-generation URLs return 410 instead of attaching to that new timeline.
 

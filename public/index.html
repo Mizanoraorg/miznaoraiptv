@@ -2,39 +2,48 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mizanora IPTV — Live TV • Movies • Series • Xtream • MAG Portal</title>
-<meta name="description" content="Mizanora IPTV — Pakistan's premium IPTV: 4K live channels, IMDb movies & series, free Xtream codes, MAG/Stalker portal, reseller API. A Mizanora Projects product by Muaaz Iqbal.">
-<meta name="theme-color" content="#04120c">
-<meta property="og:title" content="Mizanora IPTV — Premium Live TV, Movies & Series">
-<meta property="og:description" content="4K live channels, IMDb movies & series, free Xtream trial, MAG/Stalker portal and a complete reseller panel + API.">
-<meta property="og:image" content="/assets/img/brand/miznaoraiptv-og.png">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mizanora Net TV — Live TV • Movies • Series • Songs (3D Streaming Web App)</title>
+<meta name="description" content="Mizanora Net TV — Pakistan's premium 3D animated streaming web app by Mizanora Projects: live TV, IMDb movies & series on the Siravex player, free songs, Google login and premium unlock for Rs 100/month.">
+<meta name="theme-color" content="#05070f">
+<meta property="og:title" content="Mizanora Net TV — 3D Streaming Web App">
+<meta property="og:description" content="Live TV, Movies, Series & Songs — beautiful 3D animations, mobile-app interface, Siravex player. A Mizanora Projects product by Muaaz Iqbal.">
+<meta property="og:image" content="/assets/img/brand/mizoranet-logo.png">
 <meta property="og:type" content="website">
 <link rel="icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://itunes.apple.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/css/site.css?v=6.2.0">
+<link rel="stylesheet" href="/assets/css/site.css?v=7.0.0">
+<link rel="stylesheet" href="/assets/css/nettv.css?v=7.0.0">
 </head>
 <body data-bw-app="site">
 <div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
 <header>
   <div class="wrap nav">
-    <img src="/assets/img/brand/miznaoraiptv-logo.png" alt="Mizanora IPTV" width="38" height="38" fetchpriority="high" decoding="async">
-    <div class="brand">Mizanora IPTV<small>MIZANORA PROJECTS</small></div>
+    <img src="/assets/img/brand/mizoranet-logo.png" alt="Mizanora Net TV" width="42" height="42" fetchpriority="high" decoding="async">
+    <div class="brand">MIZANORA.NET<small>MIZANORA NET TV</small></div>
     <nav id="mainNav">
-      <a href="#features" class="hide-m">Features</a>
-      <a href="#channels" class="hide-m">Channels</a>
-      <a href="#guide" class="hide-m">TV Guide</a>
-      <a href="#devices" class="hide-m">Devices</a>
-      <a href="#pricing" class="hide-m">Pricing</a>
-      <a href="/reseller" class="hide-m">Reseller</a>
+      <a href="#home" class="hide-m">Home</a>
+      <a href="#channels" class="hide-m">Live TV</a>
+      <a href="#cinema" class="hide-m">Movies &amp; Series</a>
+      <a href="#songs" class="hide-m">Songs</a>
+      <a href="#premium" class="hide-m">Premium</a>
+      <a href="/blog" class="hide-m">Blog</a>
       <a href="/academy" class="hide-m">🎓 Academy</a>
-      <a href="#trial">Free Trial</a>
-      <a href="/admin" class="btn btn-ghost btn-sm">🛡️ Admin</a>
-      <a href="https://wa.me/923062015326" data-pro-whatsapp class="btn btn-gold btn-sm" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a href="#premium" class="btn btn-gold btn-sm">👑 Premium Rs 100</a>
+      <div class="ntv-profile">
+        <div class="avatar" id="profileBtn" role="button" aria-label="Account">👤</div>
+        <div class="ntv-profile-menu" id="profileMenu">
+          <div class="who" id="profileName">Guest — login karein</div>
+          <button id="googleLogin" type="button">🔐 Continue with Google</button>
+          <button id="emailLogin" type="button">📧 Email login</button>
+          <button id="logoutBtn" type="button">↩ Logout</button>
+        </div>
+      </div>
       <button id="themeToggle" class="icon-btn" type="button" aria-label="Switch color theme" title="Light / dark theme">🌙</button>
     </nav>
     <button id="menuToggle" class="icon-btn menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
@@ -43,47 +52,50 @@
 <div id="announcementBar" class="announcement" hidden><div class="wrap"><span>📢</span><p id="announcementText"></p></div></div>
 
 <main>
-  <div class="wrap hero">
-    <div class="hero-badge" data-reveal><span class="live-dot"></span> LIVE · Made in Pakistan 🇵🇰 · Trusted by thousands</div>
-    <img class="logo" src="/assets/img/brand/miznaoraiptv-logo.png" alt="" width="130" height="130" fetchpriority="high" decoding="async">
-    <h1 data-reveal>Premium <span class="gold">IPTV</span> — Live TV, Movies,<br>Series &amp; Xtream in One Panel</h1>
-    <p data-reveal>Animated welcome intro, 4K live channels, XMLTV now/next guide, M3U imports, free Xtream trial, MAG/Stalker and a complete reseller panel + API — <b>Mizanora IPTV v6</b>, a Mizanora Projects product by Muaaz Iqbal.</p>
+  <div class="wrap ntv-hero" id="home">
+    <div class="hero-orb orb-a"></div><div class="hero-orb orb-b"></div><div class="hero-orb orb-c"></div>
+    <div class="ntv-badge" data-reveal><span class="live-dot"></span> LIVE · 3D Streaming · Made in Pakistan 🇵🇰</div>
+    <div style="margin:22px 0 6px"><img class="ntv-hero-logo" src="/assets/img/brand/mizoranet-logo.png" alt="Mizanora Net TV" width="190" height="190" fetchpriority="high" decoding="async"></div>
+    <h1 data-reveal>Welcome to <span class="gold">Mizanora Net TV</span><br>Movies · Series · Live TV · Songs</h1>
+    <p data-reveal>World-class 3D animations, mobile-app style interface aur blazing-fast playback — <b>Mizanora Net TV</b>, a Mizanora Projects masterpiece by <b>Muaaz Iqbal</b>. Movies &amp; series IMDb se, player <b>Siravex</b> par, songs free — sab ek jagah.</p>
     <div class="cta" data-reveal>
-      <a href="#trial" class="btn btn-primary">🎁 Claim FREE 1-Day Trial</a>
-      <a href="https://wa.me/923062015326" data-pro-whatsapp class="btn btn-gold" target="_blank" rel="noopener">👑 PRO VIP — WhatsApp 0306-2015326</a>
-      <a href="#pricing" class="btn btn-ghost">💰 Pricing</a>
+      <a href="#channels" class="btn btn-primary">📺 Start Watching</a>
+      <a href="#premium" class="btn btn-gold">👑 Get Premium — Rs 100/month</a>
+      <a href="#songs" class="btn btn-ghost">🎵 Free Songs</a>
     </div>
     <div class="stats">
       <div class="stat" data-reveal><b id="stChannels">…</b><span>Live Channels</span></div>
-      <div class="stat" data-reveal><b>4K</b><span>Quality</span></div>
+      <div class="stat" data-reveal><b data-count="2000">0</b><span>IMDb Movies</span></div>
+      <div class="stat" data-reveal><b data-count="400">0</b><span>Series</span></div>
       <div class="stat" data-reveal><b>24/7</b><span>Support</span></div>
-      <div class="stat" data-reveal><b>1 Day</b><span>Free Trial</span></div>
     </div>
   </div>
 
   <div class="ticker" aria-hidden="true"><div class="ticker-track">
-    <span>📺 LIVE TV 4K</span><span>🎬 IMDB MOVIES</span><span>📺 SERIES</span><span>⚡ XTREAM CODES</span><span>🛰️ MAG / STALKER</span><span>🏪 RESELLER PANEL</span><span>📱 ALL DEVICES</span><span>🎯 XMLTV EPG</span><span>🔐 SIGNED STREAMS</span><span>💬 24/7 SUPPORT</span>
-    <span>📺 LIVE TV 4K</span><span>🎬 IMDB MOVIES</span><span>📺 SERIES</span><span>⚡ XTREAM CODES</span><span>🛰️ MAG / STALKER</span><span>🏪 RESELLER PANEL</span><span>📱 ALL DEVICES</span><span>🎯 XMLTV EPG</span><span>🔐 SIGNED STREAMS</span><span>💬 24/7 SUPPORT</span>
+    <span>📺 LIVE TV</span><span>🎬 IMDB MOVIES</span><span>📺 SERIES</span><span>🎵 FREE SONGS</span><span>🎞️ 3D ANIMATIONS</span><span>📱 APP-LIKE UI</span><span>🎮 SIRAVEX PLAYER</span><span>👑 PREMIUM RS 100</span><span>🔐 GOOGLE LOGIN</span><span>💬 24/7 SUPPORT</span>
+    <span>📺 LIVE TV</span><span>🎬 IMDB MOVIES</span><span>📺 SERIES</span><span>🎵 FREE SONGS</span><span>🎞️ 3D ANIMATIONS</span><span>📱 APP-LIKE UI</span><span>🎮 SIRAVEX PLAYER</span><span>👑 PREMIUM RS 100</span><span>🔐 GOOGLE LOGIN</span><span>💬 24/7 SUPPORT</span>
   </div></div>
 
+  <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-format="auto"></ins><span>Advertisement</span></div>
+
   <section id="features"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>Everything in one server</h2><p>One Mizanora panel powers web, Xtream apps, MAG boxes and resellers.</p></div>
+    <div class="sec-head" data-reveal><h2>Ek app — sab kuch</h2><p>Live TV, movies, series, songs aur 3D experience — har device par us device ke hisaab se.</p></div>
     <div class="grid">
-      <div class="card" data-reveal><div class="ic">📺</div><h3>Live TV 4K</h3><p>Sports, news, entertainment &amp; Pakistani/Indian VIP channels in HD/4K.</p></div>
-      <div class="card" data-reveal><div class="ic">🎬</div><h3>IMDb Movies &amp; Series</h3><p>Thousands of movies &amp; series with posters, ratings and configurable licensed playback.</p></div>
-      <div class="card" data-reveal><div class="ic">🗓️</div><h3>XMLTV Now/Next Guide</h3><p>Import EPG sources and use timed programmes on web, Xtream apps and XMLTV.</p></div>
-      <div class="card" data-reveal><div class="ic">📥</div><h3>M3U File &amp; URL Import</h3><p>Owner-controlled playlist imports with logos, groups, EPG IDs and duplicate-safe updates.</p></div>
-      <div class="card" data-reveal><div class="ic">⚡</div><h3>Xtream Codes API</h3><p>Free personal Xtream credentials: player_api, M3U + EPG for any IPTV app.</p></div>
-      <div class="card" data-reveal><div class="ic">🛰️</div><h3>MAG / Stalker Portal</h3><p>Portal URL + MAC — works on MAG 322/349, Formuler and Stalker middleware.</p></div>
-      <div class="card" data-reveal><div class="ic">🏪</div><h3>Reseller Panel + API</h3><p>Self-serve dealer dashboard with credits, clients, MACs, renewals, payments and ledger.</p></div>
-      <div class="card" data-reveal><div class="ic">🔌</div><h3>Embeddable API</h3><p>Drop a live channel grid on any website with one &lt;script&gt; tag.</p></div>
-      <div class="card" data-reveal><div class="ic">🛡️</div><h3>Owner-Locked Admin</h3><p>Full admin panel behind Google owner login — only muaaziqbal.vip@gmail.com.</p></div>
-      <div class="card" data-reveal><div class="ic">💳</div><h3>Easy Payments</h3><p>JazzCash / EasyPaisa / WhatsApp — instant activation on proof.</p></div>
+      <div class="card" data-reveal><div class="ic">📺</div><h3>Live TV 4K</h3><p>Admin panel se M3U/M3U8 channels — sports, news, entertainment, Pakistani/Indian VIP.</p></div>
+      <div class="card" data-reveal><div class="ic">🎬</div><h3>IMDb Movies &amp; Series</h3><p>2000+ titles with posters, ratings — Siravex player par instant playback.</p></div>
+      <div class="card" data-reveal><div class="ic">🎵</div><h3>Free Songs</h3><p>Free music API se search + playback — animated equalizer ke saath.</p></div>
+      <div class="card" data-reveal><div class="ic">🎞️</div><h3>3D Animations</h3><p>Hero 3D, card tilt, channel tune-in splash — har cheez animated aur premium.</p></div>
+      <div class="card" data-reveal><div class="ic">📱</div><h3>App-Like Interface</h3><p>Mobile par bottom tabs (jaise Android app), PC par cinematic layout.</p></div>
+      <div class="card" data-reveal><div class="ic">👑</div><h3>Premium Rs 100</h3><p>JazzCash 0306-2015326 — screenshot bhejein, agent verify karke auto-unlock.</p></div>
+      <div class="card" data-reveal><div class="ic">🔐</div><h3>Google Login</h3><p>Google ya email se ek click login — profile, favorites, history.</p></div>
+      <div class="card" data-reveal><div class="ic">📊</div><h3>Smart Tracking</h3><p>Traffic sources, live viewers aur events — admin analytics graphs.</p></div>
+      <div class="card" data-reveal><div class="ic">🗓️</div><h3>XMLTV TV Guide</h3><p>Now/next programme guide — channels ke saath live timings.</p></div>
+      <div class="card" data-reveal><div class="ic">📰</div><h3>Blog &amp; SEO</h3><p>Blog, sitemap, Search Console — Google par best ranking.</p></div>
     </div>
   </div></section>
 
   <section id="channels"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>Live channels &amp; welcome promo</h2><p>Start with the Mizanora promo channel or choose a network. Intro plays before secure channel fetch.</p></div>
+    <div class="sec-head" data-reveal><h2>📺 Live TV</h2><p>Channel select karein — tune-in animation ke saath playback shuru. Intro se pehle branded splash dikhta hai.</p></div>
     <div class="channel-tools"><input id="channelSearch" type="search" placeholder="🔍 Search channels…" aria-label="Search channels"><select id="channelCategory" aria-label="Filter channel category"><option value="">All categories</option></select><select id="channelSort" aria-label="Sort channels"><option value="order">Saved order</option><option value="number">Channel number</option><option value="name">Name A–Z</option><option value="category">Category A–Z</option></select><span id="channelResultCount">Loading…</span></div>
     <div class="ch-grid" id="chGrid"><div class="ch"><span>Loading channels…</span></div></div>
     <div class="center"><button class="btn btn-ghost" id="chLoadMore" type="button" hidden>Show more channels</button></div>
@@ -97,127 +109,138 @@
   </div></section>
 
   <section id="cinema"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>🎬 Movies &amp; Series</h2><p>Our cinema service is being prepared. Licensed titles will be added as they become available.</p></div>
+    <div class="sec-head" data-reveal><h2>🎬 Movies &amp; Series</h2><p>IMDb catalog — Siravex player par instant playback. Row cards par hover karein aur ▶ dabayein.</p></div>
+    <div id="ntvRows" class="ntv-rows" aria-label="Featured movies and series"></div>
     <div class="catalog-tools"><div class="segmented" role="group" aria-label="Catalog type"><button id="catalogMoviesTab" class="active" type="button">🎬 Movies</button><button id="catalogSeriesTab" type="button">📺 Series</button></div><input id="catalogSearch" type="search" placeholder="Search title, year, genre…" aria-label="Search movies and series"><select id="catalogSort" aria-label="Sort catalog"><option value="title-asc">Title A–Z</option><option value="title-desc">Title Z–A</option><option value="year-desc">Newest year</option><option value="year-asc">Oldest year</option><option value="rating-desc">Highest rated</option><option value="ready-first">Playable first</option></select><select id="catalogCategory" aria-label="Filter catalog category"><option value="">All categories</option></select><label class="catalog-ready"><input id="catalogReady" type="checkbox"> Playable only</label></div><p id="catalogStatus" class="guide-status" role="status">Loading catalog…</p><div id="catalogGrid" class="catalog-grid"></div><div class="center catalog-pagination"><button class="btn btn-ghost btn-sm" id="catalogPrev" type="button">← Previous</button><button class="btn btn-ghost btn-sm" id="catalogNext" type="button">Next →</button><button id="cinemaPreview" class="btn btn-gold btn-sm" type="button">▶ Service announcement</button></div>
   </div></section>
 
-  <section id="devices"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>📱 Har screen par Mizanora</h2><p>Ek hi account — TV, mobile, tablet, laptop aur MAG box par chalta hai.</p></div>
-    <div class="device-grid">
-      <div class="device-card" data-reveal><div class="ic">📺</div><h3>Smart TV</h3><p>Samsung, LG, Android TV — IPTV Smarters, TiviMate, SmartOne.</p></div>
-      <div class="device-card" data-reveal><div class="ic">🤖</div><h3>Android</h3><p>Phone, tablet, Fire TV Stick — koi bhi Xtream player.</p></div>
-      <div class="device-card" data-reveal><div class="ic">🍎</div><h3>iPhone / iPad</h3><p>IPTV Smarters Pro, GSE, iPlayTV — App Store players.</p></div>
-      <div class="device-card" data-reveal><div class="ic">🛰️</div><h3>MAG / Formuler</h3><p>Stalker portal URL + MAC activation, MAG 322/349/524.</p></div>
-      <div class="device-card" data-reveal><div class="ic">💻</div><h3>Windows / Mac</h3><p>VLC, Kodi, web browser — direct M3U + Xtream login.</p></div>
-      <div class="device-card" data-reveal><div class="ic">🌐</div><h3>Web Player</h3><p>Browser mein instant playback — koi app install nahi.</p></div>
+  <section id="songs"><div class="wrap">
+    <div class="sec-head" data-reveal><h2>🎵 Songs — free</h2><p>Free music API se search karein — preview play hota hai animated equalizer ke saath.</p></div>
+    <div class="ntv-chips" id="songChips">
+      <button class="ntv-chip active" type="button" data-song-term="top pakistan songs 2026">🔥 Trending PK</button>
+      <button class="ntv-chip" type="button" data-song-term="atif aslam">Atif Aslam</button>
+      <button class="ntv-chip" type="button" data-song-term="arijit singh">Arijit Singh</button>
+      <button class="ntv-chip" type="button" data-song-term="diljit dosanjh">Diljit Dosanjh</button>
+      <button class="ntv-chip" type="button" data-song-term="nusrat fateh ali khan">Nusrat</button>
+      <button class="ntv-chip" type="button" data-song-term="taylor swift">Global Hits</button>
     </div>
-    <div class="center"><a class="btn btn-primary" href="#trial">🎁 Free trial lein</a> <a class="btn btn-ghost" href="/developers">🔌 Setup guide</a></div>
+    <div class="ntv-song-tools"><form id="songForm" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><input id="songSearch" type="search" placeholder="🎵 Song, artist ya album search…" aria-label="Search songs"><button class="btn btn-primary btn-sm" type="submit">Search</button></form></div>
+    <div id="songGrid" class="ntv-song-grid"><p class="guide-status">Songs load ho rahe hain…</p></div>
   </div></section>
 
-  <section id="pricing"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>Simple PKR pricing</h2><p>Pay on WhatsApp — instant activation.</p></div>
+  <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-format="auto"></ins><span>Advertisement</span></div>
+
+  <section id="premium"><div class="wrap">
+    <div class="sec-head" data-reveal><h2>👑 Premium — sirf Rs 100/month</h2><p>JazzCash/EasyPaisa 0306-2015326 — screenshot WhatsApp par bhejein, agent verify karke <b>auto-unlock</b>.</p></div>
     <div class="price-grid">
-      <div class="price" data-reveal><h3>🎁 Free Trial</h3><div class="amt">Rs 0<small> / 1 day</small></div>
-        <ul><li>Full PRO access</li><li>1 device</li><li>Xtream + M3U links</li></ul>
-        <a href="#trial" class="btn btn-ghost">Claim Trial</a></div>
-      <div class="price hot" data-reveal><span class="tag">MOST POPULAR</span><h3>👑 PRO VIP</h3><div class="amt">Rs 200<small> / month</small></div>
-        <ul><li>All 4K channels + Movies/Series</li><li>Xtream Codes + MAG portal</li><li>Priority WhatsApp support</li></ul>
-        <a href="https://wa.me/923062015326" data-pro-whatsapp target="_blank" rel="noopener" class="btn btn-gold">Activate on WhatsApp</a></div>
+      <div class="price" data-reveal><h3>🎁 Free</h3><div class="amt">Rs 0<small> / month</small></div>
+        <ul><li>Free channels + songs</li><li>1 device</li><li>TV guide + blog</li></ul>
+        <a href="#trial" class="btn btn-ghost">Free trial lein</a></div>
+      <div class="price hot" data-reveal><span class="tag">BEST VALUE</span><h3>👑 Premium</h3><div class="amt">Rs 100<small> / month</small></div>
+        <ul><li>All live channels + movies/series</li><li>Priority playback + support</li><li>JazzCash 0306-2015326 — auto-unlock</li></ul>
+        <button class="btn btn-gold" type="button" data-copy-text="JazzCash 0306-2015326 — Rs 100">💳 JazzCash 0306-2015326</button></div>
       <div class="price" data-reveal><h3>🏪 Reseller</h3><div class="amt">Rs 100<small> / user / month</small></div>
-        <ul><li>Self-serve dealer panel + API</li><li>Own selling price</li><li>Starter credits free</li></ul>
-        <div class="cta"><a href="/reseller" class="btn btn-gold">Open reseller panel</a><a href="/developers" class="btn btn-ghost">API guide</a></div></div>
+        <ul><li>Self-serve dealer panel</li><li>Own selling price</li><li>Starter credits free</li></ul>
+        <div class="cta"><a href="/reseller" class="btn btn-gold">Reseller panel</a><a href="/developers" class="btn btn-ghost">API guide</a></div></div>
     </div>
-  </div></section>
 
-  <section id="recharge"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>💳 Premium recharge &amp; reseller contact</h2><p>Existing account recharge ya dealer business — dono yahan se.</p></div>
-    <div class="forms">
+    <div class="forms" id="trial" style="margin-top:34px">
+      <form class="form premium-form" id="trialForm">
+        <h3>🎁 Free 1-Day Trial</h3>
+        <label>Email</label><input type="email" id="trialEmail" placeholder="you@gmail.com" required>
+        <label>WhatsApp (optional)</label><input type="tel" id="trialWa" placeholder="0306-XXXXXXX">
+        <button class="btn btn-primary" type="submit">Get Free Xtream Codes</button>
+        <div class="note" id="trialNote">Credentials instantly shown below — works in any player.</div>
+      </form>
+      <form class="form" id="orderForm">
+        <h3>👑 Premium order</h3>
+        <label>Name</label><input id="ordName" required placeholder="Full name">
+        <label>Email</label><input type="email" id="ordEmail" required placeholder="you@gmail.com">
+        <label>WhatsApp</label><input type="tel" id="ordWa" required placeholder="0306-XXXXXXX">
+        <label>Plan</label>
+        <select id="ordPlan"><option value="monthly">Premium Monthly — Rs 100</option><option value="quarterly">Premium 3 Months — Rs 275</option><option value="yearly">Premium Yearly — Rs 1000</option></select>
+        <button class="btn btn-gold" type="submit">Submit Order</button>
+        <div class="note">JazzCash/EasyPaisa 0306-2015326 par pay karein — screenshot WhatsApp par bhejein, agent verify karke auto-unlock karega.</div>
+      </form>
+    </div>
+    <div id="credOut" style="max-width:860px;margin:22px auto 0"></div>
+
+    <div class="forms" id="recharge" style="margin-top:26px">
       <form class="form premium-form" id="rechargeForm">
-        <h3>🔄 Recharge existing account</h3>
+        <h3>🔄 Premium recharge</h3>
         <label for="rechargeUsername">Xtream username</label><input id="rechargeUsername" required placeholder="Your username" autocomplete="username">
         <button class="btn btn-gold" type="submit">Find recharge contact</button>
         <div class="note" id="rechargeNote">Apne reseller ya support se recharge karein.</div>
         <div id="rechargeOut" aria-live="polite"></div>
       </form>
       <div class="form reseller-cta">
-        <div class="ic">🏪</div><h3>Reseller panel &amp; credit top-up</h3>
+        <div class="ic">🏪</div><h3>Reseller &amp; support</h3>
         <p id="resellerContactNote">Reseller account aur top-up ke liye support se rabta karein.</p>
         <a class="btn btn-primary" href="/reseller">Open reseller panel</a>
-        <a class="btn btn-ghost" href="https://wa.me/923062015326" data-pro-whatsapp target="_blank" rel="noopener">💬 Contact for reseller account</a>
-        <a class="btn btn-ghost" href="/developers">🔌 Website / API integration guide</a>
+        <a class="btn btn-ghost" href="https://wa.me/923062015326" data-pro-whatsapp target="_blank" rel="noopener">💬 WhatsApp 0306-2015326</a>
+        <a class="btn btn-ghost" href="/developers">🔌 API integration guide</a>
       </div>
     </div>
   </div></section>
 
-  <section id="trial"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>Get your FREE Xtream credentials</h2><p>1-day trial — no card, no spam. Just email.</p></div>
-    <div class="forms">
-      <form class="form" id="trialForm">
-        <h3>🎁 Free 1-Day Trial</h3>
-        <label>Email</label><input type="email" id="trialEmail" placeholder="you@gmail.com" required>
-        <label>WhatsApp (optional)</label><input type="tel" id="trialWa" placeholder="0306-XXXXXXX">
-        <button class="btn btn-primary" type="submit">Get Free Xtream Codes</button>
-        <div class="note" id="trialNote">Credentials instantly shown below — works in any IPTV app.</div>
-      </form>
-      <form class="form" id="orderForm">
-        <h3>🧾 Place an order</h3>
-        <label>Name</label><input id="ordName" required placeholder="Full name">
-        <label>Email</label><input type="email" id="ordEmail" required placeholder="you@gmail.com">
-        <label>WhatsApp</label><input type="tel" id="ordWa" required placeholder="0306-XXXXXXX">
-        <label>Plan</label>
-        <select id="ordPlan"><option value="monthly">PRO Monthly — Rs 200</option><option value="quarterly">PRO 3 Months — Rs 550</option><option value="yearly">PRO Yearly — Rs 2000</option></select>
-        <button class="btn btn-gold" type="submit">Submit Order</button>
-        <div class="note">Pay on JazzCash/EasyPaisa 0306-2015326 and send the screenshot on WhatsApp.</div>
-      </form>
+  <section id="blog"><div class="wrap">
+    <div class="sec-head" data-reveal><h2>📰 Blog &amp; guides</h2><p>Tips, setup guides aur Mizanora Net TV ki dunya.</p></div>
+    <div class="ntv-blog-grid">
+      <article class="ntv-blog-card" data-reveal><div class="ic">🎬</div><h3>Movies kaise chalayein</h3><p>IMDb catalog se movie select karein — Siravex player par instant playback, search aur favorites ke saath.</p><a href="/blog">Read more →</a></article>
+      <article class="ntv-blog-card" data-reveal><div class="ic">👑</div><h3>Premium unlock guide</h3><p>Rs 100 JazzCash — screenshot WhatsApp par — agent verify karke auto-unlock. Poora tareeqa step by step.</p><a href="/blog">Read more →</a></article>
+      <article class="ntv-blog-card" data-reveal><div class="ic">📱</div><h3>Har device par Mizanora</h3><p>Smart TV, Android, iPhone, MAG box, PC — ek hi account har screen par.</p><a href="/blog">Read more →</a></article>
     </div>
-    <div id="credOut" style="max-width:860px;margin:22px auto 0"></div>
-  </div></section>
-
-  <section id="reviews"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>⭐ Customers ka bharosa</h2><p>Pakistan bhar se viewers aur resellers Mizanora use kar rahe hain.</p></div>
-    <div class="review-grid">
-      <figure class="review-card" data-reveal><blockquote>“Buffering bilkul nahi, cricket match smooth chalta hai. Support bhi foran reply karta hai.”</blockquote><figcaption>— Ahmed R., Lahore</figcaption></figure>
-      <figure class="review-card" data-reveal><blockquote>“Reseller panel se clients manage karna bohat easy ho gaya. Credits aur ledger sab kuch ek jagah.”</blockquote><figcaption>— Bilal S., Karachi</figcaption></figure>
-      <figure class="review-card" data-reveal><blockquote>“MAG box par portal lagaaya, 5 minute mein setup ho gaya. Picture quality 4K zabardast.”</blockquote><figcaption>— Usman K., Islamabad</figcaption></figure>
-    </div>
+    <div class="center"><a class="btn btn-ghost" href="/blog">All posts</a> <a class="btn btn-ghost" href="/about">About Mizanora</a></div>
   </div></section>
 
   <section id="faq"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>❓ Frequently asked questions</h2><p>Jo sab se ziyada poocha jata hai.</p></div>
+    <div class="sec-head" data-reveal><h2>❓ FAQ</h2><p>Jo sab se ziyada poocha jata hai.</p></div>
     <div class="faq-list" id="faqList">
-      <details class="faq-item" data-reveal><summary>Free trial kaise milega?</summary><p>Upar “Free Trial” section mein email daal kar submit karein — Xtream username, password aur links foran screen par mil jayenge.</p></details>
-      <details class="faq-item" data-reveal><summary>Kaun se apps support hote hain?</summary><p>IPTV Smarters, TiviMate, GSE, VLC, Kodi, SmartOne — koi bhi app jo Xtream Codes ya M3U support kare. MAG/Stalker portal bhi available hai.</p></details>
-      <details class="faq-item" data-reveal><summary>Payment kaise karni hai?</summary><p>JazzCash / EasyPaisa 0306-2015326 par payment karein aur screenshot WhatsApp par bhejein — activation foran ho jati hai.</p></details>
-      <details class="faq-item" data-reveal><summary>Kitne devices par chalega?</summary><p>PRO plan 1 device ke liye hai. Zyada devices ya family setup ke liye WhatsApp par rabta karein.</p></details>
-      <details class="faq-item" data-reveal><summary>Reseller kaise banein?</summary><p>/reseller par free account banayein — credits kharidein, apni price set karein aur clients khud manage karein. Starter credits free milte hain.</p></details>
-      <details class="faq-item" data-reveal><summary>Stream band ho jaye to?</summary><p>Player mein Retry button use karein — system automatic recovery karta hai. Masla ho to WhatsApp support 24/7 available hai.</p></details>
-    </div>
-  </div></section>
-
-  <section class="cta-band"><div class="wrap">
-    <h2 data-reveal>Aaj hi Mizanora IPTV try karein 🚀</h2>
-    <p data-reveal>1-day free trial — credit card ki zaroorat nahi. Setup 5 minute.</p>
-    <div class="cta" data-reveal>
-      <a href="#trial" class="btn btn-gold">🎁 FREE Trial Claim Karein</a>
-      <a href="https://wa.me/923062015326" data-pro-whatsapp class="btn btn-ghost" target="_blank" rel="noopener">💬 WhatsApp 0306-2015326</a>
-    </div>
-    <div class="mini-stats" data-reveal>
-      <div class="mini-stat"><b data-count="2000">0</b><span>IMDb Movies</span></div>
-      <div class="mini-stat"><b data-count="400">0</b><span>Series</span></div>
-      <div class="mini-stat"><b data-count="99">0</b><span>% Uptime Goal</span></div>
-      <div class="mini-stat"><b data-count="5">0</b><span>Min Setup</span></div>
+      <details class="faq-item" data-reveal><summary>Premium kaise milega?</summary><p>JazzCash/EasyPaisa 0306-2015326 par Rs 100 bhejein, screenshot WhatsApp par bhejein — agent verify karke account auto-unlock kar deta hai.</p></details>
+      <details class="faq-item" data-reveal><summary>Movies/Series kis player par chalti hain?</summary><p>Siravex player (siravex.netlify.app) par — search, favorites aur multi-format playback. Live TV ka bundled player intro + secure streams ke saath.</p></details>
+      <details class="faq-item" data-reveal><summary>Songs free hain?</summary><p>Haan — free music API se search aur preview playback bilkul free, bina login.</p></details>
+      <details class="faq-item" data-reveal><summary>Free trial kaise milega?</summary><p>Premium section mein email daal kar submit karein — credentials foran screen par mil jayenge.</p></details>
     </div>
   </div></section>
 </main>
 
 <footer><div class="wrap">
-  <img src="/assets/img/brand/miznaoraiptv-logo.png" alt="" width="30" height="30" loading="lazy" decoding="async">
-  <p><b>Mizanora IPTV</b> — a Mizanora Projects product · Founder: Muaaz Iqbal · Kasur, Punjab, Pakistan<br>
-  📞 WhatsApp 0306-2015326 · <a href="/reseller">🏪 Reseller Panel</a> · <a href="/admin">🛡️ Admin</a> · <a href="/developers">🔌 Developer Guide</a> · <a href="https://github.com/Mizanora-org/miznaoraiptv">GitHub</a><br>
-  © <span id="year">2026</span> Mizanora Projects. All rights reserved.</p>
+  <img src="/assets/img/brand/mizoranet-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async">
+  <p><b>Mizanora Net TV</b> — the new home of Mizanora IPTV · a Mizanora Projects product · Founder: Muaaz Iqbal · Kasur, Punjab, Pakistan</p>
+  <div class="ntv-foot-links">
+    <a href="/blog">📰 Blog</a><a href="/about">ℹ️ About</a><a href="/reseller">🏪 Reseller</a><a href="/admin">🛡️ Admin</a><a href="/developers">🔌 Developers</a><a href="https://wa.me/923062015326" data-pro-whatsapp target="_blank" rel="noopener">💬 WhatsApp</a><a href="https://github.com/Muaaz-iqbal" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <p style="font-size:.74rem;opacity:.75">© <span id="year">2026</span> Mizanora Projects. All rights reserved.</p>
 </div></footer>
 
 <button id="toTop" class="to-top" type="button" aria-label="Back to top" hidden>↑</button>
+
+<div class="ntv-tabbar" id="ntvTabbar">
+  <button type="button" data-target="home" class="active"><span class="ic">🏠</span>Home</button>
+  <button type="button" data-target="channels"><span class="ic">📺</span>Live</button>
+  <button type="button" data-target="cinema"><span class="ic">🎬</span>Movies</button>
+  <button type="button" data-target="songs"><span class="ic">🎵</span>Songs</button>
+  <button type="button" data-target="premium"><span class="ic">👑</span>Premium</button>
+</div>
+
+<div class="ntv-songbar" id="ntvSongbar">
+  <img alt="" width="42" height="42">
+  <div class="sb-meta"><b>Song</b><small>Artist</small></div>
+  <button class="btn btn-ghost btn-sm" id="songbarToggle" type="button" aria-label="Play or pause">⏸</button>
+  <button class="btn btn-ghost btn-sm" id="songbarClose" type="button" aria-label="Close player">✕</button>
+</div>
+<audio id="songAudio" preload="none"></audio>
+
+<div class="ntv-splash" id="playSplash" aria-hidden="true">
+  <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+  <div class="core"><div class="sweep"></div><div class="tag">NOW PLAYING</div><div class="name">Mizanora Net TV</div></div>
+</div>
+
+<dialog id="siravexModal" class="ntv-modal" aria-labelledby="siravexTitle">
+  <div class="ntv-modal-head"><b id="siravexTitle">Mizanora Net TV Player</b><span class="sp"></span><button class="btn btn-ghost btn-sm" id="siravexClose" type="button" aria-label="Close player">✕</button></div>
+  <iframe id="siravexFrame" title="Siravex player" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  <div class="note">Powered by <b>Siravex</b> — search, favorites aur multi-format playback. Playback sirf licensed content ke liye hai.</div>
+</dialog>
 
 <dialog id="playerDialog" class="player-dialog" aria-labelledby="playerTitle">
   <div class="player-head"><div><h2 id="playerTitle">Live TV</h2><span id="playerGroup"></span></div><button class="btn btn-ghost btn-sm" id="playerClose" type="button" aria-label="Close player">✕</button></div>
@@ -232,14 +255,15 @@
   </div>
   <button class="btn btn-ghost btn-sm" id="playerSkip" type="button" hidden>Skip intro →</button>
   <div id="playerStatus" class="player-status" role="status">Loading stream…</div>
-  <div id="playerPro" class="player-pro" hidden><p>Ye PRO channel hai. Free 1-day trial se tamam PRO channels test karein.</p><a class="btn btn-gold" href="#trial" id="playerTrial">🎁 Get free trial</a></div>
+  <div id="playerPro" class="player-pro" hidden><p>Ye Premium channel hai. Free 1-day trial se tamam Premium channels test karein.</p><a class="btn btn-gold" href="#trial" id="playerTrial">🎁 Get free trial</a></div>
   <button class="btn btn-ghost btn-sm" id="playerRetry" type="button" hidden>↻ Retry stream</button>
   <a class="btn btn-gold btn-sm" id="playerRecharge" href="#recharge" hidden>💳 Recharge / contact reseller</a>
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="/assets/js/api-base.js?v=6.2.1" defer></script>
+<script src="/assets/js/api-base.js?v=7.0.0" defer></script>
 <script src="/assets/vendor/hls.min.js?v=1.7.4" defer></script>
-<script src="/assets/js/site.js?v=6.2.0" defer></script>
-<script src="/assets/js/upgrade.js?v=6.2.0" defer></script>
+<script src="/assets/js/site.js?v=7.0.0" defer></script>
+<script src="/assets/js/upgrade.js?v=7.0.0" defer></script>
+<script type="module" src="/assets/js/nettv.js?v=7.0.0"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 /**
  * Mizanora IPTV — dev server (fresh rebuild)
  * Serves public/ statically + routes /api/* and protocol rewrites (from
- * vercel.json) to api/*.js handlers. Binds 0.0.0.0 for live preview.
+ * routing.json) to api/*.js handlers. Binds 0.0.0.0 for live preview.
  */
 import http from "node:http";
 import fs from "node:fs";
@@ -24,8 +24,8 @@ const MIME = {
   ".webmanifest": "application/manifest+json", ".txt": "text/plain; charset=utf-8", ".xml": "application/xml"
 };
 
-const vercel = JSON.parse(fs.readFileSync(path.join(ROOT, "vercel.json"), "utf-8"));
-const rewrites = (vercel.rewrites || []).map((r) => ({ src: new RegExp("^" + r.source.replace(/\(\.\*\)/g, "(.*)").replace(/:([a-zA-Z]+)/g, "([^/]+)").replace(/\$/g, "$") + "$"), dest: r.destination }));
+const routing = JSON.parse(fs.readFileSync(path.join(ROOT, "routing.json"), "utf-8"));
+const rewrites = (routing.rewrites || []).map((r) => ({ src: new RegExp("^" + r.source.replace(/\(\.\*\)/g, "(.*)").replace(/:([a-zA-Z]+)/g, "([^/]+)").replace(/\$/g, "$") + "$"), dest: r.destination }));
 
 function matchRewrite(pathname) {
   for (const r of rewrites) {
@@ -60,7 +60,7 @@ export function createAppServer() {
 
       const rw = matchRewrite(pathname);
       const effectivePath = rw ? rw.pathname : pathname;
-      // merge original query with rewrite destination query (Vercel-style)
+      // merge original query with rewrite destination query (rewrite-style)
       const merged = new URLSearchParams(incoming.search);
       if (rw) for (const [k, v] of new URLSearchParams(rw.search).entries()) merged.set(k, v);
       const effectiveSearch = merged.toString() ? "?" + merged.toString() : "";
