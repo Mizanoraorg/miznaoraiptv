@@ -104,7 +104,9 @@ npm test                  # all suites green
 npm run deploy:firebase   # hosting + functions + database rules
 ```
 
-GitHub Actions (`.github/workflows/firebase-deploy.yml`) deploys automatically on every `main` push once the `FIREBASE_SERVICE_ACCOUNT` repo secret is added (Firebase Console → Project settings → Service accounts → Generate new private key).
+**Pehli dafa (one-time):** project owner ko Google Cloud APIs enable karni hain — Cloud Functions, Cloud Build, Artifact Registry aur Cloud Run ([direct links in docs/FIREBASE.md](docs/FIREBASE.md#1-ek-dafa-ka-firebase-console-setup)). Deploy error `Cloud Build API to be enabled` isi ka signal hai.
+
+GitHub Actions (`.github/workflows/firebase-deploy.yml`) deploys automatically on every `main` push once the `FIREBASE_SERVICE_ACCOUNT` repo secret is added (Firebase Console → Project settings → Service accounts → Generate new private key). The workflow tries to enable the required APIs itself and deploys `hosting + database` before `functions`, so the website goes live even if the Functions API still needs enabling.
 
 ### Vercel
 

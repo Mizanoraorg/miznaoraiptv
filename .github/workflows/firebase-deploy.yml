@@ -63,8 +63,21 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-      - name: Firebase deploy (hosting + functions + database rules)
-        run: npx --yes firebase-tools@13 deploy --only hosting,functions,database --project mizanoranet --non-interactive
+      - name: Enable required Google Cloud APIs (best effort)
+        continue-on-error: true
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
+        run: |
+          gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS" --project=mizanoranet
+          if ! gcloud services enable cloudfunctions.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com run.googleapis.com --project=mizanoranet; then
+            echo "::warning::APIs automatically enable nahi ho sakin. Project owner se ye 4 links open karke enable karwayein (ek click each): https://console.cloud.google.com/apis/library/cloudfunctions.googleapis.com?project=mizanoranet , https://console.cloud.google.com/apis/library/cloudbuild.googleapis.com?project=mizanoranet , https://console.cloud.google.com/apis/library/artifactregistry.googleapis.com?project=mizanoranet , https://console.cloud.google.com/apis/library/run.googleapis.com?project=mizanoranet — details: docs/FIREBASE.md"
+          fi
+      - name: Firebase deploy — hosting + database rules (works without Cloud Build)
+        run: npx --yes firebase-tools@13 deploy --only hosting,database --project mizanoranet --non-interactive
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
+      - name: Firebase deploy — Cloud Functions (app)
+        run: npx --yes firebase-tools@13 deploy --only functions --project mizanoranet --non-interactive
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
 
