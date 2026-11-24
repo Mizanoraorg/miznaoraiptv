@@ -1,6 +1,6 @@
 {
   "name": "miznaoraiptv-functions",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "description": "Mizanora IPTV — Firebase Functions entry (Xtream, MAG/Stalker, streams and panel API on Firebase Hosting)",
   "private": true,
   "type": "module",

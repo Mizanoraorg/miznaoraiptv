@@ -104,7 +104,14 @@ npm test                  # all suites green
 npm run deploy:firebase   # hosting + functions + database rules
 ```
 
-GitHub Actions (`.github/workflows/firebase-deploy.yml`) deploys automatically on every `main` push once the `FIREBASE_SERVICE_ACCOUNT` repo secret is added (Firebase Console → Project settings → Service accounts → Generate new private key).
+**Pehli dafa (one-time):** project owner ko Google Cloud APIs enable karni hain — Cloud Functions, Cloud Build, Artifact Registry aur Cloud Run ([direct links in docs/FIREBASE.md](docs/FIREBASE.md#1-ek-dafa-ka-firebase-console-setup)). Deploy error `Cloud Build API to be enabled` isi ka signal hai.
+
+### FREE mode (credit card / billing account ZERO)
+
+Cloud Functions ke liye Google billing chahiye -- **zaroori nahi hai!** Free hybrid chalega:
+**Firebase Hosting (free Spark)** = website + **Vercel (free)** = API. Bas `public/assets/js/api-base.js` mein Vercel URL set karein aur GitHub repo variable `MZ_NO_FUNCTIONS=1` rakh dein -- workflow sirf `hosting + database` deploy karega. Complete guide: [docs/FIREBASE.md section 2](docs/FIREBASE.md).
+
+GitHub Actions (`.github/workflows/firebase-deploy.yml`) deploys automatically on every `main` push once the `FIREBASE_SERVICE_ACCOUNT` repo secret is added (Firebase Console → Project settings → Service accounts → Generate new private key). The workflow tries to enable the required APIs itself and deploys `hosting + database` before `functions`, so the website goes live even if the Functions API still needs enabling.
 
 ### Vercel
 

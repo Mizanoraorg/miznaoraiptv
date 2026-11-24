@@ -1,3 +1,11 @@
+## 6.2.1 — Billing-free Firebase hybrid (no credit card)
+
+- FREE deploy mode with zero billing: Firebase Hosting (Spark plan) serves the site while the API runs on free Vercel — `public/assets/js/api-base.js` bridges `/api/*`, Xtream (`player_api/get/xmltv`), `/live|movie|series`, MAG (`portal.php`, `stalker_portal`, `/c/portal.php`), signed `/s/*` and `/playout/*` to a configurable remote base (same-origin mode stays a no-op).
+- `?api=` URL override (persisted) for testing hybrid mode; MAG portal page displays the API base URL when configured.
+- Workflow `MZ_NO_FUNCTIONS` repo variable skips the Cloud Functions deploy for billing-free setups while hosting + database rules still publish; clear notice points to the docs.
+- Workflow auto-enables required Google Cloud APIs (best effort) and deploys hosting + database before functions so the site stays live during partial failures.
+- Docs: one-time API enable links, Service Usage Admin tip and billing-free setup guide.
+
 ## 6.2.0 — Firebase publish + site refresh
 
 - Firebase Hosting + Functions publish: `firebase.json`, `.firebaserc`, generated functions bundle (`scripts/build-functions.mjs`) and one-command `npm run deploy:firebase` — website, Xtream/MAG/stream API routes and database rules deploy together on `mizanoranet`.

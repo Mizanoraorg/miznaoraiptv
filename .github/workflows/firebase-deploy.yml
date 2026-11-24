@@ -9,6 +9,11 @@
 #   FIREBASE_SERVICE_ACCOUNT — full service-account JSON
 #   (Firebase Console → Project settings → Service accounts → Generate new private key)
 #
+# Optional GitHub repo variable (Settings → Secrets and variables → Actions → Variables):
+#   MZ_NO_FUNCTIONS = 1  → billing-free mode: hosting + database deploy hoti hain,
+#   Cloud Functions skip (Google billing ke bagair Cloud Build/Run enable nahi hote).
+#   API phir Vercel (free) par chalti hai — see docs/FIREBASE.md "FREE setup".
+#
 name: Firebase Deploy
 
 on:
@@ -63,10 +68,27 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-      - name: Firebase deploy (hosting + functions + database rules)
-        run: npx --yes firebase-tools@13 deploy --only hosting,functions,database --project mizanoranet --non-interactive
+      - name: Enable required Google Cloud APIs (best effort)
+        continue-on-error: true
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
+        run: |
+          gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS" --project=mizanoranet
+          if ! gcloud services enable cloudfunctions.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com run.googleapis.com --project=mizanoranet; then
+            echo "::warning::APIs automatically enable nahi ho sakin. Project owner se ye 4 links open karke enable karwayein (ek click each): https://console.cloud.google.com/apis/library/cloudfunctions.googleapis.com?project=mizanoranet , https://console.cloud.google.com/apis/library/cloudbuild.googleapis.com?project=mizanoranet , https://console.cloud.google.com/apis/library/artifactregistry.googleapis.com?project=mizanoranet , https://console.cloud.google.com/apis/library/run.googleapis.com?project=mizanoranet — details: docs/FIREBASE.md"
+          fi
+      - name: Firebase deploy — hosting + database rules (works without Cloud Build)
+        run: npx --yes firebase-tools@13 deploy --only hosting,database --project mizanoranet --non-interactive
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
+      - name: Firebase deploy — Cloud Functions (app)
+        if: vars.MZ_NO_FUNCTIONS != '1'
+        run: npx --yes firebase-tools@13 deploy --only functions --project mizanoranet --non-interactive
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
+      - name: Free-mode notice (functions skipped)
+        if: vars.MZ_NO_FUNCTIONS == '1'
+        run: echo "::notice::MZ_NO_FUNCTIONS=1 — Cloud Functions skip hue. Site Firebase Hosting par live hai aur API base (public/assets/js/api-base.js) se chal raha hai. Billing on karte hi MZ_NO_FUNCTIONS variable hatayein — full Firebase stack on ho jayega."
 
   preview:
     name: Hosting preview channel
