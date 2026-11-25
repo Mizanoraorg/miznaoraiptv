@@ -75,7 +75,7 @@ The reseller can call `reseller/report` or `reseller/activity` using their own k
 
 ### Connect your own website
 
-Keep both the IPTV server URL and owner API key on **your website's backend** (e.g. Netlify environment variables `IPTV_SERVER_URL` and `IPTV_ADMIN_KEY`). Authenticate and authorize your own website's staff before running a privileged action. This server-side function illustrates the upstream call; it is not a public route and does not implement your website's authentication:
+Keep both the IPTV server URL and owner API key on **your website's backend** (e.g. Firebase/Cloud Functions environment variables `IPTV_SERVER_URL` and `IPTV_ADMIN_KEY`). Authenticate and authorize your own website's staff before running a privileged action. This server-side function illustrates the upstream call; it is not a public route and does not implement your website's authentication:
 
 ```js
 // Server-only. Never import this into browser code.

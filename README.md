@@ -4,13 +4,13 @@
 
 **Owner control → reseller workspace → client service**
 
-[Quick start](#run-and-verify-locally) · [Reseller API](docs/RESELLER.md) · [Deploy: Netlify + Firebase](docs/NETLIFY.md) · [Firebase Hosting](docs/FIREBASE.md) · [Changelog](CHANGELOG.md)
+[Quick start](#run-and-verify-locally) · [Reseller API](docs/RESELLER.md) · [Firebase Deploy](docs/FIREBASE.md) · [Changelog](CHANGELOG.md)
 
 **Live TV, animated welcome intro, M3U imports, XMLTV guides, Xtream Codes, MAG/Stalker, owner admin, reseller workspace and website integrations.** A **Mizanora Projects** product by **Muaaz Iqbal** (Kasur, Punjab, Pakistan).
 
 ## What's new in v6.2
 
-- **Firebase Hosting + Functions publish:** `firebase.json`, generated Functions bundle and one-command `npm run deploy:firebase` deploy website + API + database rules to `mizanoranet` — GitHub Actions auto-deploy on `main`, PR preview channels, plus [the full guide](docs/FIREBASE.md). Vercel keeps working unchanged.
+- **Firebase Hosting + Functions publish:** `firebase.json`, generated Functions bundle and one-command `npm run deploy:firebase` deploy website + API + database rules to `mizanoranet` — GitHub Actions auto-deploy on `main`, PR preview channels, plus [the full guide](docs/FIREBASE.md).
 - **Refreshed public site:** aurora hero, glass cards, gold-sheen buttons, animated ticker band, device grid, customer reviews, FAQ accordion and a closing CTA band — Sora/Manrope type, light + dark themes, scroll-reveal motion with `prefers-reduced-motion` support.
 - **Faster pages:** font preconnect + `display=swap`, priority hero logo, lazy footer image, `content-visibility` below-the-fold sections and immutable asset caching.
 - **Small upgrades:** mobile hamburger menu, scroll progress bar, back-to-top button, animated stat counters and auto-updating footer year.
@@ -32,7 +32,7 @@
 
 ## What's new in v6.1
 
-- **Vercel-native HLS playout** with a durable, concurrency-safe media sequence and no long-running video process.
+- **Serverless HLS playout** with a durable, concurrency-safe media sequence and no long-running video process.
 - **Broadcast Studio** with real playback previews, manifest inspection and a redesigned responsive owner workspace.
 - **Rotating offline, recharge and cinema loops**, plus automatic live-source recovery for compatible feeds.
 - Real HTTP, FFmpeg decode and local Chromium playback checks.
@@ -91,41 +91,24 @@ Local development can use `/tmp/mizanoranettv-rtdb-mirror.json` when Firebase is
 | Streams | `/live/…`, `/movie/…`, `/series/…`, `/s/<token>` | Credential checks and 15-minute signed playback |
 | MAG / Stalker | `/portal.php`, `/stalker_portal/server/load.php` | Handshake, MAC profile, channels and `create_link` |
 
-## Required Netlify + Firebase setup
+## Firebase-only setup
 
-The public Firebase web config is included. **A service account is required for durable server writes on Vercel.** Serverless `/tmp` is temporary and is not shared between invocations.
+Mizanora Net TV ab **sirf Firebase** par deploy hoti hai (Hosting + Functions + Realtime Database).
 
-### Firebase Hosting + Functions (recommended, all-in-one)
-
-Website, Xtream/MAG/API routes and database rules deploy together — see **[docs/FIREBASE.md](docs/FIREBASE.md)** for the complete guide (GitHub Actions auto-deploy, manual deploy, env vars, custom domain and verification).
+1. Firebase Console → project **mizanoranet** → Hosting, Functions, Realtime Database enable karein.
+2. **Service account**: Project settings → Service accounts → Generate new private key. JSON ko GitHub secret `FIREBASE_SERVICE_ACCOUNT` mein add karein (ya `FIREBASE_SERVICE_ACCOUNT_JSON` env var).
+3. **Auth**: Firebase Authentication → Google enable karein. Admin/owner email: `matrader890@gmail.com`.
+4. **Env/secrets**: `FIREBASE_DATABASE_URL`, `MZ_OWNER_PIN`, `MZ_SESSION_SECRET`, `MZ_STREAM_SECRET` set karein.
+5. **Deploy**:
 
 ```bash
 npm test                  # all suites green
 npm run deploy:firebase   # hosting + functions + database rules
 ```
 
-**Pehli dafa (one-time):** project owner ko Google Cloud APIs enable karni hain — Cloud Functions, Cloud Build, Artifact Registry aur Cloud Run ([direct links in docs/FIREBASE.md](docs/FIREBASE.md#1-ek-dafa-ka-firebase-console-setup)). Deploy error `Cloud Build API to be enabled` isi ka signal hai.
+GitHub Actions (`.github/workflows/firebase-deploy.yml`) `main` push par test + deploy karta hai. Agar Cloud Functions billing/APIs abhi enable nahi hain, workflow hosting+database deploy karega aur functions step par clear warning dega; `MZ_NO_FUNCTIONS=1` repo variable se functions intentionally skip bhi kar sakte hain.
 
-### FREE mode (credit card / billing account ZERO)
-
-Cloud Functions ke liye Google billing chahiye -- **zaroori nahi hai!** Free hybrid chalega:
-**Firebase Hosting (free Spark)** = website + **Vercel (free)** = API. Bas `public/assets/js/api-base.js` mein Vercel URL set karein aur GitHub repo variable `MZ_NO_FUNCTIONS=1` rakh dein -- workflow sirf `hosting + database` deploy karega. Complete guide: [docs/FIREBASE.md section 2](docs/FIREBASE.md).
-
-GitHub Actions (`.github/workflows/firebase-deploy.yml`) deploys automatically on every `main` push once the `FIREBASE_SERVICE_ACCOUNT` repo secret is added (Firebase Console → Project settings → Service accounts → Generate new private key). The workflow tries to enable the required APIs itself and deploys `hosting + database` before `functions`, so the website goes live even if the Functions API still needs enabling.
-
-### Netlify (API — free, no billing)
-
-1. Netlify dashboard → **Add new site → Import an existing project** (GitHub). `netlify.toml` wires the API functions automatically — no build config needed.
-2. Firebase Console → **Project settings → Service accounts → Generate new private key**.
-3. Netlify → **Site settings → Environment variables**:
-   - `FIREBASE_DATABASE_URL=https://mizanoranet-default-rtdb.firebaseio.com`
-   - sensitive `FIREBASE_SERVICE_ACCOUNT_JSON` = complete service-account JSON; alternatively use `FIREBASE_CLIENT_EMAIL` + `FIREBASE_PRIVATE_KEY`.
-   - strong, different `MZ_OWNER_PIN`, `MZ_SESSION_SECRET` and `MZ_STREAM_SECRET`.
-4. Firebase Authentication → enable **Google** and add the Firebase/Netlify domains under **Authorized domains**. Owner: `muaaziqbal.vip@gmail.com`.
-5. Publish `firebase/database.rules.json`. Never expose service-account JSON in browser code or Git.
-6. Set the API base in `public/assets/js/api-base.js` to your Netlify URL. Redeploy after environment changes and check `/api/embed?action=health` for `configuredServiceAccount: true` and `durableServerWrites: true`.
-
-See [docs/NETLIFY.md](docs/NETLIFY.md) for the detailed checklist.
+See [docs/FIREBASE.md](docs/FIREBASE.md) for details.
 
 ## M3U and EPG
 
@@ -172,13 +155,13 @@ npm run test:reseller
 npm run test:guide
 ```
 
-The suites cover real HTTP flows (imports, EPG, public/admin/reseller, Xtream, signed playback, MAG, validation and CRUD) and jsdom click-throughs against the actual frontend JavaScript. Tests use an isolated local mirror; production Firebase is not required. Real browser playback and live Vercel/Firebase behavior still need deployment-environment verification.
+The suites cover real HTTP flows (imports, EPG, public/admin/reseller, Xtream, signed playback, MAG, validation and CRUD) and jsdom click-throughs against the actual frontend JavaScript. Tests use an isolated local mirror; production Firebase is not required. Real browser playback and live Firebase behavior still need deployment-environment verification.
 
 ## Playback and channel management
 
 - **Website player:** each channel selection starts the welcome video (8 seconds by default) with the selected channel name and loading indicator, then loads that channel. Retry reconnects without repeating the already-shown intro. Browsers may block autoplay, and an intro load error advances to the channel. In **Admin → Settings**, change the intro URL/duration and enable or disable the skip button. Existing saved settings take precedence over the new defaults; set the duration to 8 and enable the intro there if an older installation still uses another value.
 - **Website fallback videos:** a detected playback error shows the configured offline video and retry button. A PRO-only public preview displays the configured unlock/recharge video and trial link. The Movies & Series section can play the coming-soon announcement.
-- **Xtream/M3U/MAG:** compatible live HLS uses Vercel playout: eight-second intro → source media, with offline/frozen-source detection and recovery. Expired authenticated live links play a recharge loop; missing movie/episode streams play a coming-soon loop. All three cards are rotating live playlists, not finite VOD files. Actual configured movie/episode URLs remain direct playback. New expired logins remain disabled.
+- **Xtream/M3U/MAG:** compatible live HLS uses serverless playout: eight-second intro → source media, with offline/frozen-source detection and recovery. Expired authenticated live links play a recharge loop; missing movie/episode streams play a coming-soon loop. All three cards are rotating live playlists, not finite VOD files. Actual configured movie/episode URLs remain direct playback. New expired logins remain disabled.
 - **Admin → Broadcast Studio:** private signed previews of the real HLS engine, channel selector, four broadcast cards and a live manifest inspector.
 - **Admin → Channels:** add, edit (including visibility, EPG ID, access and an exact 1-based channel number / playlist position), delete, and move channels up/down. Saved ordering is used by the public channel list, M3U, Xtream and MAG outputs; numeric stream IDs stay stable when you reorder.
 - **Admin → Movies / Series:** search the catalog and sort results by title, release year, rating or playable status before managing licensed stream URLs.

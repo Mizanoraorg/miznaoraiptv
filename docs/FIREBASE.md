@@ -3,9 +3,8 @@
 **Mizanora IPTV ab Firebase par puri tarah publish hoti hai** — website (Hosting),
 API/Xtream/MAG routes (Functions) aur database rules — sab ek `firebase deploy` se.
 
-> Vercel support jaisa ka waisa hi rehta hai (`vercel.json` intact) — dono chal sakte hain.
 > Firebase Hosting static files serve karta hai aur `functions` app (`app` HTTPS function)
-> wahi shared `api/*` handlers chalata hai jo Vercel aur local dev par use hote hain.
+> wahi shared `api/*` handlers chalata hai.
 
 ---
 
@@ -30,35 +29,17 @@ API/Xtream/MAG routes (Functions) aur database rules — sab ek `firebase deploy
 > edit → `Service Usage Admin` + `Cloud Functions Admin` + `Cloud Run Admin` +
 > `Artifact Registry Writer` + `Service Account User` + `Storage Admin`.
 
-## 2. 🆓 FREE setup — billing ke bagair (Spark plan, credit card ZERO)
+## 2. Firebase-only deploy
 
-> **Google Cloud Functions/Cloud Run/Cloud Build ke liye billing account chahiye** (Blaze plan).
-> Paisa/koi card nahi? Koi masla nahi — **100% free hybrid** chalega:
->
-> **Firebase Hosting (free Spark)** = website · **Netlify (free)** = API · **Firebase RTDB (free)** = data
+Mizanora Net TV ab **sirf Firebase** par chalti hai: **Hosting + Functions + Realtime Database**.
 
-### Setup (ek dafa)
+1. Firebase Console mein project **mizanoranet** select karein, Hosting/Functions/RTDB enable karein.
+2. `FIREBASE_SERVICE_ACCOUNT_JSON` GitHub secret (or functions env) mein set karein.
+3. `MZ_OWNER_PIN`, `MZ_SESSION_SECRET`, `MZ_STREAM_SECRET` configure karein.
+4. `public/assets/js/api-base.js` mein `DEFAULT_BASE` khali rakhein (same-origin Firebase).
+5. Deploy: `npm run deploy:firebase` ya main push par GitHub Actions workflow.
 
-1. **Netlify par API deploy karein** (free, card nahi chahiye) — [docs/NETLIFY.md](NETLIFY.md) follow karein.
-   Deploy hone ke baad Netlify URL milega, misaal: `https://mizanora.netlify.app`
-2. **`public/assets/js/api-base.js`** kholein aur pehli line set karein:
-   ```js
-   var DEFAULT_BASE = "https://mizanora.netlify.app"; /* ← apna Netlify URL */
-   ```
-   Ye bridge saari API calls (`/api/*`, `player_api.php`, `get.php`, `xmltv.php`, `/live|movie|series`,
-   `portal.php`, `stalker_portal`, `/s/*`, `/playout/*`) us Netlify URL par bhej degi.
-3. **GitHub → Settings → Secrets and variables → Actions → Variables** → New variable:
-   - Name: `MZ_NO_FUNCTIONS` · Value: `1`
-   (workflow Cloud Functions skip karega — hosting + database rules phir bhi deploy hoti hain)
-4. Commit + push (ya PR merge) — **site `mizanoranet.web.app` par live!**
-5. Xtream/MAG links API responses se automatically Netlify domain par aate hain — apps mein wahi use hon.
-
-### Notes
-
-- **Testing:** `https://mizanoranet.web.app/?api=https://your-netlify-url` se bina file badle hybrid test kar sakte hain (localStorage mein save hota hai; hatane ke liye `?api=` khali use karein).
-- **MAG portal page** (`/c/`) hybrid mode mein portal URL API base ka dikhata hai.
-- **Custom domain** Firebase Hosting par add karein to woh bhi static site serve karega (API base wahi rahega).
-- **Billing kabhi on karein?** `MZ_NO_FUNCTIONS` variable hata dein + `npm run deploy:firebase` — pura Firebase stack (Functions samet) live ho jayega, api-base.js `DEFAULT_BASE = ""` kar dein.
+> Note: Cloud Functions deploy ke liye GCP billing/APIs enable honi chahiye. Agar billing abhi enable nahi, to `MZ_NO_FUNCTIONS=1` repo variable se hosting+database deploy ho sakti hai, lekin API/functions tab tak live nahi hongi jab tak billing/APIs enable na hon.
 
 ## 3. GitHub Actions — automatic deploy (recommended)
 
@@ -111,7 +92,7 @@ MZ_REQUIRE_PERSISTENCE=1
 - Agar service account set nahi hai, function **metadata server** se token leta hai
   (zero-config) — lekin explicit service account sab se reliable hai.
 - `K_SERVICE` (Cloud Functions) par `/tmp` mirror kabhi durable nahi mana jata —
-  Vercel jaisa hi behavior.
+  Firebase serverless jaisa hi behavior.
 
 ## 6. Kya deploy hota hai (routing map)
 
@@ -126,7 +107,7 @@ MZ_REQUIRE_PERSISTENCE=1
 | `/playout/**` (HLS playout) | Function `app` | `api/stream.js` |
 | `/media/*/seg*.ts` (MPEG-TS alias) | Function `app` → 302 | hosted `.m2ts` segment |
 
-Rewrite table **generated** hoti hai `vercel.json` se (`npm run build:functions`)
+Rewrite table **generated** hoti hai `routing.json` se (`npm run build:functions`)
 — routing ki single source of truth wahi hai, dono platforms consistent rehte hain.
 
 ## 7. Custom domain
@@ -147,14 +128,14 @@ Rewrite table **generated** hoti hai `vercel.json` se (`npm run build:functions`
 - [ ] `https://<site>/c/` — MAG/Stalker portal page
 - [ ] Free trial form — credentials render hote hain (writes durable hon: health check `durableServerWrites: true`)
 - [ ] GitHub Actions → last `Firebase Deploy` run green
-- [ ] (Free hybrid) `https://<site>/?api=<netlify-url>` se channels load hon — api-base.js bridge set hai
+- [ ] Firebase Hosting/Functions deploy green hai aur `/api/embed?action=health` OK hai
 
 ## 9. Troubleshooting
 
 | Problem | Solution |
 |---|---|
 | **`Cloud Functions deployment requires the Cloud Build API to be enabled`** | Project owner ye links open karke APIs enable karein: [Cloud Build](https://console.cloud.google.com/apis/library/cloudbuild.googleapis.com?project=mizanoranet) · [Cloud Functions](https://console.cloud.google.com/apis/library/cloudfunctions.googleapis.com?project=mizanoranet) · [Artifact Registry](https://console.cloud.google.com/apis/library/artifactregistry.googleapis.com?project=mizanoranet) · [Cloud Run](https://console.cloud.google.com/apis/library/run.googleapis.com?project=mizanoranet). Phir GitHub Actions → failed run → **Re-run failed jobs**. (Ya service account ko `Service Usage Admin` role dein — CI khud enable kar lega.) |
-| **`This API requires a billing account` / billing prompt** | Billing nahi chahiye! [Section 2 — FREE setup](#2--free-setup--billing-ke-bagair-spark-plan-credit-card-zero) follow karein: `MZ_NO_FUNCTIONS=1` + Vercel API base. |
+| **`This API requires a billing account` / billing prompt** | Cloud Functions deploy ke liye billing/APIs enable karein. Temporary workaround: `MZ_NO_FUNCTIONS=1` set karein (sirf hosting+database deploy hogi). |
 | `deploy` job auth error | `FIREBASE_SERVICE_ACCOUNT` secret valid JSON hai? Re-generate key agar expire ho. |
 | API 500 on `/api/*` | Functions logs dekhein: `npx firebase-tools@13 functions:log`. Env vars (`functions/.env`) missing honge. |
 | `Firebase save failed` | Service account ko Realtime Database access do (IAM: `Firebase Realtime Database Admin`) ya rules publish karein. |

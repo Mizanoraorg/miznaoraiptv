@@ -2,5 +2,5 @@
 #PLAYLIST:France 24 Live News HD — Mizanora IPTV (FREE HD)
 #EXT-X-SESSION-DATA:DATA-ID="com.mizanora.miznaoraiptv.channel",VALUE="france-24-english-hd"
 #EXT-X-SESSION-DATA:DATA-ID="com.mizanora.miznaoraiptv.founder",VALUE="Muaaz Iqbal - Mizanora Projects"
-#EXTINF:-1 tvg-id="france24.en" tvg-name="France 24 Live News HD" tvg-logo="https://miznaoraiptv.vercel.app/assets/img/brand/miznaoraiptv-logo.png" group-title="📰 🔴 LIVE NEWS NETWORKS",France 24 Live News HD
-https://miznaoraiptv.vercel.app/ch/france-24-english-hd.m3u8
+#EXTINF:-1 tvg-id="france24.en" tvg-name="France 24 Live News HD" tvg-logo="https://mizanoranet.web.app/assets/img/brand/miznaoraiptv-logo.png" group-title="📰 🔴 LIVE NEWS NETWORKS",France 24 Live News HD
+https://mizanoranet.web.app/ch/france-24-english-hd.m3u8

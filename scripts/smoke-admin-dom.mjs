@@ -19,7 +19,7 @@ const adminJs = fs.readFileSync(path.join(ROOT, "public/assets/js/admin.js"), "u
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "mz-dom-"));
 fs.mkdirSync(path.join(tmp, "src"), { recursive: true });
 fs.writeFileSync(path.join(tmp, "src/firebase-stub.mjs"), `
-export const ADMIN_EMAIL="muaaziqbal.vip@gmail.com";
+export const ADMIN_EMAIL="matrader890@gmail.com";
 export function isAdminEmail(e){return String(e||"").toLowerCase()===ADMIN_EMAIL}
 let current=null;const listeners=new Set();
 export function subscribeAuth(cb){listeners.add(cb);setTimeout(()=>cb(current),0);return()=>listeners.delete(cb)}

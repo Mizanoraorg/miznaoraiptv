@@ -2,11 +2,9 @@
  *
  * FREE HYBRID MODE — billing ke bagair:
  *   Firebase Hosting (Spark/free) = static website
- *   Netlify (free)                = API (streams, catalog, panel)
+ *   Firebase Hosting + Functions   = API (streams, catalog, panel)
  *
- * Jab site Firebase Hosting par ho aur API Netlify par ho, to neeche
- * DEFAULT_BASE mein apna Netlify API URL bhar dein (trailing slash ke bagair),
- * misaal ke taur par: "https://mizanora.netlify.app"
+ * Firebase-only mode: DEFAULT_BASE khali rakhein taake same-origin /api use ho.
  * Same-origin deploy (sab kuch ek hi jagah) par ise "" rehne dein.
  *
  * Runtime override (testing ke liye): ?api=https://your-api.example.com
@@ -18,7 +16,7 @@
  * Jab DEFAULT_BASE khaali ho to ye bilkul no-op hai. */
 (function () {
   "use strict";
-  var DEFAULT_BASE = ""; /* ← FREE HYBRID: yahan Netlify/API URL likhein */
+  var DEFAULT_BASE = ""; /* Firebase-only: same-origin */
   var BASE = String(window.MZ_API_BASE || DEFAULT_BASE || "").replace(/\/+$/, "");
   try {
     var param = new URLSearchParams(location.search).get("api");

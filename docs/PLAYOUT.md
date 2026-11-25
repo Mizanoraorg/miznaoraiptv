@@ -14,14 +14,14 @@ Xtream / M3U / MAG live URL
 
 Authenticated expired live links use the recharge loop. Metadata-only movies/episodes use the coming-soon loop. These generated playlists have increasing media-sequence values and **no `EXT-X-ENDLIST`**. The bundled eight-second files are repeatedly scheduled as a live broadcast, with discontinuities when timestamps restart. An actual configured movie/episode remains direct VOD playback.
 
-This runs as ordinary short-lived Vercel functions. Vercel returns the text manifest; video segments are fetched directly from the provider or the bundled static CDN files. No FFmpeg process, VPS or continuously running Node server is required for this path. The optional encoder gateway is a separate override when `MZ_GATEWAY_URL` and its secret are configured.
+This runs as ordinary short-lived Firebase Functions. The function returns the text manifest; video segments are fetched directly from the provider or the bundled static CDN files. No FFmpeg process, VPS or continuously running Node server is required for this path. The optional encoder gateway is a separate override when `MZ_GATEWAY_URL` and its secret are configured.
 
 ## Enable on the serverless host
 
 1. Configure the existing Firebase service account and strong `MZ_STREAM_SECRET` / `MZ_SESSION_SECRET`. Production requires durable server writes, not a `/tmp` mirror.
 2. Publish `firebase/database.rules.json`. The new `hlsSessions` node is private and has an `expires` index for bounded cleanup; service-account access is required.
 3. Deploy the branch's code/assets and rewrites. `api/stream.js` has a 60-second function limit for bounded discovery/probes/transaction retries; it never holds a video-stream connection open.
-4. Leave both optional `MZ_GATEWAY_*` variables unset to use this Vercel implementation rather than the separate encoder.
+4. Leave both optional `MZ_GATEWAY_*` variables unset to use this Firebase serverless implementation rather than the separate encoder.
 5. Admin → Settings → **serverless HLS playout for external Xtream / MAG** is enabled by default. Save the setting explicitly when upgrading an existing installation. Enable welcome intro for the eight-second pre-roll.
 6. Admin → **Broadcast Studio**: test a channel and each card, then inspect the actual media/discontinuity sequence. Private owner previews expire after 15 minutes. Do not share signed URLs/source credentials from the inspector.
 
@@ -29,7 +29,7 @@ Use HTTPS sources and verify redistribution rights. Generated manifests use `Cac
 
 ## How continuity is preserved
 
-Each tune-in gets a random session and a signed capability. A small RTDB record tracks the next output segment number, upstream cursor, intro progress, loop cursor and discontinuity count. ETag/If-Match transactions serialize simultaneous refreshes across independent Vercel instances. All four intro segments and available initial live segments are published upfront in playback order. This avoids starving clients while they wait for the next playlist reload. `EXT-X-START` requests playback from the beginning.
+Each tune-in gets a random session and a signed capability. A small RTDB record tracks the next output segment number, upstream cursor, intro progress, loop cursor and discontinuity count. ETag/If-Match transactions serialize simultaneous refreshes across independent serverless instances. All four intro segments and available initial live segments are published upfront in playback order. This avoids starving clients while they wait for the next playlist reload. `EXT-X-START` requests playback from the beginning.
 
 Source media numbers are remapped to the output timeline. AES-128 keys keep explicit upstream-derived IVs, so changing the media sequence does not change decryption. Relative source/variant/key URLs are resolved against the final fetched playlist URL. The implementation resolves masters to a supported muxed AVC variant rather than treating a master as a media playlist.
 
@@ -51,7 +51,7 @@ Fallbacks retain increasing output sequence numbers; broken source URLs are remo
 
 Supported: ordinary **muxed MPEG-TS HLS**, clear or AES-128, with segments up to 30 seconds. A compatible HLS VOD source used as a live channel can also rotate on its segment timeline.
 
-Not remuxed/transcoded by Vercel: fMP4/EXT-X-MAP, byte ranges, low-latency partial playlists, separate audio renditions, DRM/SAMPLE-AES, DASH, raw continuous TS and arbitrary MP4 inputs. These automatically use original-source playback, without the external intro stitch. Admin → Channels → Edit → Playback compatibility can also force Direct mode for an individual channel. The player still needs support/licensing for that source; the app does not remove DRM. Source codecs, audio layout, resolution transitions and player discontinuity support still affect interoperability. Do not promise every firmware will honor the same start position or recover identically.
+Not remuxed/transcoded by Firebase Functions: fMP4/EXT-X-MAP, byte ranges, low-latency partial playlists, separate audio renditions, DRM/SAMPLE-AES, DASH, raw continuous TS and arbitrary MP4 inputs. These automatically use original-source playback, without the external intro stitch. Admin → Channels → Edit → Playback compatibility can also force Direct mode for an individual channel. The player still needs support/licensing for that source; the app does not remove DRM. Source codecs, audio layout, resolution transitions and player discontinuity support still affect interoperability. Do not promise every firmware will honor the same start position or recover identically.
 
 Segments and encryption keys remain direct provider requests. Provider CORS can block browser Studio playback even when external IPTV apps work. The server no longer samples every segment. Segment-only failures and client-specific decoding failures cannot reliably be inferred from a successful manifest fetch. The website has bounded network/media recovery attempts, but third-party players control their own error recovery.
 
@@ -70,14 +70,14 @@ Local Chromium checks also exercise owner login, desktop/mobile layout and actua
 
 ## Cost and operations
 
-Every active viewer polls manifests and incurs function/database/manifest-fetch requests. ETAG transactions perform remote reads and conditional writes; contention retries and upstream errors add latency. Monitor Vercel durations/errors, Firebase bandwidth/transaction traffic and source limits before customer rollout. This implementation has no global per-account concurrent-viewer enforcement or distributed bitrate scheduler. Existing API rate limits are not a substitute for deployment-level abuse controls and load testing.
+Every active viewer polls manifests and incurs function/database/manifest-fetch requests. ETAG transactions perform remote reads and conditional writes; contention retries and upstream errors add latency. Monitor Firebase Functions durations/errors, Firebase bandwidth/transaction traffic and source limits before customer rollout. This implementation has no global per-account concurrent-viewer enforcement or distributed bitrate scheduler. Existing API rate limits are not a substitute for deployment-level abuse controls and load testing.
 
 
 ## Compatibility and long-session acceptance (6.1.1)
 
 - Every requested XMLTV/short-EPG channel now receives explicitly labelled “Schedule unavailable” notices for gaps in the next 48 hours. Imported programme data wins; no programme names are invented. Notices are generated on read, not stored as real guide data.
 - Direct compatibility mode preserves provider adaptive variants/audio/subtitles, but cannot enforce server-side intro/fallback/recharge behavior after the redirect. Provider URL expiry, geoblocks and codec support still apply.
-- Seven-day capability life is not an uninterrupted-playback guarantee. Network outages, provider restarts, upstream signed-URL expiry, device memory and Vercel/Firebase availability remain external constraints. Retune after capability expiry or six hours without activity.
+- Seven-day capability life is not an uninterrupted-playback guarantee. Network outages, provider restarts, upstream signed-URL expiry, device memory and Firebase availability remain external constraints. Retune after capability expiry or six hours without activity.
 - Tests include an accelerated **72-hour timeline simulation** with monotonically increasing sequence numbers and bounded state. This is not a real three-day hardware soak or a production CDN load test.
 - Browser checks in this revision used a local moving HLS fixture, playback beyond 28 seconds and a transient 4.5-second manifest outage. No decoder/page errors were reported in that check. Test actual providers and target devices before rollout.
 

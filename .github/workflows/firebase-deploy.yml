@@ -12,7 +12,7 @@
 # Optional GitHub repo variable (Settings → Secrets and variables → Actions → Variables):
 #   MZ_NO_FUNCTIONS = 1  → billing-free mode: hosting + database deploy hoti hain,
 #   Cloud Functions skip (Google billing ke bagair Cloud Build/Run enable nahi hote).
-#   API phir Vercel (free) par chalti hai — see docs/FIREBASE.md "FREE setup".
+#   Firebase-only deployment: Hosting + Functions + RTDB.
 #
 name: Firebase Deploy
 

@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Developer &amp; Setup Guide — Mizanora IPTV v6</title>
-<meta name="description" content="Embed Mizanora IPTV channels, integrate reseller APIs, configure Xtream/M3U/XMLTV and deploy on Netlify + Firebase.">
+<title>Developer &amp; Setup Guide — Mizanora Net TV</title>
+<meta name="description" content="Embed Mizanora Net TV channels, integrate APIs, configure Xtream/M3U/XMLTV and deploy on Firebase.">
 <link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/assets/css/site.css?v=6.0.0"><link rel="stylesheet" href="/assets/css/guide.css?v=6.0.0">
 </head>
 <body class="docs-body">
-<header><div class="wrap nav"><img src="/assets/img/brand/miznaoraiptv-logo.png" alt="Mizanora IPTV"><div class="brand">Mizanora IPTV<small>DEVELOPER GUIDE · V6</small></div><nav><a href="/">← Main site</a><a href="/reseller">Reseller panel</a> · <a href="/academy">Academy</a><a href="https://github.com/Mizanora-org/miznaoraiptv" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">GitHub</a></nav></div></header>
+<header><div class="wrap nav"><img src="/assets/img/brand/miznaoraiptv-logo.png" alt="Mizanora IPTV"><div class="brand">Mizanora Net TV<small>DEVELOPER GUIDE</small></div><nav><a href="/">← Main site</a><a href="/reseller">Reseller panel</a> · <a href="/academy">Academy</a><a href="https://github.com/Mizanora-org/miznaoraiptv" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">GitHub</a></nav></div></header>
 <main class="wrap docs-main">
-  <div class="docs-hero"><span class="eyebrow">COMPLETE INTEGRATION HANDBOOK</span><h1>Build with <span class="gold">Mizanora IPTV</span></h1><p>Website embeds, public API, Xtream, M3U/XMLTV, reseller automation and Netlify + Firebase deployment—one practical guide.</p></div>
-  <nav class="docs-nav" aria-label="Guide sections"><a href="#embed">Embed</a><a href="#public-api">Public API</a><a href="#xtream">Xtream</a><a href="#imports">M3U + EPG</a><a href="#reseller-api">Reseller API</a><a href="#netlify">Deploy</a><a href="#troubleshooting">Troubleshooting</a></nav>
+  <div class="docs-hero"><span class="eyebrow">COMPLETE INTEGRATION HANDBOOK</span><h1>Build with <span class="gold">Mizanora Net TV</span></h1><p>Website embeds, public API, Xtream, M3U/XMLTV, reseller automation and Firebase deployment—one practical guide.</p></div>
+  <nav class="docs-nav" aria-label="Guide sections"><a href="#embed">Embed</a><a href="#public-api">Public API</a><a href="#xtream">Xtream</a><a href="#imports">M3U + EPG</a><a href="#reseller-api">Reseller API</a><a href="#firebase">Deploy</a><a href="#troubleshooting">Troubleshooting</a></nav>
 
   <section class="docs-section" id="embed"><h2>1. Add channels to any website</h2><p>Paste this script where the channel grid should appear. Public channel metadata does not need a secret API key. Clicking a channel opens the secure Mizanora player.</p>
     <div class="builder"><label>Theme<select id="embedTheme"><option value="dark">Dark</option><option value="light">Light</option></select></label><label>Channel limit<input id="embedLimit" type="number" min="1" max="100" value="12"></label><label>Exact category (optional)<input id="embedCategory" placeholder="News"></label></div>
@@ -38,12 +38,12 @@
     <div class="warning"><b>Never put mzr_ or mzk_ keys in public JavaScript.</b> Browser → your backend → Mizanora API is the safe integration pattern. Owner <code>mzk_</code> keys have full admin privileges.</div>
   </section>
 
-  <section class="docs-section" id="netlify"><h2>6. Netlify + Firebase deployment</h2><ol><li>Netlify dashboard → <b>Add new site → Import an existing project</b> (GitHub) — <code>netlify.toml</code> configures the API functions automatically.</li><li>Add <code>FIREBASE_DATABASE_URL</code> and sensitive <code>FIREBASE_SERVICE_ACCOUNT_JSON</code> under Site settings → Environment variables.</li><li>Set strong, different <code>MZ_OWNER_PIN</code>, <code>MZ_SESSION_SECRET</code> and <code>MZ_STREAM_SECRET</code>.</li><li>Enable Firebase Google Auth, add your Firebase/Netlify domains to Authorized domains, and publish <code>firebase/database.rules.json</code>.</li><li>Set the API base in <code>public/assets/js/api-base.js</code> to your Netlify URL, deploy, then check <a href="/api/embed?action=health"><code>/api/embed?action=health</code></a>.</li></ol><p>Required health signals: <code>configuredServiceAccount: true</code> and <code>durableServerWrites: true</code>. Do not rely on serverless <code>/tmp</code> for customer data.</p>
+  <section class="docs-section" id="firebase"><h2>6. Firebase deployment</h2><ol><li>Firebase Console mein project connect karein aur <b>Hosting + Functions + Realtime Database</b> enable karein.</li><li>Service account JSON ko <code>FIREBASE_SERVICE_ACCOUNT_JSON</code> (or GitHub secret) mein set karein, aur <code>FIREBASE_DATABASE_URL</code> configure karein.</li><li>Set strong, different <code>MZ_OWNER_PIN</code>, <code>MZ_SESSION_SECRET</code> and <code>MZ_STREAM_SECRET</code>.</li><li>Firebase Google Auth enable karein, admin email <code>matrader890@gmail.com</code> authorized rakhein, aur <code>firebase/database.rules.json</code> publish karein.</li><li>Deploy: <code>npm run deploy:firebase</code> ya GitHub Actions Firebase workflow. Check <a href="/api/embed?action=health"><code>/api/embed?action=health</code></a>.</li></ol><p>Required health signals: <code>configuredServiceAccount: true</code> and <code>durableServerWrites: true</code>.</p>
   </section>
 
   <section class="docs-section" id="troubleshooting"><h2>7. Troubleshooting</h2><div class="faq"><h3>Intro plays but the channel does not</h3><p>Check upstream availability, HTTPS mixed content and the provider's browser CORS policy. Xtream apps may work even when browser playback is blocked.</p><h3>Movies/episodes say Metadata only</h3><p>Configure a licensed MP4/HLS URL in Admin. IMDb metadata alone is not a video stream.</p><h3>Guide has channel info but no timed programmes</h3><p>Import XMLTV and verify EPG IDs. Use Admin → EPG Guide refresh for remote sources.</p><h3>Serverless saves fail</h3><p>Check service-account JSON, private key newlines, RTDB URL and Firebase permissions, then redeploy.</p><h3>Reseller key stopped working</h3><p>Key rotation revokes the previous key immediately. Update your backend secret.</p></div>
   </section>
 </main>
-<footer><div class="wrap"><p>Mizanora IPTV v6 · <a href="/">Main site</a> · <a href="/reseller">Reseller panel</a> · <a href="/academy">Academy</a> · <a href="/api/panel?action=help">API index</a></p></div></footer>
+<footer><div class="wrap"><p>Mizanora Net TV · <a href="/">Main site</a> · <a href="/reseller">Reseller panel</a> · <a href="/academy">Academy</a> · <a href="/api/panel?action=help">API index</a></p></div></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div><script src="/assets/js/api-base.js?v=7.0.0" defer></script><script src="/assets/js/guide.js?v=6.0.0" defer></script>
 </body></html>

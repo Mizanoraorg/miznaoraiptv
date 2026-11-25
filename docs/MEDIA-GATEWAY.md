@@ -20,7 +20,7 @@ This is an implementation tested locally with real FFmpeg, **not a deployed or l
 ## Infrastructure and security requirements
 
 - Dedicated Linux VPS with Node 22, FFmpeg including libx264/drawtext/AAC, DejaVu fonts and HTTPS termination, or Docker Compose.
-- Each viewer gets a separate 720p transcode. Benchmark CPU and network before raising capacity. Do not deploy this worker to Vercel/serverless functions.
+- Each viewer gets a separate 720p transcode. Benchmark CPU and network before raising capacity. Do not deploy this worker to Firebase Functions/serverless functions.
 - Configure only owner-controlled, trusted source origins. `MZ_SOURCE_ORIGINS` checks the initial source origin; FFmpeg itself follows provider redirects and nested playlist URLs. **It is not a network sandbox.** Before production, apply host/container egress firewall rules denying loopback/private/link-local/cloud-metadata destinations and restrict outbound traffic to approved feed/CDN and app destinations. Do not ingest arbitrary/untrusted playlists. DNS/CDN changes need an operational allowlist update.
 - Use a dedicated host/container with no cloud instance credentials or internal network access. Docker drops capabilities and runs read-only as non-root, but those settings do not replace the egress firewall.
 - Gateway source inputs permit only HTTP(S)/TCP/TLS/crypto protocols, not local file references. Source credentials must use the URL query rather than URL userinfo.

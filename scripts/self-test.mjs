@@ -28,18 +28,18 @@ for (const file of [
   "api/panel.js", "api/xtream.js", "api/embed.js", "api/portal.js", "api/stream.js",
   "api/_lib/util.js", "api/_lib/rtdb.js", "api/_lib/auth.js", "api/_lib/store.js", "api/_lib/m3u.js", "api/_lib/epg.js", "api/_lib/remote.js",
   "api/_handlers/panel.js", "api/_handlers/xtream.js", "api/_handlers/embed.js", "api/_handlers/portal.js", "api/_handlers/stream.js",
-  "routing.json", "netlify.toml", "netlify/functions/app.mjs", "docs/NETLIFY.md", "docs/NETTV.md", "docs/PLAYOUT.md", "package.json", "firebase/database.rules.json", "scripts/dev-server.mjs"
+  "routing.json", "docs/FIREBASE.md", "docs/NETTV.md", "docs/PLAYOUT.md", "package.json", "firebase/database.rules.json", "scripts/dev-server.mjs"
 ]) check(`exists ${file}`, fs.existsSync(path.join(ROOT, file)));
 const firebaseClient = fs.readFileSync(path.join(ROOT, "public/assets/js/firebase-client.js"), "utf8");
 check("Firebase web config present", firebaseClient.includes("mizanoranet-default-rtdb.firebaseio.com") && firebaseClient.includes("mizanoranet.web.app") === false && firebaseClient.includes("appId"));
 const rtdbSource = fs.readFileSync(path.join(ROOT, "api/_lib/rtdb.js"), "utf8");
 check("server has durable service-account OAuth support", rtdbSource.includes("FIREBASE_SERVICE_ACCOUNT_JSON") && rtdbSource.includes("access_token") && rtdbSource.includes("RSA-SHA256"));
 const rules = JSON.parse(fs.readFileSync(path.join(ROOT, "firebase/database.rules.json"), "utf8"));
-check("Firebase rules lock panel to owner email", JSON.stringify(rules).includes("muaaziqbal.vip@gmail.com"));
-const vercel = JSON.parse(fs.readFileSync(path.join(ROOT, "routing.json"), "utf8"));
-const sources = (vercel.rewrites || []).map((r) => r.source);
+check("Firebase rules lock panel to owner email", JSON.stringify(rules).includes("matrader890@gmail.com"));
+const routing = JSON.parse(fs.readFileSync(path.join(ROOT, "routing.json"), "utf8"));
+const sources = (routing.rewrites || []).map((r) => r.source);
 for (const route of ["/player_api.php", "/get.php", "/xmltv.php", "/live/(.*)", "/movie/(.*)", "/series/(.*)", "/portal.php", "/stalker_portal/(.*)", "/c/(.*)", "/s/(.*)", "/admin", "/reseller", "/developers", "/guide"]) check(`routing rewrite ${route}`, sources.includes(route));
-check("COOP allows Firebase popup auth", (vercel.headers || []).filter((h) => ["/", "/admin", "/admin.html"].includes(h.source)).every((h) => h.headers.some((x) => x.key === "Cross-Origin-Opener-Policy" && x.value === "same-origin-allow-popups")));
+check("COOP allows Firebase popup auth", (routing.headers || []).filter((h) => ["/", "/admin", "/admin.html"].includes(h.source)).every((h) => h.headers.some((x) => x.key === "Cross-Origin-Opener-Policy" && x.value === "same-origin-allow-popups")));
 
 // Firebase Hosting + Functions publish configuration (firebase deploy).
 const firebaseHosting = JSON.parse(fs.readFileSync(path.join(ROOT, "firebase.json"), "utf8"));
@@ -82,7 +82,7 @@ for (const kind of ["welcome", "channel-offline", "pro-unlock", "coming-soon"]) 
   const mp4 = fs.readFileSync(path.join(dir, "video.mp4"));
   check(`${kind} branded video has eight-second VOD HLS and MP4`, durations.length === 4 && Math.abs(durations.reduce((sum, n) => sum + n, 0) - 8) < 0.1 && playlist.includes("#EXT-X-ENDLIST") && segments.length === 4 && segments.every((name) => fs.statSync(path.join(dir, name)).size > 0) && mp4.subarray(4, 8).toString() === "ftyp");
 }
-check("media is revalidated after branding updates", vercel.headers.some((entry) => entry.source === "/media/(.*)" && entry.headers.some((h) => h.key === "Cache-Control" && h.value === "no-cache")));
+check("media is revalidated after branding updates", routing.headers.some((entry) => entry.source === "/media/(.*)" && entry.headers.some((h) => h.key === "Cache-Control" && h.value === "no-cache")));
 const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"));
 const lock = JSON.parse(fs.readFileSync(path.join(ROOT, "package-lock.json"), "utf8"));
 const panelData = fs.readFileSync(path.join(ROOT, "data/panel.js"), "utf8");
