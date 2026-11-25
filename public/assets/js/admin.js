@@ -376,7 +376,7 @@ async function loadSettings() {
   const settings = data.settings || {};
   if ($("stServerlessHls")) $("stServerlessHls").checked = settings.serverlessHlsEnabled !== false;
   setText("studioEngine", settings.serverlessHlsEnabled !== false ? "● Serverless HLS enabled" : "○ Direct-source mode");
-  const map = { stWelcome: "welcomeVideoUrl", stOffline: "channelOfflineVideoUrl", stComing: "comingSoonVideoUrl", stPro: "proUnlockVideoUrl", stWa: "proWhatsapp", stWaIntl: "proWhatsappIntl", stTicker: "siteAnnouncement", stWelcomeDuration: "welcomeDurationSec", stRechargeNote: "rechargeNote", stResellerNote: "resellerContactNote", stPaymentMethod: "paymentMethod", stPaymentAccount: "paymentAccountNumber", stPaymentTitle: "paymentAccountTitle", stBusinessIntro: "businessIntroText" };
+  const map = { stWelcome: "welcomeVideoUrl", stOffline: "channelOfflineVideoUrl", stComing: "comingSoonVideoUrl", stPro: "proUnlockVideoUrl", stWa: "proWhatsapp", stWaIntl: "proWhatsappIntl", stTicker: "siteAnnouncement", stWelcomeDuration: "welcomeDurationSec", stRechargeNote: "rechargeNote", stResellerNote: "resellerContactNote", stPaymentMethod: "paymentMethod", stPaymentAccount: "paymentAccountNumber", stPaymentTitle: "paymentAccountTitle", stBusinessIntro: "businessIntroText", stImgbbKey: "imgbbApiKey", stAdsense: "adsenseId", stGsc: "gscVerification", stBing: "bingVerification", stSiravexBase: "siravexBase" };
   for (const [id, key] of Object.entries(map)) if ($(id)) $(id).value = settings[key] || "";
   if ($("stWelcomeEnabled")) $("stWelcomeEnabled").checked = settings.welcomeVideoEnabled !== false;
   if ($("stWelcomeSkippable")) $("stWelcomeSkippable").checked = settings.welcomeSkippable === true;
@@ -413,8 +413,11 @@ async function loadOrders() {
   if (!body) return;
   body.innerHTML = STATE.orders.map((o) => {
     const status = o.status === "approved" ? '<span class="pill ok">Approved</span>' : o.status === "rejected" ? '<span class="pill bad">Rejected</span>' : '<span class="pill warn">Pending</span>';
-    const action = o.status === "pending" ? `<button class="btn btn-primary btn-sm" data-or-approve="${esc(o.id)}" title="Approve and provision">✅</button> <button class="btn btn-danger btn-sm" data-or-reject="${esc(o.id)}" title="Reject">✖</button>` : esc(o.clientUsername || "—");
-    return `<tr data-row><td class="mono">${esc(o.id)}</td><td>${esc(o.name)}<br><span class="cell-sub">${esc(o.whatsapp || "")}</span></td><td>${esc(o.planId)}</td><td>Rs ${Number(o.amount || 0)}</td><td>${status}</td><td>${action}</td></tr>`;
+    const shot = o.screenshotUrl ? `<a href="${esc(o.screenshotUrl)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">📷</a>` : '<span class="cell-sub">No shot</span>';
+    const action = o.status === "pending"
+      ? `${shot} <button class="btn btn-primary btn-sm" data-or-approve="${esc(o.id)}" title="Approve and unlock">✅</button> <button class="btn btn-danger btn-sm" data-or-reject="${esc(o.id)}" title="Reject">✖</button>`
+      : `${shot} ${esc(o.clientUsername || "—")}`;
+    return `<tr data-row><td class="mono">${esc(o.id)}</td><td>${esc(o.name)}<br><span class="cell-sub">${esc(o.email || "")}</span><br><span class="cell-sub">${esc(o.whatsapp || "")}</span></td><td>${esc(o.planId)}</td><td>Rs ${Number(o.amount || 0)}</td><td>${status}</td><td>${action}</td></tr>`;
   }).join("") || '<tr><td colspan="6" class="empty">No orders.</td></tr>';
 }
 async function loadStalker() {
@@ -741,7 +744,10 @@ function appInit() {
         paymentAccountTitle: $("stPaymentTitle")?.value.trim(), businessIntroText: $("stBusinessIntro")?.value.trim(),
         proWhatsapp: $("stWa")?.value.trim(), proWhatsappIntl: $("stWaIntl")?.value.trim(),
         siteAnnouncement: $("stTicker")?.value.trim(), rechargeNote: $("stRechargeNote")?.value.trim(),
-        resellerContactNote: $("stResellerNote")?.value.trim()
+        resellerContactNote: $("stResellerNote")?.value.trim(),
+        imgbbApiKey: $("stImgbbKey")?.value.trim(), adsenseId: $("stAdsense")?.value.trim(),
+        gscVerification: $("stGsc")?.value.trim(), bingVerification: $("stBing")?.value.trim(),
+        siravexBase: $("stSiravexBase")?.value.trim()
       } });
       toast("💾 Settings saved");
       await Promise.all([loadSettings(), loadAudit()]);

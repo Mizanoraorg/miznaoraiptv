@@ -5,9 +5,9 @@
  */
 
 export const BRAND = {
-  name: "Mizanora IPTV",
-  shortName: "Mizanora IPTV",
-  tagline: "Live TV • IMDb Movies & Series • Free Xtream Codes • MAG/Stalker Portal • Reseller API — ek hi Mizanora panel",
+  name: "Mizanora Net TV",
+  shortName: "Mizanora Net TV",
+  tagline: "Live TV • Movies • Series • Songs — Beautiful 3D Streaming Web App",
   parentProject: "Mizanora Projects",
   parentUrl: "https://mizanora.net",
   siteUrl: "https://mizanora.net",
@@ -54,7 +54,10 @@ export const DEFAULT_SETTINGS = {
   githubFolder: "data/streams",
   gscVerification: "",
   bingVerification: "",
-  indexNowKey: "miznaoraiptv2026mizanoraseokey"
+  indexNowKey: "miznaoraiptv2026mizanoraseokey",
+  imgbbApiKey: "",
+  adsenseId: "",
+  siravexBase: "https://slast430did.com/play/"
 };
 
 export const CATEGORIES = [

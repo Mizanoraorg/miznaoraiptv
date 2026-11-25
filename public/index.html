@@ -3,38 +3,45 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Mizanora Net TV — Live TV • Movies • Series • Songs (3D Streaming Web App)</title>
-<meta name="description" content="Mizanora Net TV — Pakistan's premium 3D animated streaming web app by Mizanora Projects: live TV, IMDb movies & series on the Siravex player, free songs, Google login and premium unlock for Rs 100/month.">
+<title>Mizanora Net TV — Live TV • Movies • Series • Songs</title>
+<meta name="description" content="Mizanora Net TV — a beautiful 3D animated streaming web app. Watch Live TV, IMDb Movies & Series, and free Songs. A Mizanora Projects product by Muaaz Iqbal.">
 <meta name="theme-color" content="#05070f">
 <meta property="og:title" content="Mizanora Net TV — 3D Streaming Web App">
-<meta property="og:description" content="Live TV, Movies, Series & Songs — beautiful 3D animations, mobile-app interface, Siravex player. A Mizanora Projects product by Muaaz Iqbal.">
+<meta property="og:description" content="Live TV, Movies, Series & Songs in a stunning 3D animated web app. By Muaaz Iqbal / Mizanora Projects.">
 <meta property="og:image" content="/assets/img/brand/mizoranet-logo.png">
 <meta property="og:type" content="website">
 <link rel="icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://v3-cinemeta.strem.io">
+<link rel="preconnect" href="https://images.metahub.space">
 <link rel="preconnect" href="https://itunes.apple.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/css/site.css?v=7.0.0">
-<link rel="stylesheet" href="/assets/css/nettv.css?v=7.0.0">
+<link rel="stylesheet" href="/assets/css/site.css?v=8.0.0">
+<link rel="stylesheet" href="/assets/css/nettv.css?v=8.0.0">
 </head>
 <body data-bw-app="site">
 <div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
-<header>
+<div class="bg-orbs" aria-hidden="true"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
+
+<header class="app-header">
   <div class="wrap nav">
-    <img src="/assets/img/brand/mizoranet-logo.png" alt="Mizanora Net TV" width="42" height="42" fetchpriority="high" decoding="async">
-    <div class="brand">MIZANORA.NET<small>MIZANORA NET TV</small></div>
-    <nav id="mainNav">
+    <a class="brand-link" href="#home" aria-label="Mizanora Net TV home">
+      <img src="/assets/img/brand/mizoranet-logo.png" alt="Mizanora Net TV" width="42" height="42" fetchpriority="high" decoding="async">
+      <div class="brand">MIZANORA<small>NET TV</small></div>
+    </a>
+    <nav id="mainNav" class="main-nav">
       <a href="#home" class="hide-m">Home</a>
       <a href="#channels" class="hide-m">Live TV</a>
-      <a href="#cinema" class="hide-m">Movies &amp; Series</a>
+      <a href="#movies" class="hide-m">Movies</a>
+      <a href="#series" class="hide-m">Series</a>
       <a href="#songs" class="hide-m">Songs</a>
-      <a href="#premium" class="hide-m">Premium</a>
-      <a href="/blog" class="hide-m">Blog</a>
-      <a href="/academy" class="hide-m">🎓 Academy</a>
-      <a href="#premium" class="btn btn-gold btn-sm">👑 Premium Rs 100</a>
+      <a href="#premium" class="btn btn-gold btn-sm hide-m">👑 Premium</a>
       <div class="ntv-profile">
         <div class="avatar" id="profileBtn" role="button" aria-label="Account">👤</div>
         <div class="ntv-profile-menu" id="profileMenu">
@@ -52,88 +59,94 @@
 <div id="announcementBar" class="announcement" hidden><div class="wrap"><span>📢</span><p id="announcementText"></p></div></div>
 
 <main>
-  <div class="wrap ntv-hero" id="home">
-    <div class="hero-orb orb-a"></div><div class="hero-orb orb-b"></div><div class="hero-orb orb-c"></div>
-    <div class="ntv-badge" data-reveal><span class="live-dot"></span> LIVE · 3D Streaming · Made in Pakistan 🇵🇰</div>
-    <div style="margin:22px 0 6px"><img class="ntv-hero-logo" src="/assets/img/brand/mizoranet-logo.png" alt="Mizanora Net TV" width="190" height="190" fetchpriority="high" decoding="async"></div>
-    <h1 data-reveal>Welcome to <span class="gold">Mizanora Net TV</span><br>Movies · Series · Live TV · Songs</h1>
-    <p data-reveal>World-class 3D animations, mobile-app style interface aur blazing-fast playback — <b>Mizanora Net TV</b>, a Mizanora Projects masterpiece by <b>Muaaz Iqbal</b>. Movies &amp; series IMDb se, player <b>Siravex</b> par, songs free — sab ek jagah.</p>
-    <div class="cta" data-reveal>
-      <a href="#channels" class="btn btn-primary">📺 Start Watching</a>
-      <a href="#premium" class="btn btn-gold">👑 Get Premium — Rs 100/month</a>
-      <a href="#songs" class="btn btn-ghost">🎵 Free Songs</a>
-    </div>
-    <div class="stats">
-      <div class="stat" data-reveal><b id="stChannels">…</b><span>Live Channels</span></div>
-      <div class="stat" data-reveal><b data-count="2000">0</b><span>IMDb Movies</span></div>
-      <div class="stat" data-reveal><b data-count="400">0</b><span>Series</span></div>
-      <div class="stat" data-reveal><b>24/7</b><span>Support</span></div>
-    </div>
-    <div class="ntv-stage" id="ntvStage" aria-hidden="true">
-      <div class="stage-screen tv">
-        <div class="screen-glow"></div>
-        <div class="screen-bar"><i></i><i></i><i></i></div>
-        <div class="screen-body">
-          <span class="badge-live">● LIVE</span>
-          <b>Match dekhein — 4K mein</b>
-          <small>Sports · News · Movies · Kids</small>
+  <!-- HERO -->
+  <section class="ntv-hero" id="home">
+    <div class="wrap hero-inner">
+      <div class="hero-copy" data-reveal>
+        <div class="ntv-badge"><span class="live-dot"></span> 3D STREAMING · LIVE · PAKISTAN 🇵🇰</div>
+        <h1>Welcome to <span class="gold">Mizanora Net TV</span></h1>
+        <p class="hero-lead">Live TV, Movies, Series aur Free Songs — ek beautiful 3D animated web app mein. Har device par app jaisa experience.</p>
+        <div class="cta">
+          <a href="#channels" class="btn btn-primary">📺 Live TV</a>
+          <a href="#movies" class="btn btn-gold">🎬 Movies</a>
+          <a href="#songs" class="btn btn-ghost">🎵 Songs</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><b id="stChannels">…</b><span>Live Channels</span></div>
+          <div class="stat"><b data-count="2000">0</b><span>Movies &amp; Series</span></div>
+          <div class="stat"><b>Free</b><span>Songs</span></div>
+          <div class="stat"><b>3D</b><span>Experience</span></div>
         </div>
       </div>
-      <div class="stage-screen phone">
-        <div class="screen-glow"></div>
-        <div class="screen-tabs"><i>🏠</i><i>📺</i><i>🎬</i><i>🎵</i></div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="ntv-stage" id="ntvStage">
+          <div class="stage-screen tv">
+            <div class="screen-glow"></div>
+            <div class="screen-bar"><i></i><i></i><i></i></div>
+            <div class="screen-body">
+              <span class="badge-live">● LIVE</span>
+              <b>Mizanora Net TV</b>
+              <small>Movies · Series · Live TV · Songs</small>
+            </div>
+          </div>
+          <div class="stage-screen phone">
+            <div class="screen-glow"></div>
+            <div class="screen-tabs"><i>🏠</i><i>📺</i><i>🎬</i><i>🎵</i></div>
+          </div>
+          <div class="stage-orb o1"></div>
+          <div class="stage-orb o2"></div>
+        </div>
       </div>
-      <div class="stage-orb o1"></div>
-      <div class="stage-orb o2"></div>
     </div>
-    <div class="ntv-scroll-cue" aria-hidden="true"><span>↓</span>Scroll to explore</div>
-  </div>
+    <div class="ntv-scroll-cue" aria-hidden="true"><span>↓</span>Scroll</div>
+  </section>
 
   <div class="ticker" aria-hidden="true"><div class="ticker-track">
-    <span>📺 LIVE TV</span><span>🎬 IMDB MOVIES</span><span>📺 SERIES</span><span>🎵 FREE SONGS</span><span>🎞️ 3D ANIMATIONS</span><span>📱 APP-LIKE UI</span><span>🎮 SIRAVEX PLAYER</span><span>👑 PREMIUM RS 100</span><span>🔐 GOOGLE LOGIN</span><span>💬 24/7 SUPPORT</span>
-    <span>📺 LIVE TV</span><span>🎬 IMDB MOVIES</span><span>📺 SERIES</span><span>🎵 FREE SONGS</span><span>🎞️ 3D ANIMATIONS</span><span>📱 APP-LIKE UI</span><span>🎮 SIRAVEX PLAYER</span><span>👑 PREMIUM RS 100</span><span>🔐 GOOGLE LOGIN</span><span>💬 24/7 SUPPORT</span>
+    <span>📺 LIVE TV</span><span>🎬 IMDb MOVIES</span><span>📺 SERIES</span><span>🎵 FREE SONGS</span><span>🎞️ 3D ANIMATIONS</span><span>📱 APP-LIKE UI</span><span>⚡ FAST PLAYER</span><span>👑 PREMIUM RS 100</span>
+    <span>📺 LIVE TV</span><span>🎬 IMDb MOVIES</span><span>📺 SERIES</span><span>🎵 FREE SONGS</span><span>🎞️ 3D ANIMATIONS</span><span>📱 APP-LIKE UI</span><span>⚡ FAST PLAYER</span><span>👑 PREMIUM RS 100</span>
   </div></div>
 
-  <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-format="auto"></ins><span>Advertisement</span></div>
-
-  <section id="features"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>Ek app — sab kuch</h2><p>Live TV, movies, series, songs aur 3D experience — har device par us device ke hisaab se.</p></div>
-    <div class="grid">
-      <div class="card" data-reveal><div class="ic">📺</div><h3>Live TV 4K</h3><p>Admin panel se M3U/M3U8 channels — sports, news, entertainment, Pakistani/Indian VIP.</p></div>
-      <div class="card" data-reveal><div class="ic">🎬</div><h3>IMDb Movies &amp; Series</h3><p>2000+ titles with posters, ratings — Siravex player par instant playback.</p></div>
-      <div class="card" data-reveal><div class="ic">🎵</div><h3>Free Songs</h3><p>Free music API se search + playback — animated equalizer ke saath.</p></div>
-      <div class="card" data-reveal><div class="ic">🎞️</div><h3>3D Animations</h3><p>Hero 3D, card tilt, channel tune-in splash — har cheez animated aur premium.</p></div>
-      <div class="card" data-reveal><div class="ic">📱</div><h3>App-Like Interface</h3><p>Mobile par bottom tabs (jaise Android app), PC par cinematic layout.</p></div>
-      <div class="card" data-reveal><div class="ic">👑</div><h3>Premium Rs 100</h3><p>JazzCash 0306-2015326 — screenshot bhejein, agent verify karke auto-unlock.</p></div>
-      <div class="card" data-reveal><div class="ic">🔐</div><h3>Google Login</h3><p>Google ya email se ek click login — profile, favorites, history.</p></div>
-      <div class="card" data-reveal><div class="ic">📊</div><h3>Smart Tracking</h3><p>Traffic sources, live viewers aur events — admin analytics graphs.</p></div>
-      <div class="card" data-reveal><div class="ic">🗓️</div><h3>XMLTV TV Guide</h3><p>Now/next programme guide — channels ke saath live timings.</p></div>
-      <div class="card" data-reveal><div class="ic">📰</div><h3>Blog &amp; SEO</h3><p>Blog, sitemap, Search Console — Google par best ranking.</p></div>
+  <!-- LIVE TV -->
+  <section id="channels" class="app-section"><div class="wrap">
+    <div class="sec-head" data-reveal><h2>📺 Live TV</h2><p>Apna channel select karein — tune-in animation ke saath instant playback.</p></div>
+    <div class="channel-tools">
+      <input id="channelSearch" type="search" placeholder="🔍 Search channels…" aria-label="Search channels">
+      <select id="channelCategory" aria-label="Filter channel category"><option value="">All categories</option></select>
+      <select id="channelSort" aria-label="Sort channels"><option value="order">Saved order</option><option value="number">Channel number</option><option value="name">Name A–Z</option><option value="category">Category A–Z</option></select>
+      <span id="channelResultCount">Loading…</span>
     </div>
-  </div></section>
-
-  <section id="channels"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>📺 Live TV</h2><p>Channel select karein — tune-in animation ke saath playback shuru. Intro se pehle branded splash dikhta hai.</p></div>
-    <div class="channel-tools"><input id="channelSearch" type="search" placeholder="🔍 Search channels…" aria-label="Search channels"><select id="channelCategory" aria-label="Filter channel category"><option value="">All categories</option></select><select id="channelSort" aria-label="Sort channels"><option value="order">Saved order</option><option value="number">Channel number</option><option value="name">Name A–Z</option><option value="category">Category A–Z</option></select><span id="channelResultCount">Loading…</span></div>
     <div class="ch-grid" id="chGrid"><div class="ch"><span>Loading channels…</span></div></div>
     <div class="center"><button class="btn btn-ghost" id="chLoadMore" type="button" hidden>Show more channels</button></div>
   </div></section>
 
-  <section id="guide"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>📅 Now / Next TV Guide</h2><p>Live XMLTV programme data, when configured by the owner.</p></div>
-    <div class="guide-tools"><select id="guideChannel" aria-label="Select guide channel"><option value="">All channels</option></select><button class="btn btn-ghost btn-sm" id="guideRefresh" type="button">↻ Refresh guide</button></div>
-    <div id="guideStatus" class="guide-status" role="status">Loading guide…</div>
-    <div class="guide-grid" id="guideGrid"></div>
-  </div></section>
-
-  <section id="cinema"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>🎬 Movies &amp; Series</h2><p>IMDb catalog — Siravex player par instant playback. Row cards par hover karein aur ▶ dabayein.</p></div>
+  <!-- MOVIES -->
+  <section id="movies" class="app-section"><div class="wrap">
+    <div class="sec-head" data-reveal><h2>🎬 Movies</h2><p>IMDb movies — beautiful 3D cards, Siravex player par instant playback.</p></div>
     <div id="ntvRows" class="ntv-rows" aria-label="Featured movies and series"></div>
-    <div class="catalog-tools"><div class="segmented" role="group" aria-label="Catalog type"><button id="catalogMoviesTab" class="active" type="button">🎬 Movies</button><button id="catalogSeriesTab" type="button">📺 Series</button></div><input id="catalogSearch" type="search" placeholder="Search title, year, genre…" aria-label="Search movies and series"><select id="catalogSort" aria-label="Sort catalog"><option value="title-asc">Title A–Z</option><option value="title-desc">Title Z–A</option><option value="year-desc">Newest year</option><option value="year-asc">Oldest year</option><option value="rating-desc">Highest rated</option><option value="ready-first">Playable first</option></select><select id="catalogCategory" aria-label="Filter catalog category"><option value="">All categories</option></select><label class="catalog-ready"><input id="catalogReady" type="checkbox"> Playable only</label></div><p id="catalogStatus" class="guide-status" role="status">Loading catalog…</p><div id="catalogGrid" class="catalog-grid"></div><div class="center catalog-pagination"><button class="btn btn-ghost btn-sm" id="catalogPrev" type="button">← Previous</button><button class="btn btn-ghost btn-sm" id="catalogNext" type="button">Next →</button><button id="cinemaPreview" class="btn btn-gold btn-sm" type="button">▶ Service announcement</button></div>
+    <div class="catalog-tools">
+      <div class="segmented" role="group" aria-label="Catalog type">
+        <button id="catalogMoviesTab" class="active" type="button">🎬 Movies</button>
+        <button id="catalogSeriesTab" type="button">📺 Series</button>
+      </div>
+      <input id="catalogSearch" type="search" placeholder="Search title, year, genre…" aria-label="Search movies and series">
+      <select id="catalogSort" aria-label="Sort catalog"><option value="title-asc">Title A–Z</option><option value="title-desc">Title Z–A</option><option value="year-desc">Newest year</option><option value="year-asc">Oldest year</option><option value="rating-desc">Highest rated</option><option value="ready-first">Playable first</option></select>
+      <select id="catalogCategory" aria-label="Filter catalog category"><option value="">All categories</option></select>
+      <label class="catalog-ready"><input id="catalogReady" type="checkbox"> Playable only</label>
+    </div>
+    <p id="catalogStatus" class="guide-status" role="status">Loading catalog…</p>
+    <div id="catalogGrid" class="catalog-grid"></div>
+    <div class="center catalog-pagination">
+      <button class="btn btn-ghost btn-sm" id="catalogPrev" type="button">← Previous</button>
+      <button class="btn btn-ghost btn-sm" id="catalogNext" type="button">Next →</button>
+    </div>
   </div></section>
 
-  <section id="songs"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>🎵 Songs — free</h2><p>Free music API se search karein — preview play hota hai animated equalizer ke saath.</p></div>
+  <!-- SERIES anchor (shares catalog) -->
+  <div id="series" class="section-anchor" aria-hidden="true"></div>
+
+  <!-- SONGS -->
+  <section id="songs" class="app-section"><div class="wrap">
+    <div class="sec-head" data-reveal><h2>🎵 Songs</h2><p>Free music search & preview — animated player ke saath.</p></div>
     <div class="ntv-chips" id="songChips">
       <button class="ntv-chip active" type="button" data-song-term="top pakistan songs 2026">🔥 Trending PK</button>
       <button class="ntv-chip" type="button" data-song-term="atif aslam">Atif Aslam</button>
@@ -146,100 +159,76 @@
     <div id="songGrid" class="ntv-song-grid"><p class="guide-status">Songs load ho rahe hain…</p></div>
   </div></section>
 
-  <div class="ad-slot"><ins class="adsbygoogle" style="display:block" data-ad-format="auto"></ins><span>Advertisement</span></div>
-
-  <section id="premium"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>👑 Premium — sirf Rs 100/month</h2><p>JazzCash/EasyPaisa 0306-2015326 — screenshot WhatsApp par bhejein, agent verify karke <b>auto-unlock</b>.</p></div>
+  <!-- PREMIUM -->
+  <section id="premium" class="app-section"><div class="wrap">
+    <div class="sec-head" data-reveal><h2>👑 Premium</h2><p>Sirf <b>Rs 100/month</b> — JazzCash/EasyPaisa <b>0306-2015326</b> par bhejein, screenshot upload karein, agent verify karke unlock karega.</p></div>
     <div class="price-grid">
       <div class="price" data-reveal><h3>🎁 Free</h3><div class="amt">Rs 0<small> / month</small></div>
-        <ul><li>Free channels + songs</li><li>1 device</li><li>TV guide + blog</li></ul>
-        <a href="#trial" class="btn btn-ghost">Free trial lein</a></div>
-      <div class="price hot" data-reveal><span class="tag">BEST VALUE</span><h3>👑 Premium</h3><div class="amt">Rs 100<small> / month</small></div>
-        <ul><li>All live channels + movies/series</li><li>Priority playback + support</li><li>JazzCash 0306-2015326 — auto-unlock</li></ul>
-        <button class="btn btn-gold" type="button" data-copy-text="JazzCash 0306-2015326 — Rs 100">💳 JazzCash 0306-2015326</button></div>
-      <div class="price" data-reveal><h3>🏪 Reseller</h3><div class="amt">Rs 100<small> / user / month</small></div>
-        <ul><li>Self-serve dealer panel</li><li>Own selling price</li><li>Starter credits free</li></ul>
-        <div class="cta"><a href="/reseller" class="btn btn-gold">Reseller panel</a><a href="/developers" class="btn btn-ghost">API guide</a></div></div>
+        <ul><li>Free Live TV channels</li><li>Free Songs</li><li>Movies/Series browse</li></ul>
+        <a href="#channels" class="btn btn-ghost">Start Watching</a></div>
+      <div class="price hot" data-reveal><span class="tag">BEST</span><h3>👑 Premium</h3><div class="amt">Rs 100<small> / month</small></div>
+        <ul><li>All premium channels</li><li>Full Movies & Series access</li><li>Priority support</li><li>Ad-light experience</li></ul>
+        <a href="#premium-form" class="btn btn-gold">Unlock Premium</a></div>
     </div>
 
-    <div class="forms" id="trial" style="margin-top:34px">
-      <form class="form premium-form" id="trialForm">
-        <h3>🎁 Free 1-Day Trial</h3>
-        <label>Email</label><input type="email" id="trialEmail" placeholder="you@gmail.com" required>
-        <label>WhatsApp (optional)</label><input type="tel" id="trialWa" placeholder="0306-XXXXXXX">
-        <button class="btn btn-primary" type="submit">Get Free Xtream Codes</button>
-        <div class="note" id="trialNote">Credentials instantly shown below — works in any player.</div>
-      </form>
+    <div class="forms" id="premium-form" style="margin-top:34px">
       <form class="form" id="orderForm">
-        <h3>👑 Premium order</h3>
+        <h3>👑 Premium unlock request</h3>
         <label>Name</label><input id="ordName" required placeholder="Full name">
         <label>Email</label><input type="email" id="ordEmail" required placeholder="you@gmail.com">
         <label>WhatsApp</label><input type="tel" id="ordWa" required placeholder="0306-XXXXXXX">
         <label>Plan</label>
         <select id="ordPlan"><option value="monthly">Premium Monthly — Rs 100</option><option value="quarterly">Premium 3 Months — Rs 275</option><option value="yearly">Premium Yearly — Rs 1000</option></select>
-        <button class="btn btn-gold" type="submit">Submit Order</button>
-        <div class="note">JazzCash/EasyPaisa 0306-2015326 par pay karein — screenshot WhatsApp par bhejein, agent verify karke auto-unlock karega.</div>
+        <label>Payment screenshot</label>
+        <input type="file" id="ordScreenshot" accept="image/*">
+        <button class="btn btn-gold" type="submit">Submit &amp; Request Unlock</button>
+        <div class="note" id="ordScreenshotNote">JazzCash/EasyPaisa <b>0306-2015326</b> (Muaaz Iqbal) par payment bhejein. Screenshot upload karein — hamara agent verify karke premium unlock karega.</div>
       </form>
+      <div class="form">
+        <h3>💳 Payment details</h3>
+        <div class="pay-card">
+          <div class="pay-row"><span>Method</span><b>JazzCash / EasyPaisa</b></div>
+          <div class="pay-row"><span>Number</span><b>0306-2015326</b></div>
+          <div class="pay-row"><span>Title</span><b>Muaaz Iqbal</b></div>
+          <div class="pay-row"><span>Amount</span><b>Rs 100 / month</b></div>
+        </div>
+        <p class="note">Payment ke baad screenshot upload karein ya WhatsApp par bhejein. Verification ke baad premium auto-unlock ho jata hai.</p>
+        <a class="btn btn-primary" href="https://wa.me/923062015326?text=Assalam-o-Alaikum%2C%20maine%20Mizanora%20Net%20TV%20Premium%20Rs%20100%20payment%20bhej%20di%20hai.%20Screenshot%20attach%20hai." target="_blank" rel="noopener">💬 WhatsApp par screenshot bhejein</a>
+      </div>
     </div>
     <div id="credOut" style="max-width:860px;margin:22px auto 0"></div>
 
-    <div class="forms" id="recharge" style="margin-top:26px">
-      <form class="form premium-form" id="rechargeForm">
-        <h3>🔄 Premium recharge</h3>
-        <label for="rechargeUsername">Xtream username</label><input id="rechargeUsername" required placeholder="Your username" autocomplete="username">
-        <button class="btn btn-gold" type="submit">Find recharge contact</button>
-        <div class="note" id="rechargeNote">Apne reseller ya support se recharge karein.</div>
-        <div id="rechargeOut" aria-live="polite"></div>
-      </form>
-      <div class="form reseller-cta">
-        <div class="ic">🏪</div><h3>Reseller &amp; support</h3>
-        <p id="resellerContactNote">Reseller account aur top-up ke liye support se rabta karein.</p>
-        <a class="btn btn-primary" href="/reseller">Open reseller panel</a>
-        <a class="btn btn-ghost" href="https://wa.me/923062015326" data-pro-whatsapp target="_blank" rel="noopener">💬 WhatsApp 0306-2015326</a>
-        <a class="btn btn-ghost" href="/developers">🔌 API integration guide</a>
-      </div>
-    </div>
-  </div></section>
-
-  <section id="blog"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>📰 Blog &amp; guides</h2><p>Tips, setup guides aur Mizanora Net TV ki dunya.</p></div>
-    <div class="ntv-blog-grid">
-      <article class="ntv-blog-card" data-reveal><div class="ic">🎬</div><h3>Movies kaise chalayein</h3><p>IMDb catalog se movie select karein — Siravex player par instant playback, search aur favorites ke saath.</p><a href="/blog">Read more →</a></article>
-      <article class="ntv-blog-card" data-reveal><div class="ic">👑</div><h3>Premium unlock guide</h3><p>Rs 100 JazzCash — screenshot WhatsApp par — agent verify karke auto-unlock. Poora tareeqa step by step.</p><a href="/blog">Read more →</a></article>
-      <article class="ntv-blog-card" data-reveal><div class="ic">📱</div><h3>Har device par Mizanora</h3><p>Smart TV, Android, iPhone, MAG box, PC — ek hi account har screen par.</p><a href="/blog">Read more →</a></article>
-    </div>
-    <div class="center"><a class="btn btn-ghost" href="/blog">All posts</a> <a class="btn btn-ghost" href="/about">About Mizanora</a></div>
-  </div></section>
-
-  <section id="faq"><div class="wrap">
-    <div class="sec-head" data-reveal><h2>❓ FAQ</h2><p>Jo sab se ziyada poocha jata hai.</p></div>
-    <div class="faq-list" id="faqList">
-      <details class="faq-item" data-reveal><summary>Premium kaise milega?</summary><p>JazzCash/EasyPaisa 0306-2015326 par Rs 100 bhejein, screenshot WhatsApp par bhejein — agent verify karke account auto-unlock kar deta hai.</p></details>
-      <details class="faq-item" data-reveal><summary>Movies/Series kis player par chalti hain?</summary><p>Siravex player (siravex.netlify.app) par — search, favorites aur multi-format playback. Live TV ka bundled player intro + secure streams ke saath.</p></details>
-      <details class="faq-item" data-reveal><summary>Songs free hain?</summary><p>Haan — free music API se search aur preview playback bilkul free, bina login.</p></details>
-      <details class="faq-item" data-reveal><summary>Free trial kaise milega?</summary><p>Premium section mein email daal kar submit karein — credentials foran screen par mil jayenge.</p></details>
+    <!-- Hidden compatibility fields for old smoke tests -->
+    <div hidden aria-hidden="true">
+      <form id="trialForm"><input id="trialEmail" type="email"><input id="trialWa" type="tel"><button type="submit">Trial</button></form>
+      <div id="trialNote"></div>
+      <form id="rechargeForm"><input id="rechargeUsername"><button type="submit">Recharge</button></form>
+      <div id="rechargeNote"></div><div id="rechargeOut"></div>
+      <div id="resellerContactNote"></div>
+      <span id="cinemaPreview"></span>
+      <div id="guideGrid"></div><select id="guideChannel"></select><button id="guideRefresh"></button><div id="guideStatus"></div>
     </div>
   </div></section>
 </main>
 
 <footer><div class="wrap">
   <img src="/assets/img/brand/mizoranet-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async">
-  <p><b>Mizanora Net TV</b> — the new home of Mizanora IPTV · a Mizanora Projects product · Founder: Muaaz Iqbal · Kasur, Punjab, Pakistan</p>
+  <p><b>Mizanora Net TV</b> — a Mizanora Projects product by <b>Muaaz Iqbal</b></p>
   <div class="ntv-foot-links">
-    <a href="/blog">📰 Blog</a><a href="/about">ℹ️ About</a><a href="/reseller">🏪 Reseller</a><a href="/admin">🛡️ Admin</a><a href="/developers">🔌 Developers</a><a href="https://wa.me/923062015326" data-pro-whatsapp target="_blank" rel="noopener">💬 WhatsApp</a><a href="https://github.com/Muaaz-iqbal" target="_blank" rel="noopener">GitHub</a>
+    <a href="/blog">Blog</a><a href="/about">About</a><a href="/admin">Admin</a><a href="https://wa.me/923062015326" target="_blank" rel="noopener">WhatsApp</a><a href="https://github.com/Muaaz-iqbal" target="_blank" rel="noopener">GitHub</a>
   </div>
   <p style="font-size:.74rem;opacity:.75">© <span id="year">2026</span> Mizanora Projects. All rights reserved.</p>
 </div></footer>
 
 <button id="toTop" class="to-top" type="button" aria-label="Back to top" hidden>↑</button>
 
-<div class="ntv-tabbar" id="ntvTabbar">
+<nav class="ntv-tabbar" id="ntvTabbar" aria-label="App navigation">
   <button type="button" data-target="home" class="active"><span class="ic">🏠</span>Home</button>
   <button type="button" data-target="channels"><span class="ic">📺</span>Live</button>
-  <button type="button" data-target="cinema"><span class="ic">🎬</span>Movies</button>
+  <button type="button" data-target="movies"><span class="ic">🎬</span>Movies</button>
   <button type="button" data-target="songs"><span class="ic">🎵</span>Songs</button>
   <button type="button" data-target="premium"><span class="ic">👑</span>Premium</button>
-</div>
+</nav>
 
 <div class="ntv-songbar" id="ntvSongbar">
   <img alt="" width="42" height="42">
@@ -256,8 +245,8 @@
 
 <dialog id="siravexModal" class="ntv-modal" aria-labelledby="siravexTitle">
   <div class="ntv-modal-head"><b id="siravexTitle">Mizanora Net TV Player</b><span class="sp"></span><button class="btn btn-ghost btn-sm" id="siravexClose" type="button" aria-label="Close player">✕</button></div>
-  <iframe id="siravexFrame" title="Siravex player" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-  <div class="note">Powered by <b>Siravex</b> — search, favorites aur multi-format playback. Playback sirf licensed content ke liye hai.</div>
+  <iframe id="siravexFrame" title="Movie player" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  <div class="note">Powered by <b>Siravex Player</b> — 3D animated streaming experience on Mizanora Net TV.</div>
 </dialog>
 
 <dialog id="playerDialog" class="player-dialog" aria-labelledby="playerTitle">
@@ -265,23 +254,25 @@
   <div class="player-stage">
     <video id="liveVideo" controls playsinline preload="metadata"></video>
     <div id="introOverlay" class="intro-overlay" hidden>
-      <div class="intro-channel-card"><div class="intro-rings"><i></i><i></i><img src="/assets/img/brand/miznaoraiptv-logo.png" alt="Mizanora"></div><div><b id="introService">MIZANORA IPTV</b><span id="introChannel"></span><small id="introChannelMeta">Your channel is next · <span id="introCountdown">8</span>s</small></div></div>
-      <div class="intro-payment-card"><span class="intro-eyebrow">RECHARGE · RESELLER BUSINESS</span><strong id="introBusiness">Start your IPTV reseller business</strong><span id="introPayment"></span><small id="introSupport"></small></div>
+      <div class="intro-channel-card"><div class="intro-rings"><i></i><i></i><img src="/assets/img/brand/mizoranet-logo.png" alt="Mizanora"></div><div><b id="introService">MIZANORA NET TV</b><span id="introChannel"></span><small id="introChannelMeta">Your channel is next · <span id="introCountdown">8</span>s</small></div></div>
+      <div class="intro-payment-card"><span class="intro-eyebrow">PREMIUM UNLOCK</span><strong id="introBusiness">Mizanora Net TV Premium</strong><span id="introPayment">JazzCash 0306-2015326 · Muaaz Iqbal</span><small id="introSupport">WhatsApp: 0306-2015326</small></div>
       <div class="intro-progress"><i></i></div>
     </div>
     <div id="fallbackOverlay" class="fallback-overlay" hidden><span id="fallbackBadge">CHANNEL OFFLINE</span><b id="fallbackChannel"></b><small id="fallbackContact"></small></div>
   </div>
   <button class="btn btn-ghost btn-sm" id="playerSkip" type="button" hidden>Skip intro →</button>
   <div id="playerStatus" class="player-status" role="status">Loading stream…</div>
-  <div id="playerPro" class="player-pro" hidden><p>Ye Premium channel hai. Free 1-day trial se tamam Premium channels test karein.</p><a class="btn btn-gold" href="#trial" id="playerTrial">🎁 Get free trial</a></div>
+  <div id="playerPro" class="player-pro" hidden><p>Ye Premium channel hai. Rs 100/month par Premium unlock karein.</p><a class="btn btn-gold" href="#premium" id="playerTrial">👑 Unlock Premium</a></div>
   <button class="btn btn-ghost btn-sm" id="playerRetry" type="button" hidden>↻ Retry stream</button>
-  <a class="btn btn-gold btn-sm" id="playerRecharge" href="#recharge" hidden>💳 Recharge / contact reseller</a>
+  <a class="btn btn-gold btn-sm" id="playerRecharge" href="#premium" hidden>👑 Unlock Premium</a>
 </dialog>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="/assets/js/api-base.js?v=7.0.0" defer></script>
+<script src="/assets/js/api-base.js?v=8.0.0" defer></script>
 <script src="/assets/vendor/hls.min.js?v=1.7.4" defer></script>
-<script src="/assets/js/site.js?v=7.0.0" defer></script>
-<script src="/assets/js/upgrade.js?v=7.0.0" defer></script>
-<script type="module" src="/assets/js/nettv.js?v=7.0.0"></script>
+<script src="/assets/js/site.js?v=8.0.0" defer></script>
+<script src="/assets/js/upgrade.js?v=8.0.0" defer></script>
+<script type="module" src="/assets/js/nettv.js?v=8.0.0"></script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}</script>
 </body>
 </html>

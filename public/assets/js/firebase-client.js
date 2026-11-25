@@ -6,7 +6,7 @@
 import { initializeApp } from "../vendor/firebase-sdk.js?v=2";
 import {
   getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect,
-  getRedirectResult, signInWithEmailAndPassword, signOut, onAuthStateChanged
+  getRedirectResult, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged
 } from "../vendor/firebase-sdk.js?v=2";
 import { getDatabase, ref, get, set, remove, onValue } from "../vendor/firebase-sdk.js?v=2";
 
@@ -67,7 +67,13 @@ export async function finishRedirect() {
 export async function loginWithEmailPassword(email, password) {
   try {
     const r = await signInWithEmailAndPassword(auth, email, password);
-    return { ok: true, user: { uid: r.user.uid, email: r.user.email } };
+    return { ok: true, user: { uid: r.user.uid, email: r.user.email, displayName: r.user.displayName || "" } };
+  } catch (e) { return { ok: false, error: e?.message || String(e), code: e?.code || "" }; }
+}
+export async function createUserWithEmailPassword(email, password) {
+  try {
+    const r = await createUserWithEmailAndPassword(auth, email, password);
+    return { ok: true, user: { uid: r.user.uid, email: r.user.email, displayName: r.user.displayName || "" } };
   } catch (e) { return { ok: false, error: e?.message || String(e), code: e?.code || "" }; }
 }
 export async function logoutUser() { try { await signOut(auth); } catch {} }

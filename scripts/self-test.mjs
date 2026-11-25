@@ -130,7 +130,7 @@ const post = (route, value, headers = {}) => request(route, { method: "POST", he
 const panelPost = (value, headers = {}) => post("/api/panel", value, headers);
 let r;
 try {
-  r = await request("/"); check("landing loads with COOP", r.status === 200 && r.text.includes("Mizanora IPTV") && r.headers.get("cross-origin-opener-policy")?.includes("same-origin-allow-popups"));
+  r = await request("/"); check("landing loads with COOP", r.status === 200 && r.text.includes("Mizanora Net TV") && r.headers.get("cross-origin-opener-policy")?.includes("same-origin-allow-popups"));
   r = await request("/admin"); check("admin lock loads", r.status === 200 && r.text.includes('id="adminLock"'));
   r = await request("/reseller"); check("reseller workspace route loads", r.status === 200 && r.text.includes("resellerLoginForm") && r.text.includes("clientCreateForm"));
   r = await request("/developers"); check("developer guide and embed builder load", r.status === 200 && r.text.includes("embedCode") && r.text.includes("resellerExample"));
@@ -140,7 +140,7 @@ try {
   r = await request("/embed.js"); check("embed widget loads", r.status === 200 && r.text.includes("data-mizanora-embed"));
   r = await request("/api/embed?action=help"); check("embed help is not a dead link", r.status === 200 && r.body.ok && r.body.actions);
   r = await request("/api/embed?action=health"); check("health reports storage diagnostics", r.status === 200 && r.body.ok && r.body.storage && typeof r.body.storage.durableServerWrites === "boolean");
-  r = await request("/api/panel?action=config"); check("public config and endpoints", r.status === 200 && r.body.brand === "Mizanora IPTV" && r.body.endpoints.magPortal.endsWith("/portal.php") && r.body.version === "7.0.0");
+  r = await request("/api/panel?action=config"); check("public config and endpoints", r.status === 200 && r.body.brand === "Mizanora Net TV" && r.body.endpoints.magPortal.endsWith("/portal.php") && r.body.version === "7.0.0");
   r = await request("/api/embed?action=config"); check("public intro, recharge and developer settings are available", r.status === 200 && r.body.experience?.intro?.url === "/media/welcome/video.mp4" && r.body.experience.intro.durationSec === 8 && r.body.experience.intro.skippable === false && r.body.experience.videos.offline.includes("channel-offline") && r.body.experience.videos.comingSoon.includes("coming-soon") && r.body.links?.resellerPanel.endsWith("/reseller") && r.body.links?.developers.endsWith("/developers"));
   r = await request("/api/embed?action=channels"); check("default live catalog and welcome promo are available", r.status === 200 && r.body.count >= 18 && r.body.channels.some((c) => c.id === "ch_mz_promo" && /Welcome/i.test(c.name)));
   const firstChannel = r.body.channels[0];
