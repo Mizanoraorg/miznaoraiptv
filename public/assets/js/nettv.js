@@ -22,7 +22,10 @@
   window.NTV = { toast: toast };
 
   /* ---------- config: verification meta, adsense, posters ---------- */
-  fetch("/api/embed?action=config").then(function (r) { return r.json(); }).then(function (data) {
+  function safeJson(r) {
+    return r.json().catch(function () { throw new Error("Backend unavailable. Internet / server check karein."); });
+  }
+  fetch("/api/embed?action=config").then(safeJson).then(function (data) {
     if (!data || !data.ok) return;
     config = data;
     var exp = data.experience || {};
@@ -192,9 +195,9 @@
   }
   if (rowsHost) {
     Promise.all([
-      fetch("/api/embed?action=movies&limit=12&sort=rating-desc").then(function (r) { return r.json(); }).catch(function () { return null; }),
-      fetch("/api/embed?action=movies&limit=12&q=Pakistani").then(function (r) { return r.json(); }).catch(function () { return null; }),
-      fetch("/api/embed?action=series&limit=12&sort=rating-desc").then(function (r) { return r.json(); }).catch(function () { return null; })
+      fetch("/api/embed?action=movies&limit=12&sort=rating-desc").then(safeJson).catch(function () { return null; }),
+      fetch("/api/embed?action=movies&limit=12&q=Pakistani").then(safeJson).catch(function () { return null; }),
+      fetch("/api/embed?action=series&limit=12&sort=rating-desc").then(safeJson).catch(function () { return null; })
     ]).then(function (all) {
       var movies = all[0] && all[0].movies || [];
       var pk = all[1] && all[1].movies || [];
@@ -202,8 +205,23 @@
       renderRow(rowsHost, "🔥 Trending Movies", movies, "movie");
       renderRow(rowsHost, "🇵🇰 Pakistani Blockbusters", pk.filter(function (m) { return movies.indexOf(m) < 0; }).slice(0, 12), "movie");
       renderRow(rowsHost, "📺 Binge-Worthy Series", series, "series");
-      if (!movies.length && !series.length) rowsHost.innerHTML = "";
+      if (!movies.length && !series.length) rowsHost.innerHTML = "<p class='guide-status'>Catalog abhi connect nahi hua — thori der baad refresh karein.</p>";
     }).catch(function () {});
+  }
+
+  /* ---------- hero 3D stage parallax ---------- */
+  if (!reduced) {
+    var hero = document.querySelector(".ntv-hero");
+    var stage = $("ntvStage");
+    if (hero && stage && window.matchMedia && window.matchMedia("(hover:hover)").matches) {
+      hero.addEventListener("mousemove", function (event) {
+        var r = hero.getBoundingClientRect();
+        var px = (event.clientX - r.left) / r.width - 0.5;
+        var py = (event.clientY - r.top) / r.height - 0.5;
+        stage.style.transform = "rotateY(" + (px * 9).toFixed(2) + "deg) rotateX(" + (-py * 7).toFixed(2) + "deg)";
+      }, { passive: true });
+      hero.addEventListener("mouseleave", function () { stage.style.transform = ""; }, { passive: true });
+    }
   }
 
   /* ---------- card 3D tilt ---------- */
@@ -268,7 +286,7 @@
     if (!songGrid) return;
     songGrid.innerHTML = "<p class='guide-status'>Songs load ho rahe hain…</p>";
     fetch("https://itunes.apple.com/search?media=music&limit=18&term=" + encodeURIComponent(term))
-      .then(function (r) { return r.json(); })
+      .then(function (r) { if (!r.ok) throw new Error("Songs API busy"); return r.json(); })
       .then(function (data) { renderSongs((data && data.results) || []); })
       .catch(function () {
         songGrid.innerHTML = "<p class='guide-status'>Songs abhi load nahi ho sake — internet check karein.</p>";

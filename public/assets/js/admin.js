@@ -216,7 +216,7 @@ function matches(item, query, fields) {
 }
 async function loadSystemHealth() {
   const response = await fetch("/api/embed?action=health");
-  const data = await response.json();
+  const data = await response.json().catch(() => ({ ok: false, error: "Backend unavailable. Internet / server check karein." }));
   if (!response.ok || !data.ok) throw new Error("System health check failed");
   setText("kpiSystem", "Online");
   const storage = data.storage || {};
@@ -304,7 +304,7 @@ async function loadMovies() {
   const page = STATE.catalog.movies;
   const params = new URLSearchParams({ action: "movies", limit: "80", offset: String(page.offset), q: query, sort: $("mvSort")?.value || "title-asc", category: $("mvCategory")?.value || "", ready: $("mvReady")?.checked ? "1" : "" });
   const response = await fetch("/api/embed?" + params);
-  const data = await response.json();
+  const data = await response.json().catch(() => ({ ok: false, error: "Backend unavailable. Internet / server check karein." }));
   if (!response.ok) throw new Error(data.error || "Movies failed to load");
   if (request !== movieRequest) return;
   STATE.movies = data.movies || [];
@@ -343,7 +343,7 @@ async function loadSeries() {
   const page = STATE.catalog.series;
   const params = new URLSearchParams({ action: "series", limit: "80", offset: String(page.offset), q: query, sort: $("srSort")?.value || "title-asc", category: $("srCategory")?.value || "", ready: $("srReady")?.checked ? "1" : "" });
   const response = await fetch("/api/embed?" + params);
-  const data = await response.json();
+  const data = await response.json().catch(() => ({ ok: false, error: "Backend unavailable. Internet / server check karein." }));
   if (!response.ok) throw new Error(data.error || "Series failed to load");
   if (request !== seriesRequest) return;
   STATE.series = data.series || [];
