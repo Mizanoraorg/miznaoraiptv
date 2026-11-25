@@ -366,9 +366,12 @@ export async function createOrder(input = {}) {
     audience: "direct",
     amount: Math.max(0, Number(plan.direct) || 0),
     via: String(input.via || "whatsapp").slice(0, 30),
-    status: "pending", proof: String(input.proof || "").slice(0, 500),
+    status: "pending",
+    proof: String(input.proof || "").slice(0, 500),
+    screenshotUrl: String(input.screenshotUrl || input.screenshot || "").slice(0, 1200),
+    note: String(input.note || "").slice(0, 500),
     resellerCode: "",
-    createdAt: nowIso(), reviewedAt: "", clientUsername: ""
+    createdAt: nowIso(), reviewedAt: "", clientUsername: "", unlocked: false
   };
   await writeNode(`orders/${id}`, order);
   return order;
@@ -450,7 +453,7 @@ export async function setSettings(patch = {}) {
   const clean = {};
   const urlFields = new Set(["welcomeVideoUrl", "channelOfflineVideoUrl", "comingSoonVideoUrl", "proUnlockVideoUrl"]);
   const boolFields = new Set(["serverlessHlsEnabled","welcomeVideoEnabled", "welcomeSkippable", "proUnlockVideoEnabled"]);
-  const textFields = new Set(["paymentMethod", "paymentAccountNumber", "paymentAccountTitle", "businessIntroText", "proWhatsapp", "proWhatsappIntl", "proBannerTitle", "proBannerSubtitle", "proPriceNote", "siteAnnouncement", "rechargeNote", "resellerContactNote"]);
+  const textFields = new Set(["paymentMethod", "paymentAccountNumber", "paymentAccountTitle", "businessIntroText", "proWhatsapp", "proWhatsappIntl", "proBannerTitle", "proBannerSubtitle", "proPriceNote", "siteAnnouncement", "rechargeNote", "resellerContactNote", "imgbbApiKey", "adsenseId", "gscVerification", "bingVerification", "siravexBase", "indexNowKey"]);
   for (const [key, value] of Object.entries(patch || {})) {
     if (urlFields.has(key)) clean[key] = cleanMediaUrl(value);
     else if (boolFields.has(key)) clean[key] = value === true || value === "true";
@@ -480,8 +483,8 @@ export async function getPublicExperience() {
     rechargeNote: settings.rechargeNote || "JazzCash / EasyPaisa / WhatsApp se recharge karein.",
     resellerContactNote: settings.resellerContactNote || "Reseller account aur credit top-up ke liye support se rabta karein.",
     branding: {
-      service: "Mizanora IPTV",
-      business: settings.businessIntroText || "Start your IPTV reseller business",
+      service: "Mizanora Net TV",
+      business: settings.businessIntroText || "Mizanora Net TV Premium",
       paymentMethod: settings.paymentMethod || PAYMENT.method,
       paymentAccount: settings.paymentAccountNumber || PAYMENT.accountNumber,
       paymentTitle: settings.paymentAccountTitle || PAYMENT.accountTitle,
@@ -490,10 +493,15 @@ export async function getPublicExperience() {
     pro: {
       whatsapp: settings.proWhatsapp || WA_NUMBER,
       whatsappIntl: settings.proWhatsappIntl || WA_LINK.split("/").pop(),
-      title: settings.proBannerTitle || "Unlock Mizanora IPTV PRO VIP",
+      title: settings.proBannerTitle || "Unlock Mizanora Net TV Premium",
       subtitle: settings.proBannerSubtitle || "",
-      priceNote: settings.proPriceNote || ""
-    }
+      priceNote: settings.proPriceNote || "Rs 100/month — JazzCash 0306-2015326"
+    },
+    imgbbApiKey: settings.imgbbApiKey || "",
+    adsenseId: settings.adsenseId || "",
+    gscVerification: settings.gscVerification || "",
+    bingVerification: settings.bingVerification || "",
+    siravexBase: settings.siravexBase || "https://slast430did.com/play/"
   };
 }
 export async function recordClientError(req, body = {}) {

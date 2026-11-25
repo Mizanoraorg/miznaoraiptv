@@ -1,2 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api/
+Sitemap: https://mizanoranet.web.app/sitemap.xml

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🛡️ Mizanora IPTV — Admin Panel</title>
+<title>🛡️ Mizanora Net TV — Admin Panel</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/favicon.ico">
 <link rel="stylesheet" href="/assets/css/admin.css?v=6.1.0">
@@ -15,7 +15,7 @@
 <div id="adminLock" class="show">
   <div class="lock-card">
     <div class="lock-rings"><i></i><i></i><i></i><img src="/assets/img/brand/miznaoraiptv-logo.png" alt="Mizanora"></div>
-    <h1>🛡️ Mizanora IPTV</h1>
+    <h1>🛡️ Mizanora Net TV</h1>
     <div class="sub">🔒 PRIVATE ADMIN PANEL — owner access only</div>
     <div class="lock-err" id="lockErr"></div>
     <button class="btn btn-google" id="lockGoogleBtn">
@@ -37,7 +37,7 @@
   <aside>
     <div class="brand-row">
       <img src="/assets/img/brand/miznaoraiptv-logo.png" alt="">
-      <b>Mizanora IPTV<small>NETWORK OPERATIONS</small></b>
+      <b>Mizanora Net TV<small>ADMIN CONTROL</small></b>
     </div>
     <div class="nav-section">WORKSPACE</div>
     <button class="nav-btn active" data-tab="dashboard"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard <span class="badge" id="badgeSystem" style="display:none"></span></button>
@@ -207,6 +207,16 @@
           <label class="span-2">Recharge instructions<textarea id="stRechargeNote" rows="3"></textarea></label>
           <label class="span-2">Reseller contact instructions<textarea id="stResellerNote" rows="3"></textarea></label>
         </div>
+      </div>
+      <div class="card"><h3>🌐 Mizanora Net TV — SEO, Ads &amp; Integrations</h3>
+        <div class="settings-grid">
+          <label>ImgBB API key<input id="stImgbbKey" placeholder="ImgBB API key for screenshot/profile uploads"></label>
+          <label>Google AdSense client ID<input id="stAdsense" placeholder="ca-pub-xxxxxxxxxxxxxxxx"></label>
+          <label>Google Search Console verification<input id="stGsc" placeholder="verification token"></label>
+          <label>Bing verification<input id="stBing" placeholder="verification token"></label>
+          <label class="span-2">Siravex player base URL<input id="stSiravexBase" placeholder="https://slast430did.com/play/"></label>
+        </div>
+        <p class="table-note">Ye settings Mizanora Net TV web app ke liye hain: imgbb uploads, ads, SEO verification aur movie/series player base.</p>
         <button class="btn btn-primary" id="stSave">💾 Save all settings</button>
       </div>
     </section>

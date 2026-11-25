@@ -31,11 +31,19 @@
     var exp = data.experience || {};
     IMDB_KEY = String(exp.imdbApiKey || "").trim();
     try { if (!IMDB_KEY) IMDB_KEY = String(localStorage.getItem("mz_imdb_key") || "").trim(); } catch (e) {}
-    if (exp.verification) {
+    var gsc = String(exp.gscVerification || exp.verification || "").replace(/^google-site-verification=/, "").trim();
+    if (gsc) {
       var meta = document.createElement("meta");
       meta.name = "google-site-verification";
-      meta.content = String(exp.verification).replace(/^google-site-verification=/, "");
+      meta.content = gsc;
       document.head.appendChild(meta);
+    }
+    var bing = String(exp.bingVerification || "").trim();
+    if (bing) {
+      var bmeta = document.createElement("meta");
+      bmeta.name = "msvalidate.01";
+      bmeta.content = bing;
+      document.head.appendChild(bmeta);
     }
     if (exp.adsenseId) {
       var s = document.createElement("script");
@@ -82,14 +90,21 @@
     }
   } catch (e) {}
 
-  /* ---------- Siravex player modal (/play/tt<imdbId>) ---------- */
+  /* ---------- Siravex player modal (embed /play/tt<imdbId>) ---------- */
   var modal = $("siravexModal");
+  var SIRAVEX_BASE = "https://slast430did.com/play/";
+  function siravexBase() {
+    var exp = (config && config.experience) || {};
+    return String(exp.siravexBase || SIRAVEX_BASE).replace(/\/?$/, "/");
+  }
   function openSiravex(imdbId, title) {
     var frame = $("siravexFrame");
     var head = $("siravexTitle");
-    if (!modal || !frame) { window.open("https://siravex.netlify.app/play/" + encodeURIComponent(imdbId), "_blank", "noopener"); return; }
+    var id = String(imdbId || "").trim();
+    if (!/^tt\d+$/i.test(id)) { toast("Is title ka IMDb ID available nahi.", true); return; }
+    if (!modal || !frame) { window.open(siravexBase() + encodeURIComponent(id), "_blank", "noopener"); return; }
     if (head) head.textContent = title || "Mizanora Net TV Player";
-    frame.src = "https://siravex.netlify.app/play/" + encodeURIComponent(imdbId);
+    frame.src = siravexBase() + encodeURIComponent(id);
     playSplash("FEATURE PRESENTATION", title || "Mizanora Net TV");
     if (typeof modal.showModal === "function") modal.showModal();
     else modal.setAttribute("open", "");
@@ -109,25 +124,37 @@
     modal.addEventListener("click", function (event) { if (event.target === modal) close(); });
   })();
 
-  /* ---------- Netflix-style 3D rows (movies + series from IMDb catalog) ---------- */
+  /* ---------- Movies & Series (IMDb via Cinemeta + local catalog fallback) ---------- */
   var rowsHost = $("ntvRows");
   var ART_GRADS = [
     "linear-gradient(150deg,#1c2f6e,#5b2c92)", "linear-gradient(150deg,#0f4c5c,#1c6b8c)",
     "linear-gradient(150deg,#5c1a33,#a13a63)", "linear-gradient(150deg,#234026,#3f7d3c)",
     "linear-gradient(150deg,#5c3a12,#a9701f)", "linear-gradient(150deg,#2a1c5c,#6237b8)"
   ];
-  function posterUrl(item, kind) {
-    if (item.poster) return item.poster;
-    if (IMDB_KEY && item.imdbId) {
-      return "https://www.omdbapi.com/?i=" + encodeURIComponent(item.imdbId) + "&apikey=" + encodeURIComponent(IMDB_KEY);
-    }
+  function normalizeMeta(m, kind) {
+    if (!m) return null;
+    var id = String(m.imdb_id || m.imdbId || m.id || "").trim();
+    return {
+      imdbId: /^tt\d+$/i.test(id) ? id : "",
+      title: m.name || m.title || "",
+      year: String(m.releaseInfo || m.year || "").slice(0, 4),
+      rating: m.imdbRating || m.rating || "",
+      poster: m.poster || m.background || "",
+      genres: m.genres || m.genre || [],
+      plot: m.description || m.plot || "",
+      kind: kind
+    };
+  }
+  function posterUrl(item) {
+    if (item.poster && /^https?:\/\//.test(item.poster)) return item.poster;
+    if (IMDB_KEY && item.imdbId) return "https://www.omdbapi.com/?i=" + encodeURIComponent(item.imdbId) + "&apikey=" + encodeURIComponent(IMDB_KEY);
+    if (item.imdbId) return "https://images.metahub.space/poster/small/" + encodeURIComponent(item.imdbId) + "/img";
     return "";
   }
   function buildCard(item, kind) {
     var card = document.createElement("article");
     card.className = "ntv-card";
     card.setAttribute("data-tilt", "");
-    var img = document.createElement("img");
     var art = document.createElement("div");
     art.className = "ntv-art";
     art.style.background = ART_GRADS[(String(item.title || "?").length + (kind === "series" ? 2 : 0)) % ART_GRADS.length];
@@ -135,47 +162,44 @@
     letter.className = "letter";
     letter.textContent = String(item.title || "?").trim().charAt(0).toUpperCase();
     art.appendChild(letter);
-    var src = posterUrl(item, kind);
-    if (src && /^https?:\/\//.test(src)) {
+    card.appendChild(art);
+    var src = posterUrl(item);
+    if (src) {
+      var img = document.createElement("img");
       img.alt = "";
       img.loading = "lazy";
       img.decoding = "async";
       img.onerror = function () { img.remove(); };
       img.src = src;
-      card.appendChild(art);
       card.appendChild(img);
-    } else {
-      card.appendChild(art);
     }
     var badges = document.createElement("div");
     badges.className = "ntv-badge-row";
-    if (item.rating) {
-      var rate = document.createElement("span");
-      rate.className = "ntv-chip-rating";
-      rate.textContent = "⭐ " + item.rating;
-      badges.appendChild(rate);
-    }
-    var free = document.createElement("span");
-    free.className = "ntv-chip-free";
-    free.textContent = kind === "series" ? "SERIES" : "MOVIE";
-    badges.appendChild(free);
+    if (item.rating) { var rate = document.createElement("span"); rate.className = "ntv-chip-rating"; rate.textContent = "⭐ " + item.rating; badges.appendChild(rate); }
+    var typeBadge = document.createElement("span");
+    typeBadge.className = "ntv-chip-free";
+    typeBadge.textContent = kind === "series" ? "SERIES" : "MOVIE";
+    badges.appendChild(typeBadge);
     card.appendChild(badges);
     var info = document.createElement("div");
     info.className = "ntv-info";
-    var b = document.createElement("b");
-    b.textContent = item.title || "";
+    var b = document.createElement("b"); b.textContent = item.title || "";
     var small = document.createElement("small");
-    small.textContent = [item.year, (item.genres || []).slice(0, 2).join(" · ")].filter(Boolean).join(" · ");
-    info.appendChild(b);
-    info.appendChild(small);
+    var genres = Array.isArray(item.genres) ? item.genres : String(item.genres || "").split(",");
+    small.textContent = [item.year, genres.filter(Boolean).slice(0, 2).join(" · ")].filter(Boolean).join(" · ");
+    info.appendChild(b); info.appendChild(small);
     card.appendChild(info);
     var play = document.createElement("div");
     play.className = "ntv-play";
     play.innerHTML = "<span>▶</span>";
     card.appendChild(play);
     card.addEventListener("click", function () {
-      if (item.imdbId && /^tt/.test(item.imdbId)) openSiravex(item.imdbId, item.title);
-      else playSplash("COMING SOON", item.title || "Mizanora Net TV");
+      if (item.imdbId && /^tt/i.test(item.imdbId)) {
+        playSplash(kind === "series" ? "SERIES" : "MOVIE", item.title || "Mizanora Net TV");
+        openSiravex(item.imdbId, item.title);
+      } else {
+        playSplash("COMING SOON", item.title || "Mizanora Net TV");
+      }
     });
     return card;
   }
@@ -189,24 +213,43 @@
     var strip = document.createElement("div");
     strip.className = "ntv-strip";
     items.forEach(function (item) { strip.appendChild(buildCard(item, kind)); });
-    wrap.appendChild(head);
-    wrap.appendChild(strip);
+    wrap.appendChild(head); wrap.appendChild(strip);
     host.appendChild(wrap);
   }
+  function fetchCinemeta(kind, path) {
+    var url = "https://v3-cinemeta.strem.io/catalog/" + kind + "/" + path + ".json";
+    return fetch(url).then(safeJson).then(function (d) {
+      return (d && d.metas || []).map(function (m) { return normalizeMeta(m, kind); }).filter(function (m) { return m && m.imdbId; });
+    }).catch(function () { return []; });
+  }
+  function fetchLocalCatalog(kind, params) {
+    var q = new URLSearchParams(Object.assign({ action: kind, limit: "12" }, params || {}));
+    return fetch("/api/embed?" + q).then(safeJson).then(function (d) {
+      var list = (d && (d[kind] || d.movies || d.series)) || [];
+      return list.map(function (m) { return normalizeMeta(m, kind); }).filter(Boolean);
+    }).catch(function () { return []; });
+  }
   if (rowsHost) {
+    rowsHost.innerHTML = "<p class='guide-status'>IMDb catalog load ho raha hai…</p>";
     Promise.all([
-      fetch("/api/embed?action=movies&limit=12&sort=rating-desc").then(safeJson).catch(function () { return null; }),
-      fetch("/api/embed?action=movies&limit=12&q=Pakistani").then(safeJson).catch(function () { return null; }),
-      fetch("/api/embed?action=series&limit=12&sort=rating-desc").then(safeJson).catch(function () { return null; })
+      fetchCinemeta("movie", "top"),
+      fetchCinemeta("movie", "top/search=pakistan"),
+      fetchCinemeta("series", "top"),
+      fetchLocalCatalog("movies", { sort: "rating-desc" }),
+      fetchLocalCatalog("series", { sort: "rating-desc" })
     ]).then(function (all) {
-      var movies = all[0] && all[0].movies || [];
-      var pk = all[1] && all[1].movies || [];
-      var series = all[2] && all[2].series || [];
-      renderRow(rowsHost, "🔥 Trending Movies", movies, "movie");
-      renderRow(rowsHost, "🇵🇰 Pakistani Blockbusters", pk.filter(function (m) { return movies.indexOf(m) < 0; }).slice(0, 12), "movie");
-      renderRow(rowsHost, "📺 Binge-Worthy Series", series, "series");
-      if (!movies.length && !series.length) rowsHost.innerHTML = "<p class='guide-status'>Catalog abhi connect nahi hua — thori der baad refresh karein.</p>";
-    }).catch(function () {});
+      rowsHost.innerHTML = "";
+      var movies = all[0].length ? all[0] : all[3];
+      var pk = all[1].length ? all[1] : all[3].filter(function (m) { return /pakistan|urdu|lollywood/i.test([m.title, m.plot, (m.genres||[]).join(" ")].join(" ")); });
+      var series = all[2].length ? all[2] : all[4];
+      renderRow(rowsHost, "🔥 Trending Movies (IMDb)", movies.slice(0, 14), "movie");
+      renderRow(rowsHost, "🇵🇰 Pakistani / Urdu Picks", pk.slice(0, 14), "movie");
+      renderRow(rowsHost, "📺 Binge-Worthy Series (IMDb)", series.slice(0, 14), "series");
+      if (!movies.length && !series.length) rowsHost.innerHTML = "<p class='guide-status'>Catalog abhi load nahi hua — refresh karein.</p>";
+      window.NTV._imdbCatalog = { movies: movies, series: series, pk: pk };
+    }).catch(function () {
+      rowsHost.innerHTML = "<p class='guide-status'>Catalog abhi load nahi hua — internet check karein.</p>";
+    });
   }
 
   /* ---------- hero 3D stage parallax ---------- */
@@ -379,21 +422,37 @@
       }
     }
     setUser(null);
+    // Persist auth state
+    import("/assets/js/firebase-client.js").then(function(FB){
+      if (FB.subscribeAuth) FB.subscribeAuth(function(u){ setUser(u); });
+    }).catch(function(){});
     $("googleLogin") && $("googleLogin").addEventListener("click", function () {
       import("/assets/js/firebase-client.js").then(function (FB) {
         return FB.loginWithGoogle();
-      }).then(function (user) {
+      }).then(function (res) {
+        var user = res && res.ok ? res.user : (res && res.email ? res : null);
         if (user) { setUser(user); toast("Welcome, " + (user.displayName || user.email) + "!"); profileMenu.classList.remove("open"); }
+        else if (res && res.error) { toast("Google login: " + res.error, true); }
       }).catch(function (err) { toast("Google login fail: " + (err && err.message || "popup blocked"), true); });
     });
     $("emailLogin") && $("emailLogin").addEventListener("click", function () {
       var email = window.prompt("Email address:");
-      var pass = window.prompt("Password:");
-      if (!email || !pass) return;
+      if (!email) return;
+      var pass = window.prompt("Password (new users: min 6 chars):");
+      if (!pass) return;
       import("/assets/js/firebase-client.js").then(function (FB) {
-        return FB.loginWithEmailPassword(email, pass);
-      }).then(function (user) {
-        if (user) { setUser(user); toast("Welcome back!"); profileMenu.classList.remove("open"); }
+        return FB.loginWithEmailPassword(email, pass).then(function (res) {
+          if (res && res.ok) return res;
+          // Try creating account if user not found
+          if (res && /user-not-found|invalid-credential|invalid-login/i.test(String(res.code || res.error || ""))) {
+            return FB.createUserWithEmailPassword ? FB.createUserWithEmailPassword(email, pass) : res;
+          }
+          return res;
+        });
+      }).then(function (res) {
+        var user = res && res.ok ? res.user : null;
+        if (user) { setUser(user); toast("Welcome!"); profileMenu.classList.remove("open"); }
+        else if (res && res.error) { toast("Login fail: " + res.error, true); }
       }).catch(function (err) { toast("Login fail: " + (err && err.message || "try Google sign-in"), true); });
     });
     $("logoutBtn") && $("logoutBtn").addEventListener("click", function () {

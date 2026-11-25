@@ -1,6 +1,6 @@
 # 📺 Mizanora Net TV — Streaming Web App & Broadcast Suite v7.0.0
 
-![Animated Mizanora IPTV reseller suite banner](docs/assets/reseller-suite.gif)
+![Animated Mizanora Net TV reseller suite banner](docs/assets/reseller-suite.gif)
 
 **Owner control → reseller workspace → client service**
 
@@ -74,7 +74,7 @@ npm run dev       # http://localhost:3000 (binds 0.0.0.0)
 npm test          # HTTP/API + admin/public/reseller/guide/embed DOM interaction suites
 ```
 
-Local development can use `/tmp/miznaoraiptv-rtdb-mirror.json` when Firebase is unreachable. This is only a development fallback and is never treated as durable production storage.
+Local development can use `/tmp/mizanoranettv-rtdb-mirror.json` when Firebase is unreachable. This is only a development fallback and is never treated as durable production storage.
 
 ## Main surfaces
 

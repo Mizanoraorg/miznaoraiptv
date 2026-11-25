@@ -159,3 +159,19 @@ body{font-family:Inter,"Segoe UI",system-ui,sans-serif;letter-spacing:-.015em}bo
 @media(max-width:520px){main{padding:15px}.ops-hero{padding:25px;display:block}.ops-hero-art{display:none}.ops-hero h2{font-size:2.7rem}.ops-hero-actions .btn{font-size:.64rem;padding:10px 12px}.ops-hero{min-height:320px}.kpis{grid-template-columns:1fr 1fr;gap:10px}.kpi{padding:16px;min-height:115px}.kpi b{font-size:1.5rem}.studio-intro{display:block}.engine-badge{display:inline-block}.broadcast-card b{font-size:.64rem;padding-right:9px}.broadcast-card small{font-size:.52rem;line-height:1.5}.monitor-controls .row{flex-wrap:wrap}.monitor-controls select{flex-basis:100%}.section-caption{align-items:flex-start}.section-caption>span{max-width:120px;text-align:right}.user-chip .meta{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 .nav-icon{width:16px;height:16px;flex:0 0 16px}main{margin:0 auto;align-self:start}.kpi::after{left:auto;bottom:auto;right:18px;top:18px;width:auto;height:auto;background:none}
+
+/* Mizanora Net TV v8 admin skin */
+body{background:radial-gradient(900px 500px at 10% -10%,rgba(124,92,255,.18),transparent 60%),radial-gradient(700px 400px at 100% 0,rgba(255,190,40,.10),transparent 55%),#070a14!important;color:#e8ecff}
+aside{background:rgba(10,13,28,.82)!important;backdrop-filter:blur(18px);border-right:1px solid rgba(255,255,255,.08)!important}
+.brand-row b,.brand-row small{color:#fff!important}
+.nav-btn{border-radius:14px!important;margin:2px 10px!important;transition:.25s!important}
+.nav-btn:hover,.nav-btn.active{background:linear-gradient(140deg,rgba(255,190,40,.18),rgba(124,92,255,.18))!important;color:#fff!important;box-shadow:0 8px 24px rgba(124,92,255,.12)}
+.card,.kpi,.ops-hero{background:rgba(255,255,255,.04)!important;border:1px solid rgba(255,255,255,.08)!important;border-radius:20px!important;box-shadow:0 16px 40px rgba(0,0,0,.25);backdrop-filter:blur(10px)}
+.kpi b{color:#ffd76a!important}
+.topbar{background:rgba(7,10,20,.55)!important;backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)!important}
+.btn-primary,.btn-gold{border-radius:12px!important}
+table{color:#e8ecff!important} th{color:rgba(255,255,255,.65)!important} td,th{border-color:rgba(255,255,255,.07)!important}
+input,select,textarea{background:rgba(255,255,255,.05)!important;color:#fff!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:12px!important}
+.pill.ok{background:rgba(46,213,115,.15)!important;color:#7dffb2!important}.pill.warn{background:rgba(255,190,40,.15)!important;color:#ffd76a!important}.pill.bad{background:rgba(255,92,122,.15)!important;color:#ff9bb0!important}
+#adminLock{background:radial-gradient(900px 500px at 50% 0,rgba(124,92,255,.22),transparent 60%),#05070f!important}
+.lock-card{background:rgba(255,255,255,.05)!important;border:1px solid rgba(255,255,255,.1)!important;backdrop-filter:blur(18px);border-radius:28px!important}

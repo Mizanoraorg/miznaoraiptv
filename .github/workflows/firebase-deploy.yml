@@ -82,10 +82,17 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
       - name: Firebase deploy — Cloud Functions (app)
+        id: deploy_functions
         if: vars.MZ_NO_FUNCTIONS != '1'
+        continue-on-error: true
         run: npx --yes firebase-tools@13 deploy --only functions --project mizanoranet --non-interactive
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
+      - name: Functions deploy status
+        if: vars.MZ_NO_FUNCTIONS != '1' && steps.deploy_functions.outcome == 'failure'
+        run: |
+          echo "::warning::Cloud Functions deploy failed. Common cause: Firebase/GCP billing not enabled or required APIs (cloudfunctions, cloudbuild, artifactregistry, run) not enabled for project mizanoranet. Hosting+database already deployed. To skip functions until billing is enabled, set repo variable MZ_NO_FUNCTIONS=1. See docs/FIREBASE.md."
+          echo "Hosting + database are live; functions need billing/API enablement."
       - name: Free-mode notice (functions skipped)
         if: vars.MZ_NO_FUNCTIONS == '1'
         run: echo "::notice::MZ_NO_FUNCTIONS=1 — Cloud Functions skip hue. Site Firebase Hosting par live hai aur API base (public/assets/js/api-base.js) se chal raha hai. Billing on karte hi MZ_NO_FUNCTIONS variable hatayein — full Firebase stack on ho jayega."

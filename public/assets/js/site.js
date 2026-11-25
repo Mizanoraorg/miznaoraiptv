@@ -44,7 +44,7 @@
   /* ---------- public experience / animated channel catalog ---------- */
   let experience = {
     intro: { enabled: true, url: "/media/welcome/video.mp4", durationSec: 8, skippable: false },
-    branding: { service: "Mizanora IPTV", business: "Start your IPTV reseller business", paymentMethod: "JazzCash", paymentAccount: "03062015326", paymentTitle: "Muaaz Iqbal", support: "03062015326" },
+    branding: { service: "Mizanora Net TV", business: "Mizanora Net TV Premium", paymentMethod: "JazzCash", paymentAccount: "03062015326", paymentTitle: "Muaaz Iqbal", support: "03062015326" },
     videos: { offline: "/media/channel-offline/index.m3u8", comingSoon: "/media/coming-soon/index.m3u8", recharge: "/media/pro-unlock/index.m3u8" },
     announcement: "", rechargeNote: "Apne reseller ya Mizanora support se recharge karein.", resellerContactNote: ""
   };
@@ -85,7 +85,7 @@
   }
   function updateBrandingText() {
     const brand = experience.branding || {};
-    setText("introService", String(brand.service || "Mizanora IPTV").toUpperCase());
+    setText("introService", String(brand.service || "Mizanora Net TV").toUpperCase());
     setText("introBusiness", brand.business || "Start your IPTV reseller business");
     setText("introPayment", [brand.paymentMethod, brand.paymentAccount, brand.paymentTitle].filter(Boolean).join(" · "));
     setText("introSupport", brand.support ? `WhatsApp / recharge: ${brand.support}` : "Contact your reseller to recharge");
@@ -214,7 +214,7 @@
       $("introOverlay").style.setProperty("--intro-duration", `${durationSec}s`);
     }
     if ($("playerSkip")) $("playerSkip").hidden = intro.skippable === false;
-    playerStatus("✨ Mizanora welcome intro — your channel is next…");
+    playerStatus("✨ Mizanora Net TV — your channel is next…");
     return new Promise((resolve) => {
       let settled = false;
       const onEnded = () => { if (request === playerRequest) { video.currentTime = 0; video.play().catch(() => {}); } };
@@ -402,7 +402,7 @@
       const category = $("catalogCategory");
       if (category) { const value = category.value; category.innerHTML = '<option value="">All categories</option>' + (data.categories || []).map((c) => `<option value="${esc(c)}">${esc(c)}</option>`).join(""); category.value = value; }
       const items = data[catalog.kind] || [];
-      if ($("catalogGrid")) $("catalogGrid").innerHTML = items.map((item) => `<article class="catalog-card">${item.poster ? `<img src="${esc(item.poster)}" alt="" loading="lazy">` : '<div class="catalog-poster-placeholder">🎬</div>'}<div><span class="catalog-meta">${esc(item.year || "")} · ⭐ ${esc(item.rating || "—")}</span><h3>${esc(item.title)}</h3><p>${esc(item.plot || item.category || "Mizanora catalog")}</p><span class="pill ${item.streamAvailable ? "ok" : "warn"}">${item.streamAvailable ? "Ready to play" : "Metadata only"}</span>${catalog.kind === "series" ? `<small>${Number(item.episodeCount || 0)} episodes</small>` : ""}<button class="btn btn-ghost btn-sm" data-catalog-play="${esc(item.id)}" type="button">${item.streamAvailable ? "▶ Play in IPTV app" : "ℹ Availability"}</button></div></article>`).join("") || '<div class="card">No matching titles. Try another search or filter.</div>';
+      if ($("catalogGrid")) $("catalogGrid").innerHTML = items.map((item) => `<article class="catalog-card">${item.poster ? `<img src="${esc(item.poster)}" alt="" loading="lazy">` : '<div class="catalog-poster-placeholder">🎬</div>'}<div><span class="catalog-meta">${esc(item.year || "")} · ⭐ ${esc(item.rating || "—")}</span><h3>${esc(item.title)}</h3><p>${esc(item.plot || item.category || "Mizanora catalog")}</p><span class="pill ${item.streamAvailable ? "ok" : "warn"}">${item.streamAvailable ? "Ready to play" : "Metadata only"}</span>${catalog.kind === "series" ? `<small>${Number(item.episodeCount || 0)} episodes</small>` : ""}<button class="btn btn-ghost btn-sm" data-catalog-play="${esc(item.id)}" data-imdb-id="${esc(item.imdbId || '')}" data-title="${esc(item.title || '')}" type="button">${item.imdbId ? "▶ Play" : (item.streamAvailable ? "▶ Play in IPTV app" : "ℹ Availability")}</button></div></article>`).join("") || '<div class="card">No matching titles. Try another search or filter.</div>';
       setText("catalogStatus", `${catalog.total ? catalog.offset + 1 : 0}–${Math.min(catalog.offset + 24, catalog.total)} of ${catalog.total} ${catalog.kind}. Licensed streams play in your IPTV app; metadata-only titles are not video.`);
       if ($("catalogPrev")) $("catalogPrev").disabled = catalog.offset === 0;
       if ($("catalogNext")) $("catalogNext").disabled = catalog.offset + 24 >= catalog.total;
@@ -416,7 +416,17 @@
   for (const id of ["catalogSort", "catalogCategory", "catalogReady"]) $(id)?.addEventListener("change", () => { catalog.offset = 0; loadCatalog(); });
   $("catalogPrev")?.addEventListener("click", () => { catalog.offset = Math.max(0, catalog.offset - 24); loadCatalog(); });
   $("catalogNext")?.addEventListener("click", () => { catalog.offset += 24; loadCatalog(); });
-  $("catalogGrid")?.addEventListener("click", (event) => { const button = event.target.closest("[data-catalog-play]"); if (button) toast("Is title ki playback apne Xtream/M3U app mein kholen. Metadata-only title ke liye owner ko licensed stream URL set karna hoga."); });
+  $("catalogGrid")?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-catalog-play]");
+    if (!button) return;
+    const imdbId = String(button.dataset.imdbId || "").trim();
+    const title = String(button.dataset.title || "Mizanora Net TV").trim();
+    if (imdbId && /^tt/i.test(imdbId) && window.NTV && window.NTV.playImdb) {
+      window.NTV.playImdb(imdbId, title);
+      return;
+    }
+    toast("Is title ki playback abhi available nahi. Admin se licensed stream/IMDb ID set karwayein.", true);
+  });
 
   /* ---------- forms / recharge ---------- */
   function deviceId() {
@@ -454,7 +464,7 @@
   $("playerRecharge")?.addEventListener("click", closePlayer);
   $("playerDialog")?.addEventListener("click", (event) => { if (event.target === $("playerDialog")) closePlayer(); });
   video?.addEventListener("playing", () => {
-    if (introActive) playerStatus("✨ Welcome intro — " + (currentChannel?.name || "channel") + " is loading…");
+    if (introActive) playerStatus("✨ Mizanora Net TV — " + (currentChannel?.name || "channel") + " is loading…");
     else if (playerMode === "live") { playerStatus("● Live — playing"); if ($("playerRetry")) $("playerRetry").hidden = true; }
   });
   video?.addEventListener("waiting", () => { if (playerMode === "intro") playerStatus("Intro buffering…"); else if (playerMode === "live") playerStatus("Buffering…"); });
@@ -476,13 +486,29 @@
     } catch (error) { toast(error.message, true); }
     finally { busy(form, false); }
   });
+  async function uploadImgbb(file) {
+    const key = String(experience.imgbbApiKey || (experience.settings && experience.settings.imgbbApiKey) || window.MZ_IMGBB_KEY || "").trim();
+    if (!key || !file) return "";
+    const fd = new FormData();
+    fd.append("image", file);
+    const res = await fetch("https://api.imgbb.com/1/upload?key=" + encodeURIComponent(key), { method: "POST", body: fd });
+    const json = await res.json().catch(() => ({}));
+    if (!res.ok || !json.success) throw new Error((json.error && json.error.message) || "Screenshot upload failed");
+    return (json.data && (json.data.display_url || json.data.url)) || "";
+  }
   $("orderForm")?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     busy(form, true);
     try {
-      const data = await postJson("order", { name: $("ordName").value.trim(), email: $("ordEmail").value.trim(), whatsapp: $("ordWa").value.trim(), planId: $("ordPlan").value, via: "whatsapp" });
-      $("credOut").innerHTML = `<div class="card success-card"><h3>🧾 Order ${esc(data.order.id)}</h3><p>${esc(data.message)}</p><p><b>Amount:</b> Rs ${Number(data.order.amount || 0)}</p><p><a class="btn btn-gold btn-sm" href="${esc(data.whatsapp)}" target="_blank" rel="noopener">💬 WhatsApp par pay karein</a></p></div>`;
+      let screenshotUrl = "";
+      const shot = $("ordScreenshot");
+      if (shot && shot.files && shot.files[0]) {
+        try { screenshotUrl = await uploadImgbb(shot.files[0]); }
+        catch (e) { console.warn("screenshot upload", e); }
+      }
+      const data = await postJson("order", { name: $("ordName").value.trim(), email: $("ordEmail").value.trim(), whatsapp: $("ordWa").value.trim(), planId: $("ordPlan").value, via: "whatsapp", screenshotUrl });
+      $("credOut").innerHTML = `<div class="card success-card"><h3>🧾 Order ${esc(data.order.id)}</h3><p>${esc(data.message || "Order receive ho gaya. Agent verify karke premium unlock karega.")}</p><p><b>Amount:</b> Rs ${Number(data.order.amount || 0)}</p>${screenshotUrl ? `<p><b>Screenshot:</b> uploaded ✓</p>` : ""}<p><a class="btn btn-gold btn-sm" href="${esc(data.whatsapp || "https://wa.me/923062015326")}" target="_blank" rel="noopener">💬 WhatsApp par confirm karein</a></p></div>`;
       toast("🧾 Order " + data.order.id + " receive ho gaya!");
       track("order_created", "/order/" + data.order.id);
     } catch (error) { toast(error.message, true); }
