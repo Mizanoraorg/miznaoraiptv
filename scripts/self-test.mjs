@@ -28,7 +28,7 @@ for (const file of [
   "api/panel.js", "api/xtream.js", "api/embed.js", "api/portal.js", "api/stream.js",
   "api/_lib/util.js", "api/_lib/rtdb.js", "api/_lib/auth.js", "api/_lib/store.js", "api/_lib/m3u.js", "api/_lib/epg.js", "api/_lib/remote.js",
   "api/_handlers/panel.js", "api/_handlers/xtream.js", "api/_handlers/embed.js", "api/_handlers/portal.js", "api/_handlers/stream.js",
-  "routing.json", "docs/FIREBASE.md", "docs/NETTV.md", "docs/PLAYOUT.md", "package.json", "firebase/database.rules.json", "scripts/dev-server.mjs"
+  "routing.json", "netlify.toml", "netlify/functions/app.mjs", "docs/FIREBASE.md", "docs/NETLIFY.md", "docs/NETTV.md", "docs/PLAYOUT.md", "package.json", "firebase/database.rules.json", "scripts/dev-server.mjs"
 ]) check(`exists ${file}`, fs.existsSync(path.join(ROOT, file)));
 const firebaseClient = fs.readFileSync(path.join(ROOT, "public/assets/js/firebase-client.js"), "utf8");
 check("Firebase web config present", firebaseClient.includes("mizanoranet-default-rtdb.firebaseio.com") && firebaseClient.includes("mizanoranet.web.app") === false && firebaseClient.includes("appId"));
