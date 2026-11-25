@@ -2,7 +2,7 @@
  * Firebase Realtime Database REST access.
  *
  * Local development keeps a JSON mirror when Firebase is unreachable. Production
- * hosting (Netlify/Firebase) needs a service account for durable,
+ * hosting (Firebase/Cloud Functions) needs a service account for durable,
  * rules-authenticated server writes; a serverless /tmp file is never treated as
  * a successful production save.
  */
@@ -180,7 +180,7 @@ export async function rtdbSet(path, value, { token } = {}) {
   writeMirror(mirror);
   invalidate(clean);
   if (!remoteOk && (process.env.VERCEL === "1" || process.env.NETLIFY === "true" || process.env.K_SERVICE || process.env.MZ_REQUIRE_PERSISTENCE === "1")) {
-    const setup = hasServiceAccount() ? "Check Firebase service-account permissions." : "Configure FIREBASE_SERVICE_ACCOUNT_JSON (Netlify/Firebase env or functions/.env).";
+    const setup = hasServiceAccount() ? "Check Firebase service-account permissions." : "Configure FIREBASE_SERVICE_ACCOUNT_JSON (Firebase env / functions config).";
     throw new Error(`Firebase save failed — ${setup} ${failure?.message || ""}`.trim());
   }
   return remoteOk;

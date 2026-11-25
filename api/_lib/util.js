@@ -4,7 +4,7 @@
 import crypto from "node:crypto";
 
 export const BRAND_NAME = "Mizanora IPTV";
-export const OWNER_EMAIL = "muaaziqbal.vip@gmail.com";
+export const OWNER_EMAIL = "matrader890@gmail.com";
 export const BOOTSTRAP_PIN = process.env.MZ_OWNER_PIN || "03062015326";
 export const WA_NUMBER = "03062015326";
 export const WA_LINK = "https://wa.me/923062015326";

@@ -5,7 +5,7 @@
  * routes (/api/*, Xtream player_api/get/xmltv, /live|movie|series, signed
  * /s/*, MAG /portal.php /stalker_portal /c/* and HLS /playout) to this
  * function, which dispatches to the exact same api/* handlers used on
- * Netlify, Firebase and in local development.
+ * Firebase and in local development.
  *
  * `api/` and `rewrites.json` are copied here by scripts/build-functions.mjs
  * (from api/ + routing.json) during `npm run build:functions` / predeploy.

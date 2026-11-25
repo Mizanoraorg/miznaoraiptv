@@ -36,7 +36,7 @@
     } catch (error) {
       if (!apiWarned) {
         apiWarned = true;
-        try { console.info("[Mizanora] API JSON parse fail — deployment par Netlify API base (api-base.js DEFAULT_BASE) set karein."); } catch (e) {}
+        try { console.info("[Mizanora] API JSON parse fail — Firebase API / same-origin backend check karein."); } catch (e) {}
       }
       throw new Error("Backend unavailable. Internet / server check karein.");
     }

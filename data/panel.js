@@ -23,11 +23,11 @@ export const PANEL = {
   supportPhone: "03062015326",
   supportPhoneDisplay: "0306-2015326",
   supportWhatsapp: "https://wa.me/923062015326",
-  ownerEmail: "muaaziqbal.vip@gmail.com",
+  ownerEmail: "matrader890@gmail.com",
   brand: "Mizanora IPTV",
   parent: "Mizanora Projects",
   founder: "Muaaz Iqbal",
-  recommendedPlayer: "https://siravex.netlify.app",
+  recommendedPlayer: "https://slast430did.com",
   recommendedPlayerName: "Siravex IPTV Player"
 };
 
@@ -360,7 +360,7 @@ export const LEGAL_DOCS = [
       {
         h: "5. Your Rights",
         p: [
-          "You may request access, correction, export or deletion of your data at any time by emailing muaaziqbal.vip@gmail.com or messaging 0306-2015326. Deletion requests are actioned within 30 days, subject to accounting retention duties."
+          "You may request access, correction, export or deletion of your data at any time by emailing matrader890@gmail.com or messaging 0306-2015326. Deletion requests are actioned within 30 days, subject to accounting retention duties."
         ]
       },
       {
@@ -372,7 +372,7 @@ export const LEGAL_DOCS = [
       {
         h: "7. Contact",
         p: [
-          "Data controller: Muaaz Iqbal, Mizanora Projects, Kasur, Punjab, Pakistan. Email: muaaziqbal.vip@gmail.com — WhatsApp: 0306-2015326."
+          "Data controller: Muaaz Iqbal, Mizanora Projects, Kasur, Punjab, Pakistan. Email: matrader890@gmail.com — WhatsApp: 0306-2015326."
         ]
       }
     ]
@@ -513,7 +513,7 @@ export const LEGAL_DOCS = [
       {
         h: "2. Filing a Notice",
         p: [
-          "Email muaaziqbal.vip@gmail.com with: your name and organisation, the copyrighted work, the exact Mizanora URL/channel name, proof of ownership, and a good-faith statement. Incomplete notices cannot be processed."
+          "Email matrader890@gmail.com with: your name and organisation, the copyrighted work, the exact Mizanora URL/channel name, proof of ownership, and a good-faith statement. Incomplete notices cannot be processed."
         ]
       },
       {
@@ -553,7 +553,7 @@ export const LEGAL_DOCS = [
       {
         h: "Contact",
         p: [
-          "WhatsApp / Call: 0306-2015326 — Email: muaaziqbal.vip@gmail.com — GitHub: github.com/muaaziqbalvip — Ecosystem: mizanora.net"
+          "WhatsApp / Call: 0306-2015326 — Email: matrader890@gmail.com — GitHub: github.com/muaaziqbalvip — Ecosystem: mizanora.net"
         ]
       }
     ]

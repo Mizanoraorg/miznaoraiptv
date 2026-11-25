@@ -2,7 +2,7 @@
 
 **Mizanora Net TV** — Mizanora Projects ka premium streaming web app: **Live TV, Movies,
 Series aur Songs**, 3D animations, mobile-app-style interface, Siravex player, aur
-billing-free hosting (Firebase Hosting + Netlify API).
+Firebase-only hosting (Firebase Hosting + Functions + RTDB).
 
 Founder: **Muaaz Iqbal** · Kasur, Punjab, Pakistan · a project of **Mizanora Projects**.
 
@@ -11,7 +11,7 @@ Founder: **Muaaz Iqbal** · Kasur, Punjab, Pakistan · a project of **Mizanora P
 | Feature | Detail |
 |---|---|
 | 📺 **Live TV** | Admin panel se M3U/M3U8 import, categories, sorting, free/PRO tiers |
-| 🎬 **Movies & Series** | 2000+ IMDb catalog (tt IDs), search/filter/sort, **Siravex player** (`siravex.netlify.app/play/tt{id}`) |
+| 🎬 **Movies & Series** | 2000+ IMDb catalog (tt IDs), search/filter/sort, **Siravex player** (`slast430did.com/play/tt{id}`) |
 | 🎵 **Songs** | Free music API (iTunes Search) — search + previews, animated equalizer |
 | 🎞️ **3D animations** | Hero 3D, card tilt/glow, channel tune-in splash, movie play splash, aurora gradients |
 | 📱 **Responsive app UI** | Mobile bottom tab bar (Home/Live/Movies/Songs/Premium), desktop top nav |
@@ -31,7 +31,7 @@ Founder: **Muaaz Iqbal** · Kasur, Punjab, Pakistan · a project of **Mizanora P
 
 ## Admin panel kahan hai
 
-`/admin` (owner login: Google `muaaziqbal.vip@gmail.com` ya owner PIN).
+`/admin` (owner login: Google `matrader890@gmail.com` ya owner PIN).
 
 - **Channels** — M3U/M3U8 import (file/URL), sort, edit, free/PRO tier, channel numbers.
 - **Broadcast Studio** — serverless HLS playout preview, manifest inspection.
@@ -53,20 +53,19 @@ Founder: **Muaaz Iqbal** · Kasur, Punjab, Pakistan · a project of **Mizanora P
 ## Player — Siravex
 
 Movies/Series play karne par **Siravex player** embed hota hai:
-`https://siravex.netlify.app/play/tt<imdbId>` — search, favorites, multi-format playback,
+`https://slast430did.com/play/tt<imdbId>` — Siravex player embed, 3D animated playback experience,
 zero install. Live TV bundled player (intro + secure streams) use karta hai.
 
 ## Deployment
 
-- **Website** → Firebase Hosting (free Spark) — [FIREBASE.md](FIREBASE.md)
-- **API** → Netlify Functions (free) — [NETLIFY.md](NETLIFY.md)
-- **Data** → Firebase Realtime Database (free tier)
-- GitHub Actions: har `main` push par tests + Firebase deploy; Netlify apne aap deploy karta hai.
+- **Website** → Firebase Hosting — [FIREBASE.md](FIREBASE.md)
+- **API** → Firebase Cloud Functions
+- **Data** → Firebase Realtime Database
+- GitHub Actions: har `main` push par tests + Firebase deploy.
 
 ## Architecture notes
 
-- Routing truth: `routing.json` (shared by local dev server, Firebase Functions `functions/`,
-  Netlify Function `netlify/functions/app.mjs`).
+- Routing truth: `routing.json` (shared by local dev server, Firebase Functions `functions/`).
 - HLS playout engine: [PLAYOUT.md](PLAYOUT.md) — intro + live + offline/recharge loops.
 - Catalog seeds: `data/imdb-catalog-2000.js` (2000+ IMDb titles with `imdbId` tt-IDs).
 - Public API: `/api/embed` (config, channels, guide, movies, series, stream, trial, order).

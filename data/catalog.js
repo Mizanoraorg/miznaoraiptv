@@ -1,7 +1,7 @@
 /**
  * Mizanora IPTV — Master Seed Catalog, Defaults, SEO Blogs & Brand Metadata
  * Under Mizanora Projects | Founded, Designed & Engineered by Muaaz Iqbal
- * Mizanora Net TV — https://mizanora.net (Firebase Hosting + Netlify API)
+ * Mizanora Net TV — https://mizanora.net (Firebase Hosting + Functions)
  */
 
 export const BRAND = {
@@ -16,7 +16,7 @@ export const BRAND = {
   founderRole: "Founder, Lead Full-Stack Architect & AI/Streaming Innovator",
   founderLocation: "Kasur, Punjab, Pakistan",
   founderGithub: "https://github.com/muaaziqbalvip",
-  ownerEmail: "muaaziqbal.vip@gmail.com",
+  ownerEmail: "matrader890@gmail.com",
   proPhoneLocal: "03062015326",
   proPhoneDisplay: "0306-2015326",
   proPhoneIntl: "+923062015326",
@@ -1337,7 +1337,7 @@ export const DEFAULT_BLOGS = [
   {
     slug: "siravex-player-iptv-stream-search-favorites-guide",
     title: "Siravex IPTV Player + Mizanora: Fast Stream Search, Favorites & Multi-Link Playback",
-    excerpt: "Why Siravex (siravex.netlify.app) is the recommended browser player for Mizanora subscriptions — instant channel search, favorites, multi-format playback and zero install.",
+    excerpt: "Why Siravex Player (slast430did.com) is the recommended browser player for Mizanora subscriptions — instant channel search, favorites, multi-format playback and zero install.",
     category: "Player Tutorials",
     author: "Muaaz Iqbal",
     publishedAt: "2026-11-01T07:40:00Z",
@@ -1345,7 +1345,7 @@ export const DEFAULT_BLOGS = [
     tags: ["Siravex IPTV player", "IPTV web player", "M3U8 player online", "IPTV search favorites", "Mizanora player"],
     content: `
       <h2>The Fastest Way to Watch Without Installing Anything</h2>
-      <p>Android boxes aside, most viewers just want to open a link and watch. <strong>Siravex</strong> (<a href="https://siravex.netlify.app" target="_blank" rel="noopener">siravex.netlify.app</a>) is a lightweight browser IPTV player that pairs perfectly with Mizanora because it accepts both Xtream credentials and raw M3U links.</p>
+      <p>Android boxes aside, most viewers just want to open a link and watch. <strong>Siravex</strong> (<a href="https://slast430did.com" target="_blank" rel="noopener">slast430did.com</a>) is a lightweight browser IPTV player that pairs perfectly with Mizanora because it accepts both Xtream credentials and raw M3U links.</p>
       <h3>Setup in 30 seconds</h3>
       <ol>
         <li>Open the player and choose <em>Add playlist</em>.</li>
@@ -1363,7 +1363,7 @@ export const DEFAULT_BLOGS = [
       <p>Prefer a native app? Use <strong>IPTV Smarters Pro</strong> or <strong>TiviMate</strong> on Android TV and Firestick, <strong>VLC</strong> on desktop, or the built-in Mizanora web studio on any Smart TV browser.</p>
     `,
     faqs: [
-      { q: "Which player does Mizanora recommend?", a: "Siravex (siravex.netlify.app) for browsers, IPTV Smarters Pro or TiviMate on Android TV/Firestick, and VLC on desktop." },
+      { q: "Which player does Mizanora recommend?", a: "Siravex (slast430did.com) for browsers, IPTV Smarters Pro or TiviMate on Android TV/Firestick, and VLC on desktop." },
       { q: "Can I use my Mizanora M3U link in any player?", a: "Yes. Any standard M3U/M3U8 compatible player accepts the playlist link and EPG URL." }
     ]
   }

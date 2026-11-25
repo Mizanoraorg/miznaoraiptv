@@ -10,7 +10,7 @@ import {
 } from "../vendor/firebase-sdk.js?v=2";
 import { getDatabase, ref, get, set, remove, onValue } from "../vendor/firebase-sdk.js?v=2";
 
-export const ADMIN_EMAIL = "muaaziqbal.vip@gmail.com";
+export const ADMIN_EMAIL = "matrader890@gmail.com";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA4PWELrMHQrRA29EZzfRx1iZkXtJkKh9M",

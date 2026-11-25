@@ -1,10 +1,10 @@
-## 7.0.0 — Mizanora Net TV (3D streaming web app) + Netlify deployment
+## 7.0.0 — Mizanora Net TV (3D streaming web app) + Firebase deployment
 
 ### 🌟 PRODUCT PIVOT: Mizanora Net TV
 - Rebrand: `Mizanora IPTV` panel becomes **Mizanora Net TV** (MIZANORA.NET) — 3D animated
   streaming web app: **Live TV + Movies + Series + Songs**, mobile-app-style bottom tab bars,
   per-device responsive layouts. Xtream paid panel system deprecated (back-office kept working).
-- Siravex player: movies/series play on `siravex.netlify.app/play/tt<imdbId>` in a 3D modal;
+- Siravex player: movies/series play on `slast430did.com/play/tt<imdbId>` in a 3D modal;
   live TV keeps the bundled intro/HLS player. `recommendedPlayer` → Siravex. IMDb catalog
   (2000+ movies, 400+ series) with OMDb posters (`experience.imdbApiKey`) + admin poster field.
 - Songs: free iTunes Search API — search, artist chips, preview playback with animated
@@ -16,17 +16,15 @@
 - SEO: `sitemap.xml`, `/blog`, `/about`, `experience.verification` → `google-site-verification`
   meta (admin Search Console verify). Traffic tracking + live stats in admin (existing).
 
-### 🚀 DEPLOYMENT: Vercel removed → hybrid Firebase Hosting + Netlify
-- Site = Firebase Hosting (free, no card). API = **Netlify Functions** (free tier) —
-  `netlify/functions/app.mjs` adapter serves `/api/{embed,panel,portal,stream,xtream}` with the
-  routing table moved to `routing.json` (shared by dev server, Cloud Function build + Netlify).
-- `vercel.json` deleted → `netlify.toml` + `routing.json`. `docs/VERCEL.md` → `docs/NETLIFY.md`.
+### 🚀 DEPLOYMENT: Firebase-only (Hosting + Functions + RTDB)
+- Site + API + DB = **Firebase** (Hosting + Functions + Realtime Database). `routing.json` shared by dev server and Cloud Function build.
+- Firebase-only deploy flow; legacy Netlify/Vercel config removed from active deployment path.
   Player playout doc: `docs/PLAYOUT.md`. Product guide: `docs/NETTV.md`.
-- `api-base.js` hybrid bridge unchanged — set `DEFAULT_BASE` to the Netlify URL after deploy.
+- `api-base.js` defaults to same-origin Firebase API.
 
 ## 6.2.1 — Billing-free Firebase hybrid (no credit card)
 
-- FREE deploy mode with zero billing: Firebase Hosting (Spark plan) serves the site while the API runs on free Vercel — `public/assets/js/api-base.js` bridges `/api/*`, Xtream (`player_api/get/xmltv`), `/live|movie|series`, MAG (`portal.php`, `stalker_portal`, `/c/portal.php`), signed `/s/*` and `/playout/*` to a configurable remote base (same-origin mode stays a no-op).
+- Firebase-only runtime: Hosting + Functions + RTDB with same-origin `/api` bridge.
 - `?api=` URL override (persisted) for testing hybrid mode; MAG portal page displays the API base URL when configured.
 - Workflow `MZ_NO_FUNCTIONS` repo variable skips the Cloud Functions deploy for billing-free setups while hosting + database rules still publish; clear notice points to the docs.
 - Workflow auto-enables required Google Cloud APIs (best effort) and deploys hosting + database before functions so the site stays live during partial failures.
@@ -59,7 +57,7 @@
 
 ## 6.1.0 — 2026-11-03
 
-- Vercel-native HLS manifest playout enabled by default for compatible live sources: eight-second intro, live media, offline recovery, recharge and coming-soon loops.
+- Serverless HLS manifest playout enabled by default for compatible live sources: eight-second intro, live media, offline recovery, recharge and coming-soon loops.
 - Durable Firebase ETag/CAS session timelines, bounded media windows, expiry cleanup, explicit AES-128 IV preservation and authenticated playlist refreshes.
 - MPEG-TS `.ts` aliases for external-player compatibility; bounded master resolution and segment probes.
 - Owner Broadcast Studio with signed playback previews and manifest inspection; responsive graphite/emerald/gold dashboard redesign.
@@ -109,7 +107,7 @@
 - Public recharge contact lookup and dedicated reseller dashboard.
 - Reseller registration/login, clients, credits, pricing, payments, ledger and key rotation UI.
 - Dynamic developer guide, configurable website embed and clean `/reseller`, `/developers`, `/guide` routes.
-- Vercel, M3U/EPG and reseller documentation.
+- Firebase, M3U/EPG and reseller documentation.
 
 ### Fixed
 
@@ -126,4 +124,4 @@
 
 - IMDb metadata-only titles still require licensed stream URLs.
 - Browser playback depends on upstream HTTPS/CORS support.
-- Durable Vercel writes still require Firebase service-account configuration.
+- Durable Firebase writes require Firebase service-account configuration.
