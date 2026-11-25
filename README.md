@@ -91,24 +91,51 @@ Local development can use `/tmp/mizanoranettv-rtdb-mirror.json` when Firebase is
 | Streams | `/live/…`, `/movie/…`, `/series/…`, `/s/<token>` | Credential checks and 15-minute signed playback |
 | MAG / Stalker | `/portal.php`, `/stalker_portal/server/load.php` | Handshake, MAC profile, channels and `create_link` |
 
-## Firebase-only setup
+## Setup (FREE — no billing)
 
-Mizanora Net TV ab **sirf Firebase** par deploy hoti hai (Hosting + Functions + Realtime Database).
+### Option A (Recommended): Domain `mizanoranet.web.app` rahe, API Vercel par — 100% free
+**Aapka domain Firebase Hosting par hi rahega (`mizanoranet.web.app`)**, sirf backend API Vercel free par chalegi. Koi Firebase Functions billing nahi.
 
-1. Firebase Console → project **mizanoranet** → Hosting, Functions, Realtime Database enable karein.
-2. **Service account**: Project settings → Service accounts → Generate new private key. JSON ko GitHub secret `FIREBASE_SERVICE_ACCOUNT` mein add karein (ya `FIREBASE_SERVICE_ACCOUNT_JSON` env var).
-3. **Auth**: Firebase Authentication → Google enable karein. Admin/owner email: `matrader890@gmail.com`.
-4. **Env/secrets**: `FIREBASE_DATABASE_URL`, `MZ_OWNER_PIN`, `MZ_SESSION_SECRET`, `MZ_STREAM_SECRET` set karein.
-5. **Deploy**:
+1. **Firebase (free)**
+   - [Firebase Console](https://console.firebase.google.com/) → project `mizanoranet`.
+   - **Realtime Database** create/use karein (free). URL: `https://mizanoranet-default-rtdb.firebaseio.com`
+   - **Authentication → Google enable**. Authorized domains mein `mizanoranet.web.app`, `mizanoranet.firebaseapp.com` aur apna Vercel domain add karein.
+   - **Project settings → Service accounts → Generate new private key** (JSON).
 
-```bash
-npm test                  # all suites green
-npm run deploy:firebase   # hosting + functions + database rules
-```
+2. **Vercel par API deploy (free)**
+   - [Vercel](https://vercel.com/) → Add New Project → GitHub repo import karein.
+   - Repo mein `vercel.json` + `api/` handlers already hain.
+   - **Environment Variables** (Vercel Project Settings):
+     - `FIREBASE_DATABASE_URL=https://mizanoranet-default-rtdb.firebaseio.com`
+     - `FIREBASE_SERVICE_ACCOUNT_JSON=<poora service-account JSON>`
+     - `MZ_OWNER_PIN=03062015326`
+     - `MZ_SESSION_SECRET=<lamba random string>`
+     - `MZ_STREAM_SECRET=<lamba random string>`
+   - Deploy karein. Vercel URL milega: `https://YOUR-PROJECT.vercel.app`
+   - Check: `https://YOUR-PROJECT.vercel.app/api/embed?action=health`
 
-GitHub Actions (`.github/workflows/firebase-deploy.yml`) `main` push par test + deploy karta hai. Agar Cloud Functions billing/APIs abhi enable nahi hain, workflow hosting+database deploy karega aur functions step par clear warning dega; `MZ_NO_FUNCTIONS=1` repo variable se functions intentionally skip bhi kar sakte hain.
+3. **Frontend ko Vercel API se connect karein (domain same rahega)**
+   - `public/assets/js/api-base.js` mein set karein:
+     ```js
+     var DEFAULT_BASE = "https://YOUR-PROJECT.vercel.app";
+     ```
+   - Commit/push karein.
 
-See [docs/FIREBASE.md](docs/FIREBASE.md) for details.
+4. **Firebase Hosting par frontend deploy (free, same domain)**
+   - GitHub repo variable `MZ_NO_FUNCTIONS=1` rakhein (Functions billing skip).
+   - `npm run deploy:hosting` ya main push (workflow hosting+database deploy karega).
+   - Site: `https://mizanoranet.web.app` (domain wahi rahega), API calls background mein Vercel par jayengi.
+
+5. **Admin login**
+   - `https://mizanoranet.web.app/admin`
+   - PIN: `03062015326`
+   - ya Google: `matrader890@gmail.com`
+
+### Option B: Sab Netlify par (free alternative)
+`netlify.toml` + `netlify/functions` included hain. Netlify env vars same rakhein, DEFAULT_BASE khali rakhein. See [docs/NETLIFY.md](docs/NETLIFY.md).
+
+### Option C: Full Firebase (Blaze billing required for Functions)
+`npm run deploy:firebase` ya GitHub Actions workflow. See [docs/FIREBASE.md](docs/FIREBASE.md).
 
 ## M3U and EPG
 
